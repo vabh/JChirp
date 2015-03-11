@@ -1,1 +1,1 @@
-Java wrapper for Twitter API
+Java wrapper for the Twitter API
