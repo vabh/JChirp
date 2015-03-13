@@ -30,8 +30,8 @@ public class Trial {
 	public static void main(String[] args) throws IOException
 	{
 
-		String key = "WccpCBfunhPNHy99YAioVLj5t";
-		String sec = "Ha7dyGgcdgodf4tT82lflyWkwz8uyY3ApOZGzUX7Othdh3ezdo";
+		String key = "";
+		String sec = "";
 		String url = "https://api.twitter.com/oauth2/token";
 				
 		OAuth(key, sec, url);
