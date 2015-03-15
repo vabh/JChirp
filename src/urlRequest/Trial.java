@@ -1,9 +1,13 @@
 package urlRequest;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -33,7 +37,8 @@ public class Trial {
 		String sec = "";
 		String url = "https://api.twitter.com/oauth2/token";
 				
-		OAuth(key, sec, url);
+//		OAuth(key, sec, url);
+		post();
 				
 	}
 	
@@ -117,6 +122,7 @@ public class Trial {
 					responseData = EntityUtils.toString(entityRes);
 				} finally {
 					instream.close();
+					EntityUtils.consume(entity);
 				}
 			}
 		}
@@ -126,6 +132,42 @@ public class Trial {
 		}
 		
 		System.out.println(responseData);
+	}
+	
+	public static void post() throws ClientProtocolException, IOException
+	{
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		HttpPost httpPost = new HttpPost("http://www.flipkart.com/");
+		List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+		nvps.add(new BasicNameValuePair("q", "Laptops"));
+
+		httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+		CloseableHttpResponse response = httpclient.execute(httpPost);
+		
+		
+		String responseData = null;
+		try {
+		    System.out.println(response.getStatusLine());
+		    HttpEntity entity = response.getEntity();
+		    // do something useful with the response body
+		    // and ensure it is fully consumed
+		    
+		    InputStream instream = entity.getContent();
+			try {
+				responseData = EntityUtils.toString(entity);
+			} finally {
+				instream.close();
+				EntityUtils.consume(entity);
+			}
+			
+		} finally {
+		    response.close();
+		}
+		System.out.println(responseData);
+		
+//		PrintWriter htmlfile = new PrintWriter(new BufferedWriter(new FileWriter("x.html")));
+//		htmlfile.println(responseData);
+//		htmlfile.close();
 	}
 
 }
