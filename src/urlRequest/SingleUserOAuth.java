@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 
 import javax.crypto.Mac;
@@ -17,7 +18,6 @@ import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.net.URLCodec;
 import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -26,13 +26,12 @@ import org.apache.http.util.EntityUtils;
 
 public class SingleUserOAuth {
 	
-	private String consumer_key;
-    private String consumer_secret;
-    private String access_token;
-    private String access_token_secret;
+	private String consumerKey;
+    private String consumerSecret;
+    private String accessToken;
+    private String accessTokenSecret;
     
-    
-    public static void main(String args[]) throws InvalidKeyException, NoSuchAlgorithmException, URISyntaxException, EncoderException, ClientProtocolException, IOException
+    public static void main(String args[]) throws IOException
     {
     	BufferedReader credentialsFile = new BufferedReader(new FileReader("credentials.txt"));
     	SingleUserOAuth TwitterQuery;
@@ -46,8 +45,7 @@ public class SingleUserOAuth {
 			    			credentialsFile.readLine());
     		
     		
-    		String url = "https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter";
-        	
+    		String url = "https://api.twitter.com/1.1/statuses/retweeters/ids.json?id=327473909412814850&count=100&stringify_ids=true";
         	System.out.println(TwitterQuery.get(url));
         	
     	}
@@ -57,88 +55,114 @@ public class SingleUserOAuth {
     	}
     }
     
-    SingleUserOAuth(String ck, String cs, String at, String ats)
+    SingleUserOAuth(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
     {
-    	consumer_key = ck;
-        consumer_secret = cs;
-        access_token = at;
-        access_token_secret = ats;
-    }
+    	this.consumerKey = consumerKey;
+    	this.consumerSecret = consumerSecret;
+    	this.accessToken = accessToken;
+    	this.accessTokenSecret = accessTokenSecret; 
+	}
     
-    public String get(String url) throws EncoderException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException, ClientProtocolException, IOException
+    public String get(String url)
     {
-    	URLCodec urlEncoder = new URLCodec();
-    	String encodedURL = "GET&" + urlEncoder.encode(getBaseURL(url))+"&";
-    	String paramsURL = "";
-    	
-    	Map<String, String> params = getURLParams(url);
-    	params.put("oauth_consumer_key", consumer_key);
-    	params.put("oauth_token", access_token);
-    	params.put("oauth_timestamp",""+(System.currentTimeMillis()/1000));
-    	params.put("oauth_nonce","4991BC8A968CBD88FF4F4C3AD0AD4DB9");
-    	params.put("oauth_version","1.0");
-    	params.put("oauth_signature_method","HMAC-SHA1");
-    	
-    	for(String key : params.keySet())
-    		paramsURL += key + "=" + params.get(key)+"&";
-    	
-    	paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
-    	encodedURL += urlEncoder.encode(paramsURL);
-    	
-    	CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpGet httpget = new HttpGet(url);
-		httpget.addHeader("Authorization", "OAuth oauth_consumer_key=\""+ consumer_key +"\", oauth_nonce=\""+params.get("oauth_nonce")+"\", oauth_signature=\""+getSignature(encodedURL)+"\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\""+params.get("oauth_timestamp")+"\", oauth_token=\""+access_token+"\", oauth_version=\"1.0\"");
-		
-		CloseableHttpResponse response = httpclient.execute(httpget);
-		String responseData = null;
-
-		try
-		{
-			HttpEntity entity = response.getEntity();
-			if (entity != null) 
+    	try
+    	{
+    		URLCodec urlEncoder = new URLCodec();
+	    	String encodedURL = "GET&" + urlEncoder.encode(baseURL(url))+"&";
+	    	String paramsURL = "";
+	    	
+	    	Map<String, String> params = getURLParameters(url);
+	    	params.put("oauth_consumer_key", consumerKey);
+	    	params.put("oauth_token", accessToken);
+	    	params.put("oauth_timestamp", ""+(System.currentTimeMillis()/1000));
+	    	params.put("oauth_nonce", generateNonce());
+	    	params.put("oauth_version", "1.0");
+	    	params.put("oauth_signature_method", "HMAC-SHA1");
+	    	
+	    	for(String key : params.keySet())
+	    		paramsURL += key + "=" + params.get(key)+"&";
+	    	
+	    	paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
+	    	encodedURL += urlEncoder.encode(paramsURL);
+	    	
+	    	CloseableHttpClient httpclient = HttpClients.createDefault();
+			HttpGet httpget = new HttpGet(url);
+			
+			httpget.addHeader("Authorization", "OAuth oauth_consumer_key=\""+ consumerKey +"\", oauth_nonce=\""
+						+params.get("oauth_nonce")+"\", oauth_signature=\""+oAuthSign(encodedURL)
+						+"\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\""
+						+params.get("oauth_timestamp")+"\", oauth_token=\""
+						+accessToken+"\", oauth_version=\"1.0\"");
+			
+			CloseableHttpResponse response = httpclient.execute(httpget);
+			String responseData = null;
+	
+			try
 			{
-				InputStream instream = entity.getContent();
-				try 
+				HttpEntity entity = response.getEntity();
+				if (entity != null) 
 				{
-					responseData = EntityUtils.toString(entity);
-				} 
-				finally 
-				{
-					instream.close();
+					InputStream instream = entity.getContent();
+					try 
+					{
+						responseData = EntityUtils.toString(entity);
+					} 
+					finally 
+					{
+						instream.close();
+					}
 				}
 			}
-		}
-		finally
-		{
-			response.close();
-		}
-		return responseData;
+			finally
+			{
+				response.close();
+			}
+			return responseData;
+    	}
+    	catch(Exception e)
+    	{
+    		System.err.println("Please format your URL properly");
+    		e.printStackTrace();
+    	}
+    	return "";
     }
     
-    private String getSignature(String data) throws NoSuchAlgorithmException, InvalidKeyException, URISyntaxException, EncoderException
+    private String oAuthSign(String input) throws NoSuchAlgorithmException, InvalidKeyException, URISyntaxException, EncoderException
     {
-    	String key = consumer_secret + "&" + access_token_secret;
+    	String key = consumerSecret + "&" + accessTokenSecret;
     	SecretKeySpec signingKey = new SecretKeySpec(key.getBytes(), "HmacSHA1");
 		Mac mac = Mac.getInstance("HmacSHA1");
 		mac.init(signingKey);
-		return new URLCodec().encode(new String(Base64.encodeBase64(mac.doFinal(data.getBytes()))));
+		return new URLCodec().encode(new String(Base64.encodeBase64(mac.doFinal(input.getBytes()))));
     }
     
-    private String getBaseURL(String url)
+    private String baseURL(String url)
     {
     	return url.split("\\?")[0];
     }
     
-    private Map<String,String> getURLParams(String url) throws EncoderException
+    private Map<String,String> getURLParameters(String url) throws EncoderException
     {
     	Map<String, String> params = new TreeMap<String,String>();
     	URLCodec urlEncoder = new URLCodec();
     	for(String x : url.split("\\?")[1].split("&"))
     	{
     		String keyValue[] = x.split("=");
-    		params.put(keyValue[0], urlEncoder.encode(keyValue[1]));
+    		params.put(urlEncoder.encode(keyValue[0]), urlEncoder.encode(keyValue[1]));
     	}
 		return params;
+    }
+    
+    private String generateNonce()
+    {
+    	char characters[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9'};
+    	Random gen = new Random();
+    	StringBuilder nonce = new StringBuilder();
+    	
+    	for(int i = 0; i < 32; i++)
+    		nonce.append(characters[gen.nextInt(characters.length)]);
+    	
+    	return nonce.toString();
     }
 
 }
