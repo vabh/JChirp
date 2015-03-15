@@ -132,10 +132,11 @@ public class SingleUserOAuth {
     private Map<String,String> getURLParams(String url) throws EncoderException
     {
     	Map<String, String> params = new TreeMap<String,String>();
+    	URLCodec urlEncoder = new URLCodec();
     	for(String x : url.split("\\?")[1].split("&"))
     	{
     		String keyValue[] = x.split("=");
-    		params.put(keyValue[0], new URLCodec().encode(keyValue[1]));
+    		params.put(keyValue[0], urlEncoder.encode(keyValue[1]));
     	}
 		return params;
     }
