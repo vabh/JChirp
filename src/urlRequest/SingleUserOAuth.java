@@ -62,7 +62,7 @@ public class SingleUserOAuth {
 		}
 	}
 
-	SingleUserOAuth(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
+	public SingleUserOAuth(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
 	{
 		this.consumerKey = consumerKey;
 		this.consumerSecret = consumerSecret;
