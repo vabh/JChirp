@@ -51,9 +51,8 @@ public class SingleUserOAuth {
 					credentialsFile.readLine());
 
 
-//			String url = "https://api.twitter.com/1.1/statuses/lookup.json?id=20,432656548536401920"; //doesn't work :\
-			String url = "https://api.twitter.com/1.1/statuses/lookup.json?id=432656548536401920"; //works
-			System.out.println(TwitterQuery.get(url));
+			String url = "https://api.twitter.com/1.1/users/lookup.json?screen_name=mourjo_sen,anuvabh18,twitterapi,twitter"; 
+			System.out.println(TwitterQuery.post(url));
 
 
 		}
@@ -82,6 +81,7 @@ public class SingleUserOAuth {
 			Map<String, String> params= getURLParameters(url);
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 
+			
 			for(String key : params.keySet())
 				nvps.add(new BasicNameValuePair(key, params.get(key)));
 
@@ -94,7 +94,7 @@ public class SingleUserOAuth {
 			params.put("oauth_signature_method", "HMAC-SHA1");
 
 			for(String key : params.keySet())
-				paramsURL += key + "=" + params.get(key)+"&";
+				paramsURL += urlEncoder.encode(key) + "=" + urlEncoder.encode(params.get(key))+"&";
 			
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
 			encodedURL += urlEncoder.encode(paramsURL);
@@ -112,21 +112,26 @@ public class SingleUserOAuth {
 					+accessToken+"\", oauth_version=\"1.0\"");
 
 			CloseableHttpResponse response = httpclient.execute(httpPost);
-
-
 			String responseData = null;
-			try {
+			
+			try 
+			{
 				HttpEntity entity = response.getEntity();
 
 				InputStream instream = entity.getContent();
-				try {
+				try 
+				{
 					responseData = EntityUtils.toString(entity);
-				} finally {
+				} 
+				finally 
+				{
 					instream.close();
 					EntityUtils.consume(entity);
 				}
 
-			} finally {
+			} 
+			finally 
+			{
 				response.close();
 			}
 			return responseData;
@@ -156,7 +161,7 @@ public class SingleUserOAuth {
 			params.put("oauth_signature_method", "HMAC-SHA1");
 
 			for(String key : params.keySet())
-				paramsURL += key + "=" + params.get(key)+"&";
+				paramsURL += urlEncoder.encode(key) + "=" + urlEncoder.encode(params.get(key))+"&";
 
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
 			encodedURL += urlEncoder.encode(paramsURL);
@@ -223,11 +228,10 @@ public class SingleUserOAuth {
     	Map<String, String> params = new TreeMap<String,String>();
     	if(url.indexOf('?') != -1)
     	{
-	    	URLCodec urlEncoder = new URLCodec();
 	    	for(String x : url.split("\\?")[1].split("&"))
 	    	{
 	    		String keyValue[] = x.split("=");
-	    		params.put(urlEncoder.encode(keyValue[0]), urlEncoder.encode(keyValue[1]));
+	    		params.put(keyValue[0], keyValue[1]);
 	    	}
     	}
 		return params;
