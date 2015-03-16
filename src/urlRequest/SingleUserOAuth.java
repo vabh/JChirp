@@ -51,8 +51,9 @@ public class SingleUserOAuth {
 					credentialsFile.readLine());
 
 
-			String url = "https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter";
-			System.out.println(TwitterQuery.post(url));
+//			String url = "https://api.twitter.com/1.1/statuses/lookup.json?id=20,432656548536401920"; //doesn't work :\
+			String url = "https://api.twitter.com/1.1/statuses/lookup.json?id=432656548536401920"; //works
+			System.out.println(TwitterQuery.get(url));
 
 
 		}
@@ -77,14 +78,12 @@ public class SingleUserOAuth {
 			URLCodec urlEncoder = new URLCodec();
 			String encodedURL = "POST&" + urlEncoder.encode(baseURL(url))+"&";
 			String paramsURL = "";
-			System.out.println(baseURL(url));
 			
-			Map<String, String> params = getURLParameters(url);
-			System.out.println("params="+params);
+			Map<String, String> params= getURLParameters(url);
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 
 			for(String key : params.keySet())
-				nvps.add(new BasicNameValuePair(urlEncoder.encode(key), urlEncoder.encode(params.get(key))));
+				nvps.add(new BasicNameValuePair(key, params.get(key)));
 
 			
 			params.put("oauth_consumer_key", consumerKey);
@@ -95,30 +94,28 @@ public class SingleUserOAuth {
 			params.put("oauth_signature_method", "HMAC-SHA1");
 
 			for(String key : params.keySet())
-			{
 				paramsURL += key + "=" + params.get(key)+"&";
-			}
+			
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
 			encodedURL += urlEncoder.encode(paramsURL);
-			System.out.println(encodedURL);
 
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			HttpPost httpPost = new HttpPost(baseURL(url));
 			
-			httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+			if(url.indexOf('?') != -1)
+				httpPost.setEntity(new UrlEncodedFormEntity(nvps));
 			
 			httpPost.addHeader("Authorization", "OAuth oauth_consumer_key=\""+ consumerKey +"\", oauth_nonce=\""
 					+params.get("oauth_nonce")+"\", oauth_signature=\""+oAuthSign(encodedURL)
 					+"\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\""
 					+params.get("oauth_timestamp")+"\", oauth_token=\""
 					+accessToken+"\", oauth_version=\"1.0\"");
-//			System.out.println("req\n"+httpPost.toString()+"\n"+httpPost.getAllHeaders()[0].toString()+"\n");
+
 			CloseableHttpResponse response = httpclient.execute(httpPost);
 
 
 			String responseData = null;
 			try {
-				System.out.println(response.getStatusLine());
 				HttpEntity entity = response.getEntity();
 
 				InputStream instream = entity.getContent();
@@ -224,11 +221,14 @@ public class SingleUserOAuth {
 	private Map<String,String> getURLParameters(String url) throws EncoderException
     {
     	Map<String, String> params = new TreeMap<String,String>();
-    	URLCodec urlEncoder = new URLCodec();
-    	for(String x : url.split("\\?")[1].split("&"))
+    	if(url.indexOf('?') != -1)
     	{
-    		String keyValue[] = x.split("=");
-    		params.put(urlEncoder.encode(keyValue[0]), urlEncoder.encode(keyValue[1]));
+	    	URLCodec urlEncoder = new URLCodec();
+	    	for(String x : url.split("\\?")[1].split("&"))
+	    	{
+	    		String keyValue[] = x.split("=");
+	    		params.put(urlEncoder.encode(keyValue[0]), urlEncoder.encode(keyValue[1]));
+	    	}
     	}
 		return params;
     }
