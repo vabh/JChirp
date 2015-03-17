@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -53,6 +52,7 @@ public class SingleUserOAuth {
 
 			String url = "https://api.twitter.com/1.1/users/lookup.json?screen_name=mourjo_sen,anuvabh18,twitterapi,twitter"; 
 			System.out.println(TwitterQuery.post(url));
+			System.out.println(TwitterQuery.get(url));
 
 
 		}
@@ -78,38 +78,41 @@ public class SingleUserOAuth {
 			String encodedURL = "POST&" + urlEncoder.encode(baseURL(url))+"&";
 			String paramsURL = "";
 			
-			Map<String, String> params= getURLParameters(url);
-			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-
+			Map<String, String> parameterMap = getURLParameters(url);
 			
-			for(String key : params.keySet())
-				nvps.add(new BasicNameValuePair(key, params.get(key)));
-
+			List<NameValuePair> postPrameters = new ArrayList<NameValuePair>();
+			for(String parameterName : parameterMap.keySet())
+				postPrameters.add(new BasicNameValuePair(parameterName, parameterMap.get(parameterName)));
 			
-			params.put("oauth_consumer_key", consumerKey);
-			params.put("oauth_token", accessToken);
-			params.put("oauth_timestamp", ""+(System.currentTimeMillis()/1000));
-			params.put("oauth_nonce", generateNonce());
-			params.put("oauth_version", "1.0");
-			params.put("oauth_signature_method", "HMAC-SHA1");
+			
+			parameterMap.put("oauth_consumer_key", consumerKey);
+			parameterMap.put("oauth_token", accessToken);
+			parameterMap.put("oauth_timestamp", ""+(System.currentTimeMillis()/1000));
+			parameterMap.put("oauth_nonce", generateNonce());
+			parameterMap.put("oauth_version", "1.0");
+			parameterMap.put("oauth_signature_method", "HMAC-SHA1");
+			
 
-			for(String key : params.keySet())
-				paramsURL += urlEncoder.encode(key) + "=" + urlEncoder.encode(params.get(key))+"&";
+			for(String key : parameterMap.keySet())
+				paramsURL += urlEncoder.encode(key) + "=" + urlEncoder.encode(parameterMap.get(key))+"&";
 			
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
 			encodedURL += urlEncoder.encode(paramsURL);
 
+			
+			
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			HttpPost httpPost = new HttpPost(baseURL(url));
 			
 			if(url.indexOf('?') != -1)
-				httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+				httpPost.setEntity(new UrlEncodedFormEntity(postPrameters));
 			
 			httpPost.addHeader("Authorization", "OAuth oauth_consumer_key=\""+ consumerKey +"\", oauth_nonce=\""
-					+params.get("oauth_nonce")+"\", oauth_signature=\""+oAuthSign(encodedURL)
+					+parameterMap.get("oauth_nonce")+"\", oauth_signature=\""+oAuthSign(encodedURL)
 					+"\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\""
-					+params.get("oauth_timestamp")+"\", oauth_token=\""
+					+parameterMap.get("oauth_timestamp")+"\", oauth_token=\""
 					+accessToken+"\", oauth_version=\"1.0\"");
+			
 
 			CloseableHttpResponse response = httpclient.execute(httpPost);
 			String responseData = null;
@@ -152,30 +155,33 @@ public class SingleUserOAuth {
 			String encodedURL = "GET&" + urlEncoder.encode(baseURL(url))+"&";
 			String paramsURL = "";
 
-			Map<String, String> params = getURLParameters(url);
-			params.put("oauth_consumer_key", consumerKey);
-			params.put("oauth_token", accessToken);
-			params.put("oauth_timestamp", ""+(System.currentTimeMillis()/1000));
-			params.put("oauth_nonce", generateNonce());
-			params.put("oauth_version", "1.0");
-			params.put("oauth_signature_method", "HMAC-SHA1");
+			Map<String, String> parameterMap = getURLParameters(url);
+			parameterMap.put("oauth_consumer_key", consumerKey);
+			parameterMap.put("oauth_token", accessToken);
+			parameterMap.put("oauth_timestamp", ""+(System.currentTimeMillis()/1000));
+			parameterMap.put("oauth_nonce", generateNonce());
+			parameterMap.put("oauth_version", "1.0");
+			parameterMap.put("oauth_signature_method", "HMAC-SHA1");
 
-			for(String key : params.keySet())
-				paramsURL += urlEncoder.encode(key) + "=" + urlEncoder.encode(params.get(key))+"&";
-
+			for(String parameterName : parameterMap.keySet())
+				paramsURL += urlEncoder.encode(parameterName) + "=" + urlEncoder.encode(parameterMap.get(parameterName))+"&";
+			
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
 			encodedURL += urlEncoder.encode(paramsURL);
 
+			
+			
 			CloseableHttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpget = new HttpGet(url);
-
-			httpget.addHeader("Authorization", "OAuth oauth_consumer_key=\""+ consumerKey +"\", oauth_nonce=\""
-					+params.get("oauth_nonce")+"\", oauth_signature=\""+oAuthSign(encodedURL)
+			HttpGet httpGet = new HttpGet(url);
+			
+			httpGet.addHeader("Authorization", "OAuth oauth_consumer_key=\""+ consumerKey +"\", oauth_nonce=\""
+					+parameterMap.get("oauth_nonce")+"\", oauth_signature=\""+oAuthSign(encodedURL)
 					+"\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\""
-					+params.get("oauth_timestamp")+"\", oauth_token=\""
+					+parameterMap.get("oauth_timestamp")+"\", oauth_token=\""
 					+accessToken+"\", oauth_version=\"1.0\"");
+			
 
-			CloseableHttpResponse response = httpclient.execute(httpget);
+			CloseableHttpResponse response = httpclient.execute(httpGet);
 			String responseData = null;
 
 			try
@@ -209,13 +215,33 @@ public class SingleUserOAuth {
 		return "";
 	}
 
-	private String oAuthSign(String input) throws NoSuchAlgorithmException, InvalidKeyException, URISyntaxException, EncoderException
+	private String oAuthSign(String input)
 	{
-		String key = consumerSecret + "&" + accessTokenSecret;
-		SecretKeySpec signingKey = new SecretKeySpec(key.getBytes(), "HmacSHA1");
-		Mac mac = Mac.getInstance("HmacSHA1");
-		mac.init(signingKey);
-		return new URLCodec().encode(new String(Base64.encodeBase64(mac.doFinal(input.getBytes()))));
+		try
+		{
+			String key = consumerSecret + "&" + accessTokenSecret;
+			SecretKeySpec signingKey = new SecretKeySpec(key.getBytes(), "HmacSHA1");
+			Mac mac = Mac.getInstance("HmacSHA1");
+			mac.init(signingKey);
+			
+			return new URLCodec().encode(new String(Base64.encodeBase64(mac.doFinal(input.getBytes()))));
+		}
+		catch(NoSuchAlgorithmException e)
+		{
+			e.printStackTrace();
+		}
+		
+		catch(InvalidKeyException e)
+		{
+			System.err.println("The consumer secret key and/or access token secret are not correct.");
+			System.exit(0);
+		}
+		
+		catch(EncoderException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private String baseURL(String url)
@@ -223,23 +249,28 @@ public class SingleUserOAuth {
 		return url.split("\\?")[0];
 	}
 
-	private Map<String,String> getURLParameters(String url) throws EncoderException
+	private Map<String,String> getURLParameters(String url)
     {
-    	Map<String, String> params = new TreeMap<String,String>();
+    	Map<String, String> parameterMap = new TreeMap<String,String>();
+    	
     	if(url.indexOf('?') != -1)
     	{
-	    	for(String x : url.split("\\?")[1].split("&"))
+	    	for(String parameter : url.split("\\?")[1].split("&"))
 	    	{
-	    		String keyValue[] = x.split("=");
-	    		params.put(keyValue[0], keyValue[1]);
+	    		String keyValue[] = parameter.split("=");
+	    		parameterMap.put(keyValue[0], keyValue[1]);
 	    	}
     	}
-		return params;
+		return parameterMap;
     }
 
 	private String generateNonce()
 	{
-		char characters[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9'};
+		char characters[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R',
+				'S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n',
+				'o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9'};
+		
+		
 		Random gen = new Random();
 		StringBuilder nonce = new StringBuilder();
 

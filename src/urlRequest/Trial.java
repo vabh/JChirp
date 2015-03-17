@@ -1,16 +1,14 @@
 package urlRequest;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +27,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 public class Trial {
+	private static SecureRandom random = new SecureRandom();
 
 	public static void main(String[] args) throws IOException
 	{
@@ -38,10 +37,11 @@ public class Trial {
 		String url = "https://api.twitter.com/oauth2/token";
 				
 //		OAuth(key, sec, url);
-		post();
-				
+		postTest();
+		
 	}
-	
+
+
 	public static String getURL(String urlString) throws IOException
 	{
 //		System.out.println(getURL("https://api.twitter.com/1.1/friends/ids.json?cursor=-1&screen_name=twitterapi&count=5000"));
@@ -134,7 +134,7 @@ public class Trial {
 		System.out.println(responseData);
 	}
 	
-	public static void post() throws ClientProtocolException, IOException
+	public static void postTest() throws ClientProtocolException, IOException
 	{
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost("http://www.flipkart.com/");
@@ -149,8 +149,6 @@ public class Trial {
 		try {
 		    System.out.println(response.getStatusLine());
 		    HttpEntity entity = response.getEntity();
-		    // do something useful with the response body
-		    // and ensure it is fully consumed
 		    
 		    InputStream instream = entity.getContent();
 			try {
@@ -165,9 +163,6 @@ public class Trial {
 		}
 		System.out.println(responseData);
 		
-//		PrintWriter htmlfile = new PrintWriter(new BufferedWriter(new FileWriter("x.html")));
-//		htmlfile.println(responseData);
-//		htmlfile.close();
 	}
 
 }
