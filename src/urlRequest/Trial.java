@@ -1,6 +1,7 @@
 package urlRequest;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,11 +31,25 @@ public class Trial {
 
 	public static void main(String[] args) throws IOException
 	{
-
-		String key = "";
-		String sec = "";
-		String url = "https://api.twitter.com/oauth2/token";
-				
+		
+		BufferedReader credentialsFile = new BufferedReader(new FileReader("credentials.txt"));
+		
+		try
+		{
+			//SingleUserOAuth obj = new SingleUserOAuth(consumer_key, consumer_secret,access_token,access_token_secret);
+			
+			String key = credentialsFile.readLine();
+			String sec = credentialsFile.readLine();
+			String url = "https://api.twitter.com/oauth2/token";
+		
+			String result = appOnlyAuth(key, sec, url);
+			
+			System.out.println(new TwitterJSON("["+result+"]"));
+		}
+		finally
+		{
+			credentialsFile.close();
+		}		
 //		OAuth(key, sec, url);
 //		postTest();
 		
@@ -89,7 +104,7 @@ public class Trial {
 		return out.toString();
 	}
 	
-	public static void OAuth(String consumerKey, String consumerSecret, String url) throws ClientProtocolException, IOException{
+	public static String appOnlyAuth(String consumerKey, String consumerSecret, String url) throws ClientProtocolException, IOException{
 		
 		String consumerKeyURLEncode = URLEncoder.encode(consumerKey, "UTF-8");
 		String consumerSecretURLEncode = URLEncoder.encode(consumerSecret, "UTF-8");
@@ -128,9 +143,9 @@ public class Trial {
 		finally
 		{
 			response.close();
-		}
+			return responseData;
+		}		
 		
-		System.out.println(responseData);
 	}
 	
 	public static void postTest() throws ClientProtocolException, IOException
