@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -28,6 +29,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class SingleUserOAuth {
 
@@ -51,9 +54,26 @@ public class SingleUserOAuth {
 
 
 			String url = "https://api.twitter.com/1.1/users/lookup.json?screen_name=mourjo_sen,anuvabh18,twitterapi,twitter"; 
-			System.out.println(TwitterQuery.post(url));
-			System.out.println(TwitterQuery.get(url));
+			
+			
+			JSONArray arr = new JSONArray(TwitterQuery.post(url));
 
+			
+			for(int i = 0; i < arr.length(); i++)
+			{
+				JSONObject j = arr.getJSONObject(i);
+				
+				@SuppressWarnings("unchecked")
+				Iterator<String> x = j.keys();
+				
+				while(x.hasNext())
+				{
+					String key = x.next();
+					System.out.println(key + " : " + j.get(key));
+				}
+				
+				System.out.println("-------------------------------------------------------");
+			}
 
 		}
 		finally
