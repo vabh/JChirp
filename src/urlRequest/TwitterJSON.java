@@ -22,7 +22,6 @@ public class TwitterJSON extends JSONArray
 
 	public String printJSONArray()
 	{
-		String tabs = TAB;
 		String str = "{\n";
 		for(int i = 0; i < length(); i++)
 		{
@@ -36,14 +35,11 @@ public class TwitterJSON extends JSONArray
 			{
 				String key = x.next();
 				if(j.get(key) instanceof JSONArray)
-					str +=  tabs + "[\n" + printJSONArray(j.getJSONArray(key), 2) + tabs + "]\n";
-				else 
-					if(j.get(key) instanceof JSONObject)
-					{
-						str += tabs + key + " : {\n" + printJSONObject(j.getJSONObject(key), 2) + tabs + "}\n";
-					}
+					str +=  TAB + "[\n" + printJSONArray(j.getJSONArray(key), 2) + TAB + "]\n";
+				else if(j.get(key) instanceof JSONObject)
+						str += TAB + key + " : {\n" + printJSONObject(j.getJSONObject(key), 2) + TAB + "}\n";
 					else
-						str += tabs + key + " : " + j.get(key) + "\n";
+						str += TAB + key + " : " + j.get(key) + "\n";
 			}
 
 			str += "}\n\n{\n";
@@ -72,13 +68,12 @@ public class TwitterJSON extends JSONArray
 				while(iter.hasNext())
 				{
 					String key = iter.next();
+					
 					if(jsonObject.get(key) instanceof JSONArray)
 						str += tabs + key + ": [\n" + printJSONArray(jsonObject.getJSONArray(key), tabCount + 1) + tabs + "]\n";
-					else 
-						if(jsonObject.get(key) instanceof JSONObject)
-						{
+					
+					else if(jsonObject.get(key) instanceof JSONObject)
 							str += tabs + key + " : {\n" + printJSONObject(jsonObject.getJSONObject(key), tabCount + 1) + tabs + "}\n";
-						}
 						else
 							str += tabs + key + " : " + jsonObject.get(key) + "\n";
 				}
@@ -89,6 +84,7 @@ public class TwitterJSON extends JSONArray
 				str += tabs + arr.get(i) + "\n";
 			}
 		}
+		
 		return str;
 	}
 
