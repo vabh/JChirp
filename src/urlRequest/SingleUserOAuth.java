@@ -53,27 +53,18 @@ public class SingleUserOAuth {
 					credentialsFile.readLine());
 
 
-			String url = "https://api.twitter.com/1.1/users/lookup.json?screen_name=mourjo_sen,anuvabh18,twitterapi,twitter"; 
+			String url = "https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter"; 
+//			System.out.println(TwitterQuery.get(url));
 			
+//			TwitterJSON x = TwitterQuery.get(url);
 			
-			JSONArray arr = new JSONArray(TwitterQuery.post(url));
+			System.out.println(TwitterQuery.get(url));
+//			System.out.println(TwitterQuery.printJSONArray(TwitterQuery.stringToJSONArray("[\"a\",\"b\",\"c\"]")));
+			
+//			System.out.println(TwitterQuery.printJSONArray(TwitterQuery.stringToJSONArray("[{\"in_reply_to_status_id_str\":null,\"in_reply_to_status_id\":null,\"coordinates\":null,\"created_at\":\"Tue Mar 21 20:50:14 +0000 2006\",\"truncated\":false,\"in_reply_to_user_id_str\":null,\"source\":\"<a href=\\\"http:\\/\\/twitter.com\\\" rel=\\\"nofollow\\\">Twitter Web Client<\\\\/a>\",\"retweet_count\":52404,\"retweeted\":false,\"geo\":null,\"in_reply_to_screen_name\":null,\"entities\":{\"urls\":[],\"hashtags\":[],\"user_mentions\":[],\"symbols\":[]},\"id_str\":\"20\",\"in_reply_to_user_id\":null,\"favorite_count\":36010,\"id\":20,\"text\":\"just setting up my twttr\",\"place\":null,\"contributors\":null,\"lang\":\"en\",\"user\":{\"utc_offset\":-25200,\"friends_count\":1342,\"profile_image_url_https\":\"https:\\/\\/pbs.twimg.com\\/profile_images\\/539479004370444288\\/Lc2Wp5y5_normal.jpeg\",\"listed_count\":24273,\"profile_background_image_url\":\"http:\\/\\/abs.twimg.com\\/images\\/themes\\/theme7\\/bg.gif\",\"default_profile_image\":false,\"favourites_count\":5335,\"description\":\"\",\"created_at\":\"Tue Mar 21 20:50:14 +0000 2006\",\"is_translator\":false,\"profile_background_image_url_https\":\"https:\\/\\/abs.twimg.com\\/images\\/themes\\/theme7\\/bg.gif\",\"protected\":false,\"screen_name\":\"jack\",\"id_str\":\"12\",\"profile_link_color\":\"990000\",\"is_translation_enabled\":false,\"id\":12,\"geo_enabled\":true,\"profile_background_color\":\"EBEBEB\",\"lang\":\"en\",\"profile_sidebar_border_color\":\"DFDFDF\",\"profile_location\":null,\"profile_text_color\":\"333333\",\"verified\":true,\"profile_image_url\":\"http:\\/\\/pbs.twimg.com\\/profile_images\\/539479004370444288\\/Lc2Wp5y5_normal.jpeg\",\"time_zone\":\"Pacific Time (US & Canada)\",\"url\":null,\"contributors_enabled\":false,\"profile_background_tile\":false,\"entities\":{\"description\":{\"urls\":[]}},\"statuses_count\":16113,\"follow_request_sent\":false,\"followers_count\":2892910,\"profile_use_background_image\":true,\"default_profile\":false,\"following\":false,\"name\":\"Jack\",\"location\":\"California\",\"profile_sidebar_fill_color\":\"F3F3F3\",\"notifications\":false},\"favorited\":false},{\"in_reply_to_status_id_str\":null,\"in_reply_to_status_id\":null,\"possibly_sensitive\":false,\"coordinates\":null,\"created_at\":\"Sun Feb 09 23:25:34 +0000 2014\",\"truncated\":false,\"in_reply_to_user_id_str\":null,\"source\":\"<a href=\\\"http:\\/\\/twitter.com\\\" rel=\\\"nofollow\\\">Twitter Web Client<\\\\/a>\",\"retweet_count\":2,\"retweeted\":false,\"geo\":null,\"in_reply_to_screen_name\":null,\"entities\":{\"urls\":[{\"display_url\":\"dev.twitter.com\\/docs\\/api\\/1.1\\/p\\u2026\",\"indices\":[42,65],\"expanded_url\":\"https:\\/\\/dev.twitter.com\\/docs\\/api\\/1.1\\/post\\/statuses\\/update\",\"url\":\"https:\\/\\/t.co\\/9S8YO69xzf\"}],\"hashtags\":[],\"user_mentions\":[],\"symbols\":[]},\"id_str\":\"432656548536401920\",\"in_reply_to_user_id\":null,\"favorite_count\":6,\"id\":432656548536401920,\"text\":\"POST statuses\\/update. Great way to start. https:\\/\\/t.co\\/9S8YO69xzf (disclaimer, this was not posted via the API).\",\"place\":null,\"contributors\":null,\"lang\":\"en\",\"user\":{\"utc_offset\":-25200,\"friends_count\":1468,\"profile_image_url_https\":\"https:\\/\\/pbs.twimg.com\\/profile_images\\/530814764687949824\\/npQQVkq8_normal.png\",\"listed_count\":379,\"profile_background_image_url\":\"http:\\/\\/abs.twimg.com\\/images\\/themes\\/theme1\\/bg.png\",\"default_profile_image\":false,\"favourites_count\":539,\"description\":\"Developers and Platform Relations @Twitter. We are developer advocates. We can\'t answer all your questions, but we listen to all of them!\",\"created_at\":\"Sat Dec 14 04:35:55 +0000 2013\",\"is_translator\":false,\"profile_background_image_url_https\":\"https:\\/\\/abs.twimg.com\\/images\\/themes\\/theme1\\/bg.png\",\"protected\":false,\"screen_name\":\"TwitterDev\",\"id_str\":\"2244994945\",\"profile_link_color\":\"0084B4\",\"is_translation_enabled\":false,\"id\":2244994945,\"geo_enabled\":true,\"profile_background_color\":\"FFFFFF\",\"lang\":\"en\",\"profile_sidebar_border_color\":\"FFFFFF\",\"profile_location\":null,\"profile_text_color\":\"333333\",\"verified\":true,\"profile_image_url\":\"http:\\/\\/pbs.twimg.com\\/profile_images\\/530814764687949824\\/npQQVkq8_normal.png\",\"time_zone\":\"Pacific Time (US & Canada)\",\"url\":\"https:\\/\\/t.co\\/66w26cd6ZO\",\"contributors_enabled\":false,\"profile_background_tile\":false,\"profile_banner_url\":\"https:\\/\\/pbs.twimg.com\\/profile_banners\\/2244994945\\/1396995246\",\"entities\":{\"description\":{\"urls\":[]},\"url\":{\"urls\":[{\"display_url\":\"dev.twitter.com\",\"indices\":[0,23],\"expanded_url\":\"https:\\/\\/dev.twitter.com\\/\",\"url\":\"https:\\/\\/t.co\\/66w26cd6ZO\"}]}},\"statuses_count\":1131,\"follow_request_sent\":false,\"followers_count\":62454,\"profile_use_background_image\":false,\"default_profile\":false,\"following\":false,\"name\":\"TwitterDev\",\"location\":\"Internet\",\"profile_sidebar_fill_color\":\"DDEEF6\",\"notifications\":false},\"favorited\":false}]")));
 
 			
-			for(int i = 0; i < arr.length(); i++)
-			{
-				JSONObject j = arr.getJSONObject(i);
-				
-				@SuppressWarnings("unchecked")
-				Iterator<String> x = j.keys();
-				
-				while(x.hasNext())
-				{
-					String key = x.next();
-					System.out.println(key + " : " + j.get(key));
-				}
-				
-				System.out.println("-------------------------------------------------------");
-			}
+			
 
 		}
 		finally
@@ -81,6 +72,8 @@ public class SingleUserOAuth {
 			credentialsFile.close();
 		}
 	}
+	
+	
 
 	public SingleUserOAuth(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
 	{
@@ -90,7 +83,7 @@ public class SingleUserOAuth {
 		this.accessTokenSecret = accessTokenSecret; 
 	}
 
-	public String post(String url)
+	public TwitterJSON post(String url)
 	{
 		try
 		{
@@ -157,17 +150,17 @@ public class SingleUserOAuth {
 			{
 				response.close();
 			}
-			return responseData;
+			return stringToJSONArray(responseData);
 		}
 		catch(Exception e)
 		{
 			System.err.println("Please format your URL properly");
 			e.printStackTrace();
 		}
-		return "";
+		return stringToJSONArray("");
 	}
 
-	public String get(String url)
+	public TwitterJSON get(String url)
 	{
 		try
 		{
@@ -225,14 +218,21 @@ public class SingleUserOAuth {
 			{
 				response.close();
 			}
-			return responseData;
+			return stringToJSONArray(responseData);
 		}
 		catch(Exception e)
 		{
 			System.err.println("Please format your URL properly");
 			e.printStackTrace();
 		}
-		return "";
+		return stringToJSONArray("");
+	}
+	
+	private TwitterJSON stringToJSONArray(String jsonString)
+	{
+		jsonString = jsonString.trim();
+		jsonString = jsonString.charAt(0)=='[' ? jsonString : "["+jsonString+"]";
+		return new TwitterJSON(jsonString);
 	}
 
 	private String oAuthSign(String input)
