@@ -5,7 +5,9 @@ import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class TwitterJSON extends JSONArray {
+public class TwitterJSON extends JSONArray 
+{
+	private final static String TAB = "    ";
 
 	TwitterJSON(String jsonString)
 	{
@@ -20,7 +22,7 @@ public class TwitterJSON extends JSONArray {
 
 	public String printJSONArray()
 	{
-		String tabs = "    ";
+		String tabs = TAB;
 		String str = "{\n";
 		for(int i = 0; i < length(); i++)
 		{
@@ -57,7 +59,7 @@ public class TwitterJSON extends JSONArray {
 
 		int c= tabCount;
 		while(c-- > 0)
-			tabs += "    ";
+			tabs += TAB;
 
 		for(int i = 0; i < arr.length(); i++)
 		{
@@ -96,7 +98,7 @@ public class TwitterJSON extends JSONArray {
 
 		int c= tabCount;
 		while(c-- > 0)
-			tabs += "    ";
+			tabs += TAB;
 
 		@SuppressWarnings("unchecked")
 		Iterator<String> iter = jsonObject.keys();
