@@ -106,9 +106,7 @@ public class TwitterJSON extends JSONArray
 				str += tabs + key + " : [\n" +printJSONArray(jsonObject.getJSONArray(key), tabCount+1) + tabs + "]\n";
 			else 
 				if(jsonObject.get(key) instanceof JSONObject)
-				{
 					str += tabs + key + " : {\n" + printJSONObject(jsonObject.getJSONObject(key), tabCount+1) + tabs+"}\n";
-				}
 				else
 					str += tabs + key + " : " + jsonObject.get(key) + "\n";
 		}
