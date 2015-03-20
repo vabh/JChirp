@@ -20,17 +20,23 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 public class AppOnlyAuth {
 
 	private String consumerKey;
 	private String consumerSecret;
-
+	private String authURL = "https://api.twitter.com/oauth2/token";
+	
 	private String accessToken;
+	private boolean authenticated;
 
 	public AppOnlyAuth(String consumerKey, String consumerSecret) {
 		this.consumerKey = consumerKey;
 		this.consumerSecret = consumerSecret;
+		
+		accessToken = "";
+		authenticated = false;
 	}
 
 	public TwitterJSON getJSON(String url) {
@@ -43,8 +49,12 @@ public class AppOnlyAuth {
 				+ jsonString + "]";
 		return new TwitterJSON(jsonString);
 	}
+	
+	public String getKeyValue(String json, String key) throws org.json.JSONException {
+		return new JSONObject(json).getString(key);
+	}
 
-	public String authenticate(String url) throws ClientProtocolException,
+	public String authenticate() throws ClientProtocolException,
 			IOException {
 
 		String consumerKeyURLEncode = URLEncoder.encode(consumerKey, "UTF-8");
@@ -58,7 +68,7 @@ public class AppOnlyAuth {
 				Base64.encodeBase64(bearerTokenCredentials.getBytes()));
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpPost httppost = new HttpPost(url);
+		HttpPost httppost = new HttpPost(authURL);
 
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 		formparams.add(new BasicNameValuePair("grant_type",
@@ -90,21 +100,44 @@ public class AppOnlyAuth {
 		}
 		return responseData;
 	}
+	
+	public void getAccessToken(){
+		
+		if(authenticated)
+			return;
+		try{
+			String authResponse = authenticate();
+			try{				 
+				accessToken = getKeyValue(authResponse, "access_token");
+				authenticated = true;
+			}
+			catch(org.json.JSONException e){
+				e.printStackTrace();
+				System.out.println("Invalid credentials");
+			}
+		}
+		catch(ClientProtocolException e)
+		{	
+			e.printStackTrace();			
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}		
+	}
 
 	public static void main(String args[]) throws IOException {
 		BufferedReader credentialsFile = new BufferedReader(new FileReader(
 				"credentials.txt"));
 		AppOnlyAuth TwitterQuery;
+		
 		try {
 			TwitterQuery = new AppOnlyAuth(credentialsFile.readLine(),
 					credentialsFile.readLine());
 
-			String url = "https://api.twitter.com/oauth2/token";
-
-			String response = TwitterQuery.authenticate(url);
+			TwitterQuery.getAccessToken();			
 			
-			TwitterJSON responseJSON = TwitterQuery.stringToJSONArray(response);
-			System.out.println(responseJSON);
+			System.out.println(TwitterQuery.accessToken);
+			
 		} finally {
 			credentialsFile.close();
 		}
