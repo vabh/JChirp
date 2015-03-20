@@ -113,26 +113,4 @@ public class TwitterJSON extends JSONArray
 
 		return str;
 	}
-	
-	public String getKeyValue(String key){
-		
-		String value = "";
-		for(int i = 0; i < length(); i++)
-		{
-			JSONObject j = optJSONObject(i);
-
-
-			@SuppressWarnings("unchecked")
-			Iterator<String> x = j.keys();
-
-			while(x.hasNext())
-			{
-				String keyLoop = x.next();
-				
-			}
-
-		}
-		return value;
-	}
-
 }
