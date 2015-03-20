@@ -80,9 +80,7 @@ public class TwitterJSON extends JSONArray
 
 			}
 			else
-			{
 				str += tabs + arr.get(i) + "\n";
-			}
 		}
 		
 		return str;
@@ -104,11 +102,10 @@ public class TwitterJSON extends JSONArray
 			String key = iter.next();
 			if(jsonObject.get(key) instanceof JSONArray)
 				str += tabs + key + " : [\n" +printJSONArray(jsonObject.getJSONArray(key), tabCount+1) + tabs + "]\n";
-			else 
-				if(jsonObject.get(key) instanceof JSONObject)
+			else if(jsonObject.get(key) instanceof JSONObject)
 					str += tabs + key + " : {\n" + printJSONObject(jsonObject.getJSONObject(key), tabCount+1) + tabs+"}\n";
-				else
-					str += tabs + key + " : " + jsonObject.get(key) + "\n";
+			else
+				str += tabs + key + " : " + jsonObject.get(key) + "\n";
 		}
 
 		return str;
