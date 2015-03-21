@@ -89,9 +89,9 @@ public class SingleUserOAuth {
 			Map<String, String> parameterMap = getURLParameters(url);
 			
 			List<NameValuePair> postPrameters = new ArrayList<NameValuePair>();
-			for(String parameterName : parameterMap.keySet())
+			for(String parameterName : parameterMap.keySet()){
 				postPrameters.add(new BasicNameValuePair(parameterName, parameterMap.get(parameterName)));
-			
+			}
 			
 			parameterMap.put("oauth_consumer_key", consumerKey);
 			parameterMap.put("oauth_token", accessToken);
@@ -101,19 +101,20 @@ public class SingleUserOAuth {
 			parameterMap.put("oauth_signature_method", "HMAC-SHA1");
 			
 
-			for(String key : parameterMap.keySet())
+			for(String key : parameterMap.keySet()){
 				paramsURL += urlEncoder.encode(key) + "=" + urlEncoder.encode(parameterMap.get(key))+"&";
+			}
 			
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
 			encodedURL += urlEncoder.encode(paramsURL);
 
-			
-			
+						
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			HttpPost httpPost = new HttpPost(baseURL(url));
 			
-			if(url.indexOf('?') != -1)
+			if(url.indexOf('?') != -1){
 				httpPost.setEntity(new UrlEncodedFormEntity(postPrameters));
+			}
 			
 			httpPost.addHeader("Authorization", "OAuth oauth_consumer_key=\""+ consumerKey +"\", oauth_nonce=\""
 					+parameterMap.get("oauth_nonce")+"\", oauth_signature=\""+oAuthSign(encodedURL)
@@ -176,8 +177,9 @@ public class SingleUserOAuth {
 			parameterMap.put("oauth_version", "1.0");
 			parameterMap.put("oauth_signature_method", "HMAC-SHA1");
 
-			for(String parameterName : parameterMap.keySet())
+			for(String parameterName : parameterMap.keySet()){
 				paramsURL += urlEncoder.encode(parameterName) + "=" + urlEncoder.encode(parameterMap.get(parameterName))+"&";
+			}
 			
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
 			encodedURL += urlEncoder.encode(paramsURL);
@@ -298,8 +300,10 @@ public class SingleUserOAuth {
 		Random gen = new Random();
 		StringBuilder nonce = new StringBuilder();
 
-		for(int i = 0; i < 32; i++)
+		for(int i = 0; i < 32; i++){
 			nonce.append(characters[gen.nextInt(characters.length)]);
+		}
+		
 		return nonce.toString();
 	}
 
