@@ -20,6 +20,7 @@ import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.net.URLCodec;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -52,14 +53,17 @@ public class SingleUserOAuth {
 
 
 			String url = "https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter,mourjo_sen,anuvabh18"; 
-			System.out.println(TwitterQuery.getJSON(url));
+			url = "https://api.twitter.com/1.1/statuses/update.json?status=Test,status"; //works as expected
+			url = "https://api.twitter.com/1.1/statuses/update.json?status=Test%20status"; //works but bad result
+			url = "https://api.twitter.com/1.1/statuses/update.json?status=Test status"; //doesnt work
+			System.out.println(TwitterQuery.post(url));
 		}
 		finally
 		{
 			credentialsFile.close();
 		}
 	}
-	
+
 	public SingleUserOAuth(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
 	{
 		this.consumerKey = consumerKey;
@@ -67,12 +71,12 @@ public class SingleUserOAuth {
 		this.accessToken = accessToken;
 		this.accessTokenSecret = accessTokenSecret; 
 	}
-	
+
 	public TwitterJSON getJSON(String url)
 	{
 		return stringToJSONArray(get(url));
 	}
-	
+
 	public TwitterJSON postJSON(String url)
 	{
 		return stringToJSONArray(post(url));
@@ -85,47 +89,47 @@ public class SingleUserOAuth {
 			URLCodec urlEncoder = new URLCodec();
 			String encodedURL = "POST&" + urlEncoder.encode(baseURL(url))+"&";
 			String paramsURL = "";
-			
+
 			Map<String, String> parameterMap = getURLParameters(url);
-			
+
 			List<NameValuePair> postPrameters = new ArrayList<NameValuePair>();
 			for(String parameterName : parameterMap.keySet()){
 				postPrameters.add(new BasicNameValuePair(parameterName, parameterMap.get(parameterName)));
 			}
-			
+
 			parameterMap.put("oauth_consumer_key", consumerKey);
 			parameterMap.put("oauth_token", accessToken);
 			parameterMap.put("oauth_timestamp", ""+(System.currentTimeMillis()/1000));
 			parameterMap.put("oauth_nonce", generateNonce());
 			parameterMap.put("oauth_version", "1.0");
 			parameterMap.put("oauth_signature_method", "HMAC-SHA1");
-			
+
 
 			for(String key : parameterMap.keySet()){
 				paramsURL += urlEncoder.encode(key) + "=" + urlEncoder.encode(parameterMap.get(key))+"&";
 			}
-			
+
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
 			encodedURL += urlEncoder.encode(paramsURL);
 
-						
+
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			HttpPost httpPost = new HttpPost(baseURL(url));
-			
+
 			if(url.indexOf('?') != -1){
 				httpPost.setEntity(new UrlEncodedFormEntity(postPrameters));
 			}
-			
+			httpPost.setHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
 			httpPost.addHeader("Authorization", "OAuth oauth_consumer_key=\""+ consumerKey +"\", oauth_nonce=\""
 					+parameterMap.get("oauth_nonce")+"\", oauth_signature=\""+oAuthSign(encodedURL)
 					+"\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\""
 					+parameterMap.get("oauth_timestamp")+"\", oauth_token=\""
 					+accessToken+"\", oauth_version=\"1.0\"");
-			
+
 
 			CloseableHttpResponse response = httpclient.execute(httpPost);
 			String responseData = null;
-			
+
 			try 
 			{
 				HttpEntity entity = response.getEntity();
@@ -146,7 +150,7 @@ public class SingleUserOAuth {
 			{
 				response.close();
 			}
-			
+
 			return responseData;
 		}
 		catch(InvalidAttributesException e)
@@ -180,21 +184,21 @@ public class SingleUserOAuth {
 			for(String parameterName : parameterMap.keySet()){
 				paramsURL += urlEncoder.encode(parameterName) + "=" + urlEncoder.encode(parameterMap.get(parameterName))+"&";
 			}
-			
+
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
 			encodedURL += urlEncoder.encode(paramsURL);
 
-			
-			
+
+
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			HttpGet httpGet = new HttpGet(url);
-			
+
 			httpGet.addHeader("Authorization", "OAuth oauth_consumer_key=\""+ consumerKey +"\", oauth_nonce=\""
 					+parameterMap.get("oauth_nonce")+"\", oauth_signature=\""+oAuthSign(encodedURL)
 					+"\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\""
 					+parameterMap.get("oauth_timestamp")+"\", oauth_token=\""
 					+accessToken+"\", oauth_version=\"1.0\"");
-			
+
 
 			CloseableHttpResponse response = httpclient.execute(httpGet);
 			String responseData = null;
@@ -233,7 +237,7 @@ public class SingleUserOAuth {
 		}
 		return "";
 	}
-	
+
 	private TwitterJSON stringToJSONArray(String jsonString)
 	{
 		jsonString = jsonString.trim();
@@ -249,20 +253,20 @@ public class SingleUserOAuth {
 			SecretKeySpec signingKey = new SecretKeySpec(key.getBytes(), "HmacSHA1");
 			Mac mac = Mac.getInstance("HmacSHA1");
 			mac.init(signingKey);
-			
+
 			return new URLCodec().encode(new String(Base64.encodeBase64(mac.doFinal(input.getBytes()))));
 		}
 		catch(NoSuchAlgorithmException e)
 		{
 			e.printStackTrace();
 		}
-		
+
 		catch(InvalidKeyException e)
 		{
 			System.err.println("The consumer secret key and/or access token secret are not correct.");
 			throw new InvalidAttributesException("Only official keys/tokens generated by Twitter are accepted");
 		}
-		
+
 		catch(EncoderException e)
 		{
 			e.printStackTrace();
@@ -276,34 +280,34 @@ public class SingleUserOAuth {
 	}
 
 	private Map<String,String> getURLParameters(String url)
-    {
-    	Map<String, String> parameterMap = new TreeMap<String,String>();
-    	
-    	if(url.indexOf('?') != -1)
-    	{
-	    	for(String parameter : url.split("\\?")[1].split("&"))
-	    	{
-	    		String keyValue[] = parameter.split("=");
-	    		parameterMap.put(keyValue[0], keyValue[1]);
-	    	}
-    	}
+	{
+		Map<String, String> parameterMap = new TreeMap<String,String>();
+
+		if(url.indexOf('?') != -1)
+		{
+			for(String parameter : url.split("\\?")[1].split("&"))
+			{
+				String keyValue[] = parameter.split("=");
+				parameterMap.put(keyValue[0], keyValue[1]);
+			}
+		}
 		return parameterMap;
-    }
+	}
 
 	private String generateNonce()
 	{
 		char characters[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R',
 				'S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n',
 				'o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9'};
-		
-		
+
+
 		Random gen = new Random();
 		StringBuilder nonce = new StringBuilder();
 
 		for(int i = 0; i < 32; i++){
 			nonce.append(characters[gen.nextInt(characters.length)]);
 		}
-		
+
 		return nonce.toString();
 	}
 

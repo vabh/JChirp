@@ -27,7 +27,7 @@ public class AppOnlyAuth {
 
 	private String consumerKey;
 	private String consumerSecret;	
-	
+
 	private String authURL = "https://api.twitter.com/oauth2/token";
 	private String invalidateURL = "https://api.twitter.com/oauth2/invalidate_token";
 
@@ -48,41 +48,33 @@ public class AppOnlyAuth {
 
 	private TwitterJSON stringToJSONArray(String jsonString) {
 		jsonString = jsonString.trim();
-		jsonString = jsonString.charAt(0) == '[' ? jsonString : "["
-				+ jsonString + "]";
+		jsonString = jsonString.charAt(0) == '[' ? jsonString : "[" + jsonString + "]";
 		return new TwitterJSON(jsonString);
 	}
 
-	public String getKeyValue(String json, String key)
-			throws org.json.JSONException {
+	public String getKeyValue(String json, String key) throws org.json.JSONException {
 		return new JSONObject(json).getString(key);
 	}
 
 	public String authenticate() throws ClientProtocolException, IOException {
 
 		String consumerKeyURLEncode = URLEncoder.encode(consumerKey, "UTF-8");
-		String consumerSecretURLEncode = URLEncoder.encode(consumerSecret,
-				"UTF-8");
+		String consumerSecretURLEncode = URLEncoder.encode(consumerSecret, "UTF-8");
 
-		String bearerTokenCredentials = consumerKeyURLEncode + ":"
-				+ consumerSecretURLEncode;
+		String bearerTokenCredentials = consumerKeyURLEncode + ":" + consumerSecretURLEncode;
 
-		String base64enc = new String(
-				Base64.encodeBase64(bearerTokenCredentials.getBytes()));
+		String base64enc = new String( Base64.encodeBase64(bearerTokenCredentials.getBytes()));
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpPost httppost = new HttpPost(authURL);
 
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-		formparams.add(new BasicNameValuePair("grant_type",
-				"client_credentials"));
-		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams,
-				Consts.UTF_8);
+		formparams.add(new BasicNameValuePair("grant_type", "client_credentials"));
+		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, Consts.UTF_8);
 
 		httppost.setEntity(entity);
 		httppost.setHeader("Authorization", "Basic " + base64enc);
-		httppost.setHeader("Content-Type",
-				"application/x-www-form-urlencoded;charset=UTF-8");
+		httppost.setHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
 		CloseableHttpResponse response = httpclient.execute(httppost);
 
@@ -125,29 +117,24 @@ public class AppOnlyAuth {
 	}
 
 	public String invalidateToken() throws  ClientProtocolException, IOException {
-		
+
 		String consumerKeyURLEncode = URLEncoder.encode(consumerKey, "UTF-8");
-		String consumerSecretURLEncode = URLEncoder.encode(consumerSecret,
-				"UTF-8");
+		String consumerSecretURLEncode = URLEncoder.encode(consumerSecret, "UTF-8");
 
-		String bearerTokenCredentials = consumerKeyURLEncode + ":"
-				+ consumerSecretURLEncode;
+		String bearerTokenCredentials = consumerKeyURLEncode + ":" + consumerSecretURLEncode;
 
-		String base64enc = new String(
-				Base64.encodeBase64(bearerTokenCredentials.getBytes()));
+		String base64enc = new String( Base64.encodeBase64(bearerTokenCredentials.getBytes()));
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpPost httppost = new HttpPost(invalidateURL);
 
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();		
 		formparams.add(new BasicNameValuePair("access_token", accessToken));
-		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams,
-				Consts.UTF_8);
+		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, Consts.UTF_8);
 
 		httppost.setEntity(entity);
 		httppost.setHeader("Authorization", "Basic " + base64enc);
-		httppost.setHeader("Content-Type",
-				"application/x-www-form-urlencoded;charset=UTF-8");
+		httppost.setHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
 		CloseableHttpResponse response = httpclient.execute(httppost);
 
@@ -174,7 +161,7 @@ public class AppOnlyAuth {
 		if(!authenticated)
 			//throw exception
 			return null;
-		
+
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
 		HttpGet httpget = new HttpGet(url);
@@ -201,20 +188,18 @@ public class AppOnlyAuth {
 	}
 
 	public static void main(String args[]) throws IOException {
-		BufferedReader credentialsFile = new BufferedReader(new FileReader(
-				"credentials.txt"));
+		BufferedReader credentialsFile = new BufferedReader(new FileReader("credentials.txt"));
 		AppOnlyAuth TwitterQuery;
 
 		try {
-			TwitterQuery = new AppOnlyAuth(credentialsFile.readLine(),
-					credentialsFile.readLine());
+			TwitterQuery = new AppOnlyAuth(credentialsFile.readLine(), credentialsFile.readLine());
 
 			TwitterQuery.getAccessToken();
 
 			System.out.println(TwitterQuery.accessToken);
-			
+
 			String url = "https://api.twitter.com/1.1/statuses/user_timeline.json?count=10&screen_name=twitterapi";
-			
+
 			System.out.println(TwitterQuery.getJSON(TwitterQuery.get(url)));
 			System.out.println(TwitterQuery.getJSON(TwitterQuery.invalidateToken()));
 
