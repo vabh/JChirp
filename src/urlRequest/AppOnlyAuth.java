@@ -42,7 +42,7 @@ public class AppOnlyAuth {
 		authenticated = false;
 	}
 
-	public TwitterJSON getJSON(String url) {
+	public TwitterJSON toJSON(String url) {
 		return stringToJSONArray(url);
 	}
 
@@ -200,8 +200,8 @@ public class AppOnlyAuth {
 
 			String url = "https://api.twitter.com/1.1/statuses/user_timeline.json?count=10&screen_name=twitterapi";
 
-			System.out.println(TwitterQuery.getJSON(TwitterQuery.get(url)));
-			System.out.println(TwitterQuery.getJSON(TwitterQuery.invalidateToken()));
+			System.out.println(TwitterQuery.toJSON(TwitterQuery.get(url)));
+			System.out.println(TwitterQuery.toJSON(TwitterQuery.invalidateToken()));
 
 		} 
 		catch(Exception e){

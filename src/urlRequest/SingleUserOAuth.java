@@ -55,7 +55,7 @@ public class SingleUserOAuth {
 			String url = "https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter,mourjo_sen,anuvabh18"; 
 			url = "https://api.twitter.com/1.1/statuses/update.json?status=Test,status"; //works as expected
 			url = "https://api.twitter.com/1.1/statuses/update.json?status=Test%20status"; //works but bad result
-			url = "https://api.twitter.com/1.1/statuses/update.json?status=Test status"; //doesnt work
+			url = "https://api.twitter.com/1.1/statuses/update.json?status=teststatus@twitterapi"; //doesnt work
 			System.out.println(TwitterQuery.post(url));
 		}
 		finally
@@ -108,11 +108,11 @@ public class SingleUserOAuth {
 			for(String key : parameterMap.keySet()){
 				paramsURL += urlEncoder.encode(key) + "=" + urlEncoder.encode(parameterMap.get(key))+"&";
 			}
-
+			
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
 			encodedURL += urlEncoder.encode(paramsURL);
 
-
+			System.out.println(paramsURL + " " + encodedURL);
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			HttpPost httpPost = new HttpPost(baseURL(url));
 
