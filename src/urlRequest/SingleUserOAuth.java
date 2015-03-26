@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class SingleUserOAuth {
 	private String consumerSecret;
 	private String accessToken;
 	private String accessTokenSecret;
+	private URLCodec urlEncoder;
 
 	public static void main(String args[]) throws IOException
 	{
@@ -51,12 +53,10 @@ public class SingleUserOAuth {
 					credentialsFile.readLine(),
 					credentialsFile.readLine());
 
-
-			String url = "https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter,mourjo_sen,anuvabh18"; 
-			url = "https://api.twitter.com/1.1/statuses/update.json?status=Test,status"; //works as expected
-			url = "https://api.twitter.com/1.1/statuses/update.json?status=Test%20status"; //works but bad result
-			url = "https://api.twitter.com/1.1/statuses/update.json?status=teststatus@twitterapi"; //doesnt work
+			//the status must not be encoded, ie spaces should be spaces and not %20, the twitter documentation is not consistent with other calls!
+			String url = "https://api.twitter.com/1.1/statuses/update.json?status=JChirp :) @mourjo_sen @anuvabh18"; 
 			System.out.println(TwitterQuery.post(url));
+			
 		}
 		finally
 		{
@@ -70,6 +70,7 @@ public class SingleUserOAuth {
 		this.consumerSecret = consumerSecret;
 		this.accessToken = accessToken;
 		this.accessTokenSecret = accessTokenSecret; 
+		urlEncoder = new URLCodec();
 	}
 
 	public TwitterJSON getJSON(String url)
@@ -86,8 +87,7 @@ public class SingleUserOAuth {
 	{
 		try
 		{
-			URLCodec urlEncoder = new URLCodec();
-			String encodedURL = "POST&" + urlEncoder.encode(baseURL(url))+"&";
+			String encodedURL = "POST&" + percentEncode(baseURL(url)) + "&";
 			String paramsURL = "";
 
 			Map<String, String> parameterMap = getURLParameters(url);
@@ -106,13 +106,12 @@ public class SingleUserOAuth {
 
 
 			for(String key : parameterMap.keySet()){
-				paramsURL += urlEncoder.encode(key) + "=" + urlEncoder.encode(parameterMap.get(key))+"&";
+				paramsURL += percentEncode(key) + "=" + percentEncode(parameterMap.get(key)) + "&";
 			}
 			
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
-			encodedURL += urlEncoder.encode(paramsURL);
+			encodedURL += percentEncode(paramsURL);
 
-			System.out.println(paramsURL + " " + encodedURL);
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			HttpPost httpPost = new HttpPost(baseURL(url));
 
@@ -169,8 +168,7 @@ public class SingleUserOAuth {
 	{
 		try
 		{
-			URLCodec urlEncoder = new URLCodec();
-			String encodedURL = "GET&" + urlEncoder.encode(baseURL(url))+"&";
+			String encodedURL = "GET&" + percentEncode(baseURL(url)) + "&";
 			String paramsURL = "";
 
 			Map<String, String> parameterMap = getURLParameters(url);
@@ -182,11 +180,11 @@ public class SingleUserOAuth {
 			parameterMap.put("oauth_signature_method", "HMAC-SHA1");
 
 			for(String parameterName : parameterMap.keySet()){
-				paramsURL += urlEncoder.encode(parameterName) + "=" + urlEncoder.encode(parameterMap.get(parameterName))+"&";
+				paramsURL += percentEncode(parameterName) + "=" + percentEncode(parameterMap.get(parameterName)) + "&";
 			}
 
 			paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
-			encodedURL += urlEncoder.encode(paramsURL);
+			encodedURL += percentEncode(paramsURL);
 
 
 
@@ -309,6 +307,16 @@ public class SingleUserOAuth {
 		}
 
 		return nonce.toString();
+	}
+	
+	public String percentEncode(String text)
+	{
+		try {
+			return urlEncoder.encode(text, "UTF-8").replace("+", "%20").replace("*", "%2A").replace("%7E", "~");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
