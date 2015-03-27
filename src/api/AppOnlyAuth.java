@@ -1,4 +1,4 @@
-package urlRequest;
+package api;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,7 +23,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-public class AppOnlyAuth {
+public class AppOnlyAuth extends Auth{
 
 	private String consumerKey;
 	private String consumerSecret;	
@@ -31,7 +31,7 @@ public class AppOnlyAuth {
 	private String authURL = "https://api.twitter.com/oauth2/token";
 	private String invalidateURL = "https://api.twitter.com/oauth2/invalidate_token";
 
-	private String accessToken = "AAAAAAAAAAAAAAAAAAAAAK99bwAAAAAAmR3yMIxuSvydamKRNehBxjRqPQ4%3DDWtT4gPOkITK6iRDGQnALvRmn0kWqO1QhAoiyL07MPrfz7jgjZ";
+	private String accessToken;
 	private boolean authenticated = true ;
 
 	public AppOnlyAuth(String consumerKey, String consumerSecret) {

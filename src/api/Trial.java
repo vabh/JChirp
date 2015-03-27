@@ -1,4 +1,4 @@
-package urlRequest;
+package api;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

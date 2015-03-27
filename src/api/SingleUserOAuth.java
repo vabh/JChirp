@@ -1,4 +1,4 @@
-package urlRequest;
+package api;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -32,7 +32,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-public class SingleUserOAuth {
+public class SingleUserOAuth extends Auth{
 
 	private String consumerKey;
 	private String consumerSecret;
