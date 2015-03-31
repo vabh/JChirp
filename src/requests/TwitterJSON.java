@@ -1,4 +1,4 @@
-package api;
+package requests;
 
 import java.util.Iterator;
 
@@ -9,7 +9,7 @@ public class TwitterJSON extends JSONArray
 {
 	private final static String TAB = "    ";
 
-	TwitterJSON(String jsonString)
+	public TwitterJSON(String jsonString)
 	{
 		super(jsonString);
 	}

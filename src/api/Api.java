@@ -1,5 +1,9 @@
 package api;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import requests.rest.Statuses;
 import requests.rest.Users;
 
@@ -8,9 +12,34 @@ public class Api {
 	private Statuses statuses;
 	private Users users;
 	
-	public Api()
+	public static void main(String args[]) throws IOException
 	{
-		
+		BufferedReader credentialsFile = new BufferedReader(new FileReader("credentials.txt"));
+		Statuses statusQuery;
+		try
+		{
+			//SingleUserOAuth obj = new SingleUserOAuth(consumer_key, consumer_secret,access_token,access_token_secret);
+
+			statusQuery = new Statuses(credentialsFile.readLine(),
+					credentialsFile.readLine(),
+					credentialsFile.readLine(),
+					credentialsFile.readLine());
+
+			//the status must not be encoded, ie spaces should be spaces and not %20, the twitter documentation is not consistent with other calls!
+			String url = "https://api.twitter.com/1.1/followers/ids.json?cursor=-1&screen_name=mourjo_sen&count=5000"; 
+			System.out.println(statusQuery.printJSON(statusQuery.get(url)));
+			System.out.println(statusQuery.printJSON(statusQuery.post("https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter")));
+			
+		}
+		finally
+		{
+			credentialsFile.close();
+		}
+	}
+	
+	public Api(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
+	{
+		statuses = new Statuses(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 	}	
 	public void GETstatusesmentions_timeline()
 	{

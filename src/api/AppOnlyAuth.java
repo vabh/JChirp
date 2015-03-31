@@ -23,6 +23,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import requests.TwitterJSON;
+
 public class AppOnlyAuth extends Auth{
 
 	private String consumerKey;
@@ -96,7 +98,7 @@ public class AppOnlyAuth extends Auth{
 		return responseData;
 	}
 
-	public void getAccessToken() {
+	public void getToken() { //@MS: I changed the name from getAccessToken to getToken because the base class Auth has a getToken 
 
 		if (authenticated)
 			return;
@@ -194,7 +196,7 @@ public class AppOnlyAuth extends Auth{
 		try {
 			TwitterQuery = new AppOnlyAuth(credentialsFile.readLine(), credentialsFile.readLine());
 
-			TwitterQuery.getAccessToken();
+			TwitterQuery.getToken();
 
 			System.out.println(TwitterQuery.accessToken);
 

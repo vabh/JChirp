@@ -1,5 +1,7 @@
 package requests.rest;
 
-public class Users {
+import requests.JSONHandler;
+
+public class Users  extends JSONHandler{
 
 }

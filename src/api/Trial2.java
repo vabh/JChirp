@@ -33,7 +33,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import requests.TwitterJSON;
+
 public class Trial2 {
+	/*
 	private String consumerKey;
 	private String consumerSecret;
 	private String accessToken;
@@ -305,5 +308,5 @@ public class Trial2 {
 			e.printStackTrace();
 		}
 		return null;
-	}
+	}*/
 }
