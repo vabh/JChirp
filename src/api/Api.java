@@ -27,7 +27,7 @@ public class Api {
 
 			//the status must not be encoded, ie spaces should be spaces and not %20, the twitter documentation is not consistent with other calls!
 			String url = "https://api.twitter.com/1.1/followers/ids.json?cursor=-1&screen_name=mourjo_sen&count=5000"; 
-			System.out.println(statusQuery.printJSON(statusQuery.get(url)));
+//			System.out.println(statusQuery.printJSON(statusQuery.get(url)));
 			System.out.println(statusQuery.printJSON(statusQuery.post("https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter")));
 			
 		}
