@@ -22,7 +22,7 @@ import org.apache.http.util.EntityUtils;
 
 import api.SingleUserOAuth;
 
-public class HttpRequestHandler extends JSONHandler {
+public class HttpRequestHandler{
 	SingleUserOAuth authenticator;	
 	
 	public HttpRequestHandler(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)

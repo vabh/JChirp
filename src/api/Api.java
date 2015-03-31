@@ -1,55 +1,20 @@
 package api;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 import requests.HttpRequestHandler;
-import requests.JSONHandler;
 import requests.rest.Statuses;
 import requests.rest.Users;
 
-public class Api extends JSONHandler {
+public class Api {
 
 	private Statuses statuses;
 	private Users users;
 
-	HttpRequestHandler requests;
-
-	public static void main(String args[]) throws IOException
-	{
-//		BufferedReader credentialsFile = new BufferedReader(new FileReader("credentials.txt"));		
-//		try
-//		{
-//			//SingleUserOAuth obj = new SingleUserOAuth(consumer_key, consumer_secret,access_token,access_token_secret);
-//
-//			Api api = new Api(credentialsFile.readLine(),
-//					credentialsFile.readLine(),
-//					credentialsFile.readLine(),
-//					credentialsFile.readLine());			
-//			
-//			long id = 576805180622041088l;
-//			String r = api.GETstatusesshowid(id);
-//
-//			System.out.println(r);
-//			//the status must not be encoded, ie spaces should be spaces and not %20, the twitter documentation is not consistent with other calls!
-//			//String url = "https://api.twitter.com/1.1/followers/ids.json?cursor=-1&screen_name=mourjo_sen&count=5000"; 
-//			//System.out.println(statusQuery.printJSON(statusQuery.get(url)));
-//			//System.out.println(statusQuery.printJSON(statusQuery.post("https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter")));
-//
-//
-//
-//		}
-//		finally
-//		{
-//			credentialsFile.close();
-//		}
-	}
 
 	public Api(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
-	{
-		statuses = new Statuses();
-		requests = new HttpRequestHandler(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+	{		
+		HttpRequestHandler requests = new HttpRequestHandler(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+		statuses = new Statuses(requests);
+//		users = new Users(requests);
 	}	
 	public void GETstatusesmentions_timeline()
 	{
@@ -71,13 +36,10 @@ public class Api extends JSONHandler {
 	{
 		//todo
 	}
-
 	//need to return Statuses object
-	public String GETstatusesshowid(long id)
+	public String getStatusesShowId(long id)
 	{
-		String url = statuses.GETstatusesshowid(id);
-		String result = requests.get(url);
-		return this.printJSON(result).toString();
+		return statuses.GETstatusesshowid(id);		
 	}
 	public void POSTstatusesdestroyid()
 	{
