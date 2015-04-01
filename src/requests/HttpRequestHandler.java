@@ -22,12 +22,17 @@ import org.apache.http.util.EntityUtils;
 
 import api.SingleUserOAuth;
 
-public class HttpRequestHandler{
+public class HttpRequestHandler extends JSONHandler{
 	SingleUserOAuth authenticator;	
 	
 	public HttpRequestHandler(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
 	{
 		authenticator = new SingleUserOAuth(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+	}
+	
+	public HttpRequestHandler(HttpRequestHandler obj)
+	{
+		this.authenticator = obj.authenticator;
 	}
 			
 	public String post(String url)

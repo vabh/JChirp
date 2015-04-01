@@ -1,6 +1,5 @@
 package api;
 
-import requests.HttpRequestHandler;
 import requests.rest.Statuses;
 import requests.rest.Users;
 
@@ -12,9 +11,11 @@ public class Api {
 
 	public Api(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
 	{		
-		HttpRequestHandler requests = new HttpRequestHandler(consumerKey, consumerSecret, accessToken, accessTokenSecret);
-		statuses = new Statuses(requests);
-//		users = new Users(requests);
+		statuses = new Statuses(consumerKey, consumerSecret, accessToken, accessTokenSecret);//because Statuses is now an HTTP Request object, I think this can be allowed
+		users = new Users(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+		
+//		statuses = new Statuses(new HttpRequestHandler(consumerKey, consumerSecret, accessToken, accessTokenSecret)); //this is also allowed
+//		users = new Users(new HttpRequestHandler(consumerKey, consumerSecret, accessToken, accessTokenSecret));
 	}	
 	public void GETstatusesmentions_timeline()
 	{

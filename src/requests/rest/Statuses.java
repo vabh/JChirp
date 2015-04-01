@@ -1,21 +1,24 @@
 package requests.rest;
 
 import requests.HttpRequestHandler;
-import requests.JSONHandler;
 
-public class Statuses extends JSONHandler{
+public class Statuses extends HttpRequestHandler{
 		
-	HttpRequestHandler requests;
 	
-	public Statuses(HttpRequestHandler requests)
+	public Statuses(HttpRequestHandler request)
 	{
-		this.requests = requests;
+		super(request);
+	}
+	
+	public Statuses(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
+	{
+		super(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 	}
 	
 	public String GETstatusesshowid(long id)
 	{
 		String url = "https://api.twitter.com/1.1/statuses/show.json?id=" + id;
-		String result = requests.get(url);
-		return this.printJSON(result).toString();
+		String result = get(url);
+		return printJSON(result).toString();
 	}
 }
