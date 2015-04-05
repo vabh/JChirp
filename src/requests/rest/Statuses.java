@@ -43,22 +43,23 @@ public class Statuses extends HttpRequestHandler{
 			Class<?> type = field.getType();
 					
 			if(type.isPrimitive() || type == String.class){
-								
+				
+				String typeName = type.getSimpleName();
 				try{
-					String name = field.getName();	
-					String value = json.getString(name).toString();
+					String name = field.getName();						
 //					System.out.println(name + ": " + value);
-					if (type == Integer.class || type == int.class) {				
-						field.set(tweet, Integer.parseInt(value));
-						System.out.println(value);
+					if (typeName.equals("int")) {							
+						field.set(tweet, json.getInt(name));						
 				    }
-					else if (type == Long.class || type == long.class) {						
-						field.set(tweet, Long.parseLong(value));
-				    }else if (type == Boolean.class || type == boolean.class) {
-				    	field.set(tweet, Boolean.parseBoolean(value));
+					else if (typeName.equals("long")) {								
+						field.set(tweet, json.getLong(name));
+												
+				    }else if (typeName.equals("boolean")) {
+				    	
+				    	field.set(tweet, json.getBoolean(name));
 				    }
-				    else if (type == Object.class || type == String.class) {
-				        field.set(tweet, value);
+				    else if (type == String.class) {				    	
+				        field.set(tweet, json.getString(name));
 				    }
 				}
 				catch(org.json.JSONException e){

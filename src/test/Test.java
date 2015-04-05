@@ -24,7 +24,7 @@ public class Test {
 			
 			try {
 				Tweets t = api.getStatusesShowId(id);
-				System.out.println(t.id);
+				System.out.println(t);
 			} catch (Exception e){}
 			
 //			System.out.println(r);

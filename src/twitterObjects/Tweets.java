@@ -1,5 +1,7 @@
 package twitterObjects;
 
+import java.util.Arrays;
+
 public class Tweets {
 	
 	public Tweets annotations;
@@ -45,4 +47,30 @@ public class Tweets {
 	public boolean withheld_copyright;
 	public boolean withheld_in_countries;
 	public boolean withheld_scope;
+	@Override
+	public String toString() {
+		return "Tweets [annotations=" + annotations + ", contributors="
+				+ Arrays.toString(contributors) + ", coordinates="
+				+ Arrays.toString(coordinates) + ", created_at=" + created_at
+				+ ", current_user_retweet="
+				+ Arrays.toString(current_user_retweet) + ", entities="
+				+ Arrays.toString(entities) + ", favorite_count="
+				+ favorite_count + ", favorited=" + favorited
+				+ ", filter_level=" + filter_level + ", id=" + id + ", id_str="
+				+ id_str + ", in_reply_to_screen_name="
+				+ in_reply_to_screen_name + ", in_reply_to_status_id="
+				+ in_reply_to_status_id + ", in_reply_to_status_id_str="
+				+ in_reply_to_status_id_str + ", in_reply_to_user_id="
+				+ in_reply_to_user_id + ", in_reply_to_user_id_str="
+				+ in_reply_to_user_id_str + ", lang=" + lang + ", place="
+				+ place + ", possibly_sensitive=" + possibly_sensitive
+				+ ", scopes=" + scopes + ", retweet_count=" + retweet_count
+				+ ", retweeted=" + retweeted + ", retweeted_status="
+				+ retweeted_status + ", source=" + source + ", text=" + text
+				+ ", truncated=" + truncated + ", user=" + user
+				+ ", withheld_copyright=" + withheld_copyright
+				+ ", withheld_in_countries=" + withheld_in_countries
+				+ ", withheld_scope=" + withheld_scope + "]";
+	}
+	
 }
