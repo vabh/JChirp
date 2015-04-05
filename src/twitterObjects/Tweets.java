@@ -2,47 +2,47 @@ package twitterObjects;
 
 public class Tweets {
 	
-	private Tweets annotations;
-	private Users[] contributors;
-	private String[] coordinates;
-	private String created_at;
-	private String[] current_user_retweet;
-	private Entities[] entities;
-	private long favorite_count;
-	private boolean favorited;
+	public Tweets annotations;
+	public Users[] contributors;
+	public String[] coordinates;
+	public String created_at;
+	public String[] current_user_retweet;
+	public Entities[] entities;
+	public long favorite_count;
+	public boolean favorited;
 	
-	private enum filter_level_values { none, low, medium}
-	private String filter_level;
+	public enum filter_level_values { none, low, medium}
+	public String filter_level;
 	
-	private long id;
-	private String id_str;
+	public long id;
+	public String id_str;
 	
-	private String in_reply_to_screen_name;
-	private long in_reply_to_status_id;
-	private String in_reply_to_status_id_str;
-	private long in_reply_to_user_id;
-	private String in_reply_to_user_id_str;
+	public String in_reply_to_screen_name;
+	public long in_reply_to_status_id;
+	public String in_reply_to_status_id_str;
+	public long in_reply_to_user_id;
+	public String in_reply_to_user_id_str;
 	
-	private String lang;
-	private Places place;
-	private boolean possibly_sensitive;
+	public String lang;
+	public Places place;
+	public boolean possibly_sensitive;
 	
 	//for promoted tweets
-	private Object scopes;
+	public Object scopes;
 	
-	private int retweet_count;
-	private boolean retweeted;
-	private Tweets retweeted_status;
+	public int retweet_count;
+	public boolean retweeted;
+	public Tweets retweeted_status;
 	
-	private String source;
+	public String source;
 	
-	private String text;
+	public String text;
 	
-	private boolean truncated;
+	public boolean truncated;
 	
-	private Users user;
+	public Users user;
 	
-	private boolean withheld_copyright;
-	private boolean withheld_in_countries;
-	private boolean withheld_scope;
+	public boolean withheld_copyright;
+	public boolean withheld_in_countries;
+	public boolean withheld_scope;
 }

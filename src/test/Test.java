@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import twitterObjects.Tweets;
 import api.Api;
 
 public class Test {
@@ -18,15 +19,19 @@ public class Test {
 					credentialsFile.readLine(),
 					credentialsFile.readLine());			
 			
-			long id = 576804989844086784L;
-			String r = api.getStatusesShowId(id);
-
-			System.out.println(r);
+			long id = 576748678389592064L;
+//			String r = api.getStatusesShowId(id);
+			
+			try {
+				Tweets t = api.getStatusesShowId(id);
+				System.out.println(t.id);
+			} catch (Exception e){}
+			
+//			System.out.println(r);
 			//the status must not be encoded, ie spaces should be spaces and not %20, the twitter documentation is not consistent with other calls!
 			//String url = "https://api.twitter.com/1.1/followers/ids.json?cursor=-1&screen_name=mourjo_sen&count=5000"; 
 			//System.out.println(statusQuery.printJSON(statusQuery.get(url)));
-			//System.out.println(statusQuery.printJSON(statusQuery.post("https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter")));
-
+			//System.out.println(statusQuery.printJSON(statusQuery.post("https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter")));	
 		}
 		finally
 		{

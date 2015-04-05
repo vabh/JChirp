@@ -2,6 +2,7 @@ package api;
 
 import requests.rest.Statuses;
 import requests.rest.Users;
+import twitterObjects.Tweets;
 
 public class Api {
 
@@ -38,7 +39,7 @@ public class Api {
 		//todo
 	}
 	//need to return Statuses object
-	public String getStatusesShowId(long id)
+	public Tweets getStatusesShowId(long id) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
 		return statuses.GETstatusesshowid(id);		
 	}
