@@ -28,7 +28,7 @@ public class Statuses extends HttpRequestHandler{
 		return createObject(result);
 	}
 	
-	public Tweets createObject(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+	private Tweets createObject(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
 		
 		String key = "";
 		JSONObject json = new JSONObject(jsonString);
