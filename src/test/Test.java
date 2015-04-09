@@ -19,7 +19,7 @@ public class Test {
 					credentialsFile.readLine(),
 					credentialsFile.readLine());			
 			
-			long id = 576748678389592064L;
+			long id = 576781374696255488l;
 //			String r = api.getStatusesShowId(id);
 			
 			try {
