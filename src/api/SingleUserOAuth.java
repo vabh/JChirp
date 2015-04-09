@@ -29,8 +29,7 @@ public class SingleUserOAuth extends Auth{
 	{
 		try
 		{
-			String key = getSecret();
-			SecretKeySpec signingKey = new SecretKeySpec(key.getBytes(), "HmacSHA1");
+			SecretKeySpec signingKey = getSecret();
 			Mac mac = Mac.getInstance("HmacSHA1");
 			mac.init(signingKey);
 
