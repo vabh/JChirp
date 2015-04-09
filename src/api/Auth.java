@@ -1,5 +1,7 @@
 package api;
 
+import javax.crypto.spec.SecretKeySpec;
+
 public class Auth {
 	
 	protected KeyStore keyStore;
@@ -24,7 +26,7 @@ public class Auth {
 		return keyStore.getAccessToken();
 	}
 	
-	public String getSecret()
+	public SecretKeySpec getSecret()
 	{
 		return keyStore.getSecret();
 	}

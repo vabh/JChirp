@@ -1,18 +1,18 @@
 package api;
 
+import javax.crypto.spec.SecretKeySpec;
+
 public class KeyStore {
 	private String consumerKey;
-	private String consumerSecret;
 	private String accessToken;
-	private String accessTokenSecret;
+	private SecretKeySpec secretKeys;
 	
 	
 	public KeyStore(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
 	{
 		this.consumerKey = consumerKey;
-		this.consumerSecret = consumerSecret;
 		this.accessToken = accessToken;
-		this.accessTokenSecret = accessTokenSecret; 
+		secretKeys = new SecretKeySpec((consumerSecret + "&" + accessTokenSecret).getBytes(), "HmacSHA1");
 	}
 
 	public String getConsumerKey()
@@ -25,8 +25,8 @@ public class KeyStore {
 		return accessToken;
 	}
 	
-	public String getSecret()
+	public SecretKeySpec getSecret()
 	{
-		return consumerSecret + "&" + accessTokenSecret;
+		return secretKeys;
 	}
 }
