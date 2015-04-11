@@ -1,23 +1,137 @@
 package api;
 
+import java.lang.reflect.Field;
+
+import org.json.JSONObject;
+
 import requests.rest.Statuses;
-import requests.rest.Users;
+import requests.rest.UsersRequests;
 import twitterObjects.Tweets;
+import twitterObjects.Users;
 
 public class Api {
 
-	private Statuses statuses;
-	private Users users;
-
+	private Statuses statusesRequests;
+	private UsersRequests usersRequests;
 
 	public Api(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
 	{		
-		statuses = new Statuses(consumerKey, consumerSecret, accessToken, accessTokenSecret);//because Statuses is now an HTTP Request object, I think this can be allowed
-		users = new Users(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+		statusesRequests = new Statuses(consumerKey, consumerSecret, accessToken, accessTokenSecret);//because Statuses is now an HTTP Request object, I think this can be allowed
+		usersRequests = new UsersRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 		
 //		statuses = new Statuses(new HttpRequestHandler(consumerKey, consumerSecret, accessToken, accessTokenSecret)); //this is also allowed
 //		users = new Users(new HttpRequestHandler(consumerKey, consumerSecret, accessToken, accessTokenSecret));
-	}	
+	}
+	
+	public Tweets tweetsObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+				
+		JSONObject json = new JSONObject(jsonString);
+		//fully qualified name required!
+		Class<?> c = Class.forName("twitterObjects.Tweets");
+		
+		Tweets tweet = (Tweets) c.newInstance();
+		
+		Field []fields = c.getFields();
+		
+		for (Field field : fields) {
+			Class<?> type = field.getType();
+				
+			String typeName = type.getSimpleName();
+			String fieldName = field.getName();	
+			
+			/*if(json.has(fieldName))
+				System.out.println(fieldName + " has");
+			else
+				System.out.println(fieldName + " Nothas");
+			*/
+			
+			if(json.has(fieldName)){
+					
+				if (type.isPrimitive() || type == String.class){
+			
+					try{
+											
+	//					System.out.println(name + ": " + value);
+						if (typeName.equals("int")) {							
+							field.set(tweet, json.getInt(fieldName));						
+					    }
+						else if (typeName.equals("long")) {								
+							field.set(tweet, json.getLong(fieldName));
+							
+					    }else if (typeName.equals("boolean")) {					    	
+					    	field.set(tweet, json.getBoolean(fieldName));
+					    }
+					    else if (type == String.class) {				    	
+					        field.set(tweet, json.getString(fieldName));
+					    }
+					}
+					//exception is thrown when the field is "nullable"
+					catch(org.json.JSONException e){
+//						e.printStackTrace();
+					}
+				}
+				else if(type == Users.class){
+					try{						
+						Users u = usersObjectCreator(json.get(fieldName).toString());
+//						System.out.println(u.followers_count);
+						field.set(tweet, u);
+					}
+					catch(Exception e){
+						e.printStackTrace();
+					}
+					
+				}
+			}			
+		}
+		return tweet;
+	}
+	
+	public Users usersObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+		
+		JSONObject json = new JSONObject(jsonString);
+		//fully qualified name required!
+		Class<?> c = Class.forName("twitterObjects.Users");
+		
+		Users user = (Users) c.newInstance();
+		
+		Field []fields = c.getFields();
+		
+		for (Field field : fields) {
+			Class<?> type = field.getType();
+				
+			String typeName = type.getSimpleName();
+			String fieldName = field.getName();	
+			
+			if(json.has(fieldName)){
+				
+				if (type.isPrimitive() || type == String.class){
+			
+					try{
+											
+	//					System.out.println(name + ": " + value);
+						if (typeName.equals("int")) {							
+							field.set(user, json.getInt(fieldName));						
+					    }
+						else if (typeName.equals("long")) {								
+							field.set(user, json.getLong(fieldName));
+							
+					    }else if (typeName.equals("boolean")) {					    	
+					    	field.set(user, json.getBoolean(fieldName));
+					    }
+					    else if (type == String.class) {				    	
+					        field.set(user, json.getString(fieldName));
+					    }
+					}
+					//exception is thrown when the field is "nullable"
+					catch(org.json.JSONException e){
+//						e.printStackTrace();
+					}
+				}				
+			}
+		}
+		return user;
+	}
+	
 	public void GETstatusesmentions_timeline()
 	{
 
@@ -41,7 +155,8 @@ public class Api {
 	//need to return Statuses object
 	public Tweets getStatusesShowId(long id) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
-		return statuses.GETstatusesshowid(id);		
+		String result =  statusesRequests.GETstatusesshowid(id);
+		return tweetsObjectCreator(result);
 	}
 	public void POSTstatusesdestroyid()
 	{

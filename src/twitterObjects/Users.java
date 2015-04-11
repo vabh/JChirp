@@ -1,61 +1,105 @@
 package twitterObjects;
 
+import java.util.Arrays;
+
 public class Users {
 
-	private boolean contributors_enabled;
-	private String created_at;
+	public boolean contributors_enabled;
+	public String created_at;
 	
-	private boolean default_profile;
-	private boolean default_profile_image;
+	public boolean default_profile;
+	public boolean default_profile_image;
 	
-	private String description;
-	private Entities entities;
-	private int favourites_count;
+	public String description;
+	public Entities entities;
+	public int favourites_count;
 	
-	private /*Type?*/ boolean follow_request_sent;
-	private /*Type?*/boolean following;
-	private int followers_count;
-	private int friends_count;
+	public /*Type?*/ boolean follow_request_sent;
+	public /*Type?*/boolean following;
+	public int followers_count;
+	public int friends_count;
 	
-	private boolean geo_enabled;
-	private long id;
-	private String id_str;
-	private boolean is_translator;
-	private String lang;
-	private int listed_count;
-	private String location;
-	private String name;
+	public boolean geo_enabled;
+	public long id;
+	public String id_str;
+	public boolean is_translator;
+	public String lang;
+	public int listed_count;
+	public String location;
+	public String name;
 	
 	//notifications deprecated
-	private boolean notifications;
+	public boolean notifications;
 	
-	private String profile_background_color;
-	private String profile_background_image_url;
-	private String profile_background_image_url_https;
-	private boolean profile_background_tile;
-	private String profile_banner_url;
-	private String profile_image_url;
-	private String profile_image_url_https;
+	public String profile_background_color;
+	public String profile_background_image_url;
+	public String profile_background_image_url_https;
+	public boolean profile_background_tile;
+	public String profile_banner_url;
+	public String profile_image_url;
+	public String profile_image_url_https;
 	
-	private String profile_link_color;
-	private String profile_sidebar_border_color;
-	private String profile_sidebar_fill_color;
-	private String profile_text_color;
-	private boolean profile_use_background_image;
+	public String profile_link_color;
+	public String profile_sidebar_border_color;
+	public String profile_sidebar_fill_color;
+	public String profile_text_color;
+	public boolean profile_use_background_image;
 	
-	private boolean protected_;
-	private String screen_name;
+	public boolean protected_;
+	public String screen_name;
 	
-	private boolean show_all_inline_media;
+	public boolean show_all_inline_media;
 	
-	private Tweets status;
-	private int statuses_count;
+	public Tweets status;
+	public int statuses_count;
 	
-	private String time_zone;
-	private String url;
-	private int utc_offset;
-	private boolean verified;
+	public String time_zone;
+	public String url;
+	public int utc_offset;
+	public boolean verified;
 	
-	private String[] withheld_in_countries;
-	private String withheld_scope;			
+	public String[] withheld_in_countries;
+	public String withheld_scope;
+	@Override
+	public String toString() {
+		return "Users [contributors_enabled=" + contributors_enabled
+				+ ", created_at=" + created_at + ", default_profile="
+				+ default_profile + ", default_profile_image="
+				+ default_profile_image + ", description=" + description
+				+ ", entities=" + entities + ", favourites_count="
+				+ favourites_count + ", follow_request_sent="
+				+ follow_request_sent + ", following=" + following
+				+ ", followers_count=" + followers_count + ", friends_count="
+				+ friends_count + ", geo_enabled=" + geo_enabled + ", id=" + id
+				+ ", id_str=" + id_str + ", is_translator=" + is_translator
+				+ ", lang=" + lang + ", listed_count=" + listed_count
+				+ ", location=" + location + ", name=" + name
+				+ ", notifications=" + notifications
+				+ ", profile_background_color=" + profile_background_color
+				+ ", profile_background_image_url="
+				+ profile_background_image_url
+				+ ", profile_background_image_url_https="
+				+ profile_background_image_url_https
+				+ ", profile_background_tile=" + profile_background_tile
+				+ ", profile_banner_url=" + profile_banner_url
+				+ ", profile_image_url=" + profile_image_url
+				+ ", profile_image_url_https=" + profile_image_url_https
+				+ ", profile_link_color=" + profile_link_color
+				+ ", profile_sidebar_border_color="
+				+ profile_sidebar_border_color
+				+ ", profile_sidebar_fill_color=" + profile_sidebar_fill_color
+				+ ", profile_text_color=" + profile_text_color
+				+ ", profile_use_background_image="
+				+ profile_use_background_image + ", protected_=" + protected_
+				+ ", screen_name=" + screen_name + ", show_all_inline_media="
+				+ show_all_inline_media + ", status=" + status
+				+ ", statuses_count=" + statuses_count + ", time_zone="
+				+ time_zone + ", url=" + url + ", utc_offset=" + utc_offset
+				+ ", verified=" + verified + ", withheld_in_countries="
+				+ Arrays.toString(withheld_in_countries) + ", withheld_scope="
+				+ withheld_scope + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}	
+	
 }

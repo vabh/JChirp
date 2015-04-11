@@ -71,6 +71,5 @@ public class Tweets {
 				+ ", withheld_copyright=" + withheld_copyright
 				+ ", withheld_in_countries=" + withheld_in_countries
 				+ ", withheld_scope=" + withheld_scope + "]";
-	}
-	
+	}	
 }
