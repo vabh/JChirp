@@ -6,6 +6,7 @@ public class Tweets {
 	
 	public Tweets annotations;
 	public Users[] contributors;
+	//array of length 3, 0,1 -> coordinates, 2->type
 	public String[] coordinates;
 	public String created_at;
 	public String[] current_user_retweet;

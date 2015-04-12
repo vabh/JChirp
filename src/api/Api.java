@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 
 import org.json.JSONObject;
 
-import requests.JSONHandler;
 import requests.rest.StatusesRequests;
 import requests.rest.UsersRequests;
 import twitterObjects.Tweets;
@@ -16,12 +15,10 @@ public class Api {
 	private UsersRequests usersRequests;
 
 	public Api(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
-	{		
-		statusesRequests = new StatusesRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);//because Statuses is now an HTTP Request object, I think this can be allowed
-		usersRequests = new UsersRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);
-		
-//		statuses = new Statuses(new HttpRequestHandler(consumerKey, consumerSecret, accessToken, accessTokenSecret)); //this is also allowed
-//		users = new Users(new HttpRequestHandler(consumerKey, consumerSecret, accessToken, accessTokenSecret));
+	{
+		//because Statuses is now an HTTP Request object, I think this can be allowed
+		statusesRequests = new StatusesRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+		usersRequests = new UsersRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);		
 	}
 	
 	public Tweets tweetsObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
@@ -37,29 +34,23 @@ public class Api {
 		for (Field field : fields) {
 			Class<?> type = field.getType();
 				
-			String typeName = type.getSimpleName();
-			String fieldName = field.getName();	
+			String fieldType = type.getSimpleName();
+			String fieldName = field.getName();				
 			
-			/*if(json.has(fieldName))
-				System.out.println(fieldName + " has");
-			else
-				System.out.println(fieldName + " Nothas");
-			*/
-			
-			if(json.has(fieldName)){
+			if(json.has(fieldName) && !json.isNull(fieldName)){
 					
 				if (type.isPrimitive() || type == String.class){
 			
 					try{
 											
 	//					System.out.println(name + ": " + value);
-						if (typeName.equals("int")) {							
+						if (fieldType.equals("int")) {							
 							field.set(tweet, json.getInt(fieldName));						
 					    }
-						else if (typeName.equals("long")) {								
+						else if (fieldType.equals("long")) {								
 							field.set(tweet, json.getLong(fieldName));
 							
-					    }else if (typeName.equals("boolean")) {					    	
+					    }else if (fieldType.equals("boolean")) {					    	
 					    	field.set(tweet, json.getBoolean(fieldName));
 					    }
 					    else if (type == String.class) {				    	
@@ -80,18 +71,34 @@ public class Api {
 //						e.printStackTrace();
 					}				
 				}
+				//for retweeted_status object
 				else if(type == Tweets.class){
-					try{
-						String t1 = json.get(fieldName).toString();
-//						System.out.println(t1);
-						Tweets t = tweetsObjectCreator(t1);
+					try{						
+						Tweets t = tweetsObjectCreator(json.get(fieldName).toString());
 						field.set(tweet, t);
+					}
+					catch(Exception e){
+//						e.printStackTrace();
+					}
+				}
+				//looks hacky, can be bettered but exams :/
+				else if(fieldName.equals("coordinates")){
+					try{
+						JSONObject tjson = json.getJSONObject(fieldName);
+						String coordsStr = tjson.get(fieldName).toString();
+						String typeCoords = tjson.getString("type");
+						
+						String coords[] = (coordsStr + ", " + typeCoords).split(",");						
+						coords[0] = coords[0].substring(coords[0].indexOf('[') + 1).trim();
+						coords[1] = coords[1].substring(0, coords[1].indexOf(']')).trim();
+						coords[2] = coords[2].trim();
+												
+						field.set(tweet, coords);
 					}
 					catch(Exception e){
 						e.printStackTrace();
 					}
 				}
-				
 			}			
 		}
 		return tweet;

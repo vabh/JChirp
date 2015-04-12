@@ -101,5 +101,4 @@ public class Users {
 				+ ", hashCode()=" + hashCode() + ", toString()="
 				+ super.toString() + "]";
 	}	
-	
 }
