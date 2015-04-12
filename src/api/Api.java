@@ -4,19 +4,20 @@ import java.lang.reflect.Field;
 
 import org.json.JSONObject;
 
-import requests.rest.Statuses;
+import requests.JSONHandler;
+import requests.rest.StatusesRequests;
 import requests.rest.UsersRequests;
 import twitterObjects.Tweets;
 import twitterObjects.Users;
 
 public class Api {
 
-	private Statuses statusesRequests;
+	private StatusesRequests statusesRequests;
 	private UsersRequests usersRequests;
 
 	public Api(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
 	{		
-		statusesRequests = new Statuses(consumerKey, consumerSecret, accessToken, accessTokenSecret);//because Statuses is now an HTTP Request object, I think this can be allowed
+		statusesRequests = new StatusesRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);//because Statuses is now an HTTP Request object, I think this can be allowed
 		usersRequests = new UsersRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 		
 //		statuses = new Statuses(new HttpRequestHandler(consumerKey, consumerSecret, accessToken, accessTokenSecret)); //this is also allowed
@@ -72,15 +73,25 @@ public class Api {
 				}
 				else if(type == Users.class){
 					try{						
-						Users u = usersObjectCreator(json.get(fieldName).toString());
-//						System.out.println(u.followers_count);
+						Users u = usersObjectCreator(json.get(fieldName).toString());						
 						field.set(tweet, u);
+					}
+					catch(Exception e){
+//						e.printStackTrace();
+					}				
+				}
+				else if(type == Tweets.class){
+					try{
+						String t1 = json.get(fieldName).toString();
+//						System.out.println(t1);
+						Tweets t = tweetsObjectCreator(t1);
+						field.set(tweet, t);
 					}
 					catch(Exception e){
 						e.printStackTrace();
 					}
-					
 				}
+				
 			}			
 		}
 		return tweet;
@@ -155,7 +166,8 @@ public class Api {
 	//need to return Statuses object
 	public Tweets getStatusesShowId(long id) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
-		String result =  statusesRequests.GETstatusesshowid(id);
+		String result =  statusesRequests.GETstatusesshowid(id);		
+//		System.out.println(new JSONHandler().printJSON(result).toString());
 		return tweetsObjectCreator(result);
 	}
 	public void POSTstatusesdestroyid()

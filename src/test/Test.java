@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import requests.JSONHandler;
 import requests.TwitterJSON;
-import requests.rest.Statuses;
+import requests.rest.StatusesRequests;
 import twitterObjects.Tweets;
 import api.Api;
 
@@ -21,13 +22,15 @@ public class Test {
 					credentialsFile.readLine(),
 					credentialsFile.readLine());			
 			
-			long id = 576781374696255488l;
+			long id = 576895223080443905l;
 //			String r = api.getStatusesShowId(id);
 			
 			try {
 				Tweets t = api.getStatusesShowId(id);
-				System.out.println(t);
-			} catch (Exception e){}
+				System.out.println(t.retweeted_status);															
+			} catch (Exception e){
+				e.printStackTrace();
+			}
 						
 //			System.out.println(r);
 			//the status must not be encoded, ie spaces should be spaces and not %20, the twitter documentation is not consistent with other calls!

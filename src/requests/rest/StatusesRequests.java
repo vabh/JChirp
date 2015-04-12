@@ -7,15 +7,15 @@ import org.json.JSONObject;
 import requests.HttpRequestHandler;
 import twitterObjects.Tweets;
 
-public class Statuses extends HttpRequestHandler{
+public class StatusesRequests extends HttpRequestHandler{
 		
 	
-	public Statuses(HttpRequestHandler request)
+	public StatusesRequests(HttpRequestHandler request)
 	{
 		super(request);
 	}
 	
-	public Statuses(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
+	public StatusesRequests(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
 	{
 		super(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 	}
