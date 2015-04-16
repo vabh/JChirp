@@ -19,8 +19,9 @@ public class Test {
 			
 			long id = 576895494066065408l;
 			try {
-				Tweets t = api.getStatusesShowId(id);
-				System.out.println(t.coordinates[1]);															
+//				Tweets t = api.getStatusesShowId(id);
+				api.GETapplicationrate_limit_status();
+//				System.out.println(t.coordinates[1]);															
 			}catch (Exception e){
 				e.printStackTrace();
 			}							

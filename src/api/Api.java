@@ -4,8 +4,10 @@ import java.lang.reflect.Field;
 
 import org.json.JSONObject;
 
+import requests.rest.RateRequests;
 import requests.rest.StatusesRequests;
 import requests.rest.UsersRequests;
+import twitterObjects.Rates;
 import twitterObjects.Tweets;
 import twitterObjects.Users;
 
@@ -13,12 +15,14 @@ public class Api {
 
 	private StatusesRequests statusesRequests;
 	private UsersRequests usersRequests;
+	private RateRequests rateRequests;
 
 	public Api(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
 	{
 		//because Statuses is now an HTTP Request object, I think this can be allowed
 		statusesRequests = new StatusesRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);
-		usersRequests = new UsersRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);		
+		usersRequests = new UsersRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);	
+		rateRequests = new RateRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 	}
 	
 	public Tweets tweetsObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
@@ -505,10 +509,27 @@ public class Api {
 	{
 		//todo
 	}
+	public void GETapplicationrate_limit_status(String types[])
+	{
+		String result =  rateRequests.getRateLimitStatus(types);		
+//		System.out.println(new JSONHandler().printJSON(result).toString());
+		System.out.println(result);
+	}
 	public void GETapplicationrate_limit_status()
 	{
-		//todo
+		try
+		{
+		String result =  rateRequests.getRateLimitStatus();		
+//		System.out.println(new JSONHandler().printJSON(result).toString());
+		Rates c = new Rates(result);
+//		System.out.println(result);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
+	
 	public void GEThelpconfiguration()
 	{
 
