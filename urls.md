@@ -7,11 +7,9 @@ get https://api.twitter.com/1.1/statuses/show.json?id=210462857140252672
 post https://api.twitter.com/1.1/statuses/destroy/240854986559455234.json
 post https://api.twitter.com/1.1/statuses/update.json?status=Maybe%20he%27ll%20finally%20find%20his%20keys.%20%23peterfalk
 post https://api.twitter.com/1.1/statuses/retweet/241259202004267009.json
-Error: https://dev.twitter.com/rest/reference/post/statuses/update_with_media
 get https://api.twitter.com/1.1/statuses/oembed.json?id=507185938620219395
 get https://api.twitter.com/1.1/statuses/retweeters/ids.json?id=327473909412814850&count=100&stringify_ids=true
 get https://api.twitter.com/1.1/statuses/lookup.json?id=20,432656548536401920
-Error: https://dev.twitter.com/rest/reference/post/media/upload
 get https://api.twitter.com/1.1/direct_messages/sent.json?count=2&since_id=240247560269340670
 get https://api.twitter.com/1.1/direct_messages/show.json?id=240136858829479936
 get https://api.twitter.com/1.1/search/tweets.json?q=%23freebandnames&since_id=24012619984051000&max_id=250126199840518145&result_type=mixed&count=4
@@ -33,7 +31,6 @@ get https://api.twitter.com/1.1/friendships/lookup.json?screen_name=episod,twitt
 get https://api.twitter.com/1.1/account/settings.json
 get https://api.twitter.com/1.1/account/verify_credentials.json
 post https://api.twitter.com/1.1/account/settings.json?lang=en
-Error: https://dev.twitter.com/rest/reference/post/account/update_delivery_device
 post https://api.twitter.com/1.1/account/update_profile.json?name=Sean%20Cook&description=Keep%20calm%20and%20rock%20on.
 post https://api.twitter.com/1.1/account/update_profile_background_image.json?use=1&skip_status=1&tile=1
 post https://api.twitter.com/1.1/account/update_profile_image.json?image=ABCDEFGH&#8230;
@@ -93,3 +90,10 @@ get https://api.twitter.com/1.1/help/privacy.json
 get https://api.twitter.com/1.1/help/tos.json
 get https://api.twitter.com/1.1/trends/closest.json?lat=37.781157&long=-122.400612831116
 post https://api.twitter.com/1.1/users/report_spam.json?screen_name=themattharris
+
+
+--------
+Exceptions:
+https://dev.twitter.com/rest/reference/post/statuses/update_with_media
+https://dev.twitter.com/rest/reference/post/account/update_delivery_device
+https://dev.twitter.com/rest/reference/post/media/upload
