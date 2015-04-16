@@ -24,46 +24,46 @@ public class Api {
 		usersRequests = new UsersRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);	
 		rateRequests = new RateRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 	}
-	
+
 	public Tweets tweetsObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
-				
+
 		JSONObject json = new JSONObject(jsonString);
 		//fully qualified name required!
 		Class<?> c = Class.forName("twitterObjects.Tweets");
-		
+
 		Tweets tweet = (Tweets) c.newInstance();
-		
+
 		Field []fields = c.getFields();
-		
+
 		for (Field field : fields) {
 			Class<?> type = field.getType();
-				
+
 			String fieldType = type.getSimpleName();
 			String fieldName = field.getName();				
-			
+
 			if(json.has(fieldName) && !json.isNull(fieldName)){
-					
+
 				if (type.isPrimitive() || type == String.class){
-			
+
 					try{
-											
-	//					System.out.println(name + ": " + value);
+
+						//					System.out.println(name + ": " + value);
 						if (fieldType.equals("int")) {							
 							field.set(tweet, json.getInt(fieldName));						
-					    }
+						}
 						else if (fieldType.equals("long")) {								
 							field.set(tweet, json.getLong(fieldName));
-							
-					    }else if (fieldType.equals("boolean")) {					    	
-					    	field.set(tweet, json.getBoolean(fieldName));
-					    }
-					    else if (type == String.class) {				    	
-					        field.set(tweet, json.getString(fieldName));
-					    }
+
+						}else if (fieldType.equals("boolean")) {					    	
+							field.set(tweet, json.getBoolean(fieldName));
+						}
+						else if (type == String.class) {				    	
+							field.set(tweet, json.getString(fieldName));
+						}
 					}
 					//exception is thrown when the field is "nullable"
 					catch(org.json.JSONException e){
-//						e.printStackTrace();
+						//						e.printStackTrace();
 					}
 				}
 				else if(type == Users.class){
@@ -72,7 +72,7 @@ public class Api {
 						field.set(tweet, u);
 					}
 					catch(Exception e){
-//						e.printStackTrace();
+						//						e.printStackTrace();
 					}				
 				}
 				//for retweeted_status object
@@ -82,7 +82,7 @@ public class Api {
 						field.set(tweet, t);
 					}
 					catch(Exception e){
-//						e.printStackTrace();
+						//						e.printStackTrace();
 					}
 				}
 				//looks hacky, can be bettered but exams :/
@@ -91,12 +91,12 @@ public class Api {
 						JSONObject tjson = json.getJSONObject(fieldName);
 						String coordsStr = tjson.get(fieldName).toString();
 						String typeCoords = tjson.getString("type");
-						
+
 						String coords[] = (coordsStr + ", " + typeCoords).split(",");						
 						coords[0] = coords[0].substring(coords[0].indexOf('[') + 1).trim();
 						coords[1] = coords[1].substring(0, coords[1].indexOf(']')).trim();
 						coords[2] = coords[2].trim();
-												
+
 						field.set(tweet, coords);
 					}
 					catch(Exception e){
@@ -107,53 +107,53 @@ public class Api {
 		}
 		return tweet;
 	}
-	
+
 	public Users usersObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
-		
+
 		JSONObject json = new JSONObject(jsonString);
 		//fully qualified name required!
 		Class<?> c = Class.forName("twitterObjects.Users");
-		
+
 		Users user = (Users) c.newInstance();
-		
+
 		Field []fields = c.getFields();
-		
+
 		for (Field field : fields) {
 			Class<?> type = field.getType();
-				
+
 			String typeName = type.getSimpleName();
 			String fieldName = field.getName();	
-			
+
 			if(json.has(fieldName)){
-				
+
 				if (type.isPrimitive() || type == String.class){
-			
+
 					try{
-											
-	//					System.out.println(name + ": " + value);
+
+						//					System.out.println(name + ": " + value);
 						if (typeName.equals("int")) {							
 							field.set(user, json.getInt(fieldName));						
-					    }
+						}
 						else if (typeName.equals("long")) {								
 							field.set(user, json.getLong(fieldName));
-							
-					    }else if (typeName.equals("boolean")) {					    	
-					    	field.set(user, json.getBoolean(fieldName));
-					    }
-					    else if (type == String.class) {				    	
-					        field.set(user, json.getString(fieldName));
-					    }
+
+						}else if (typeName.equals("boolean")) {					    	
+							field.set(user, json.getBoolean(fieldName));
+						}
+						else if (type == String.class) {				    	
+							field.set(user, json.getString(fieldName));
+						}
 					}
 					//exception is thrown when the field is "nullable"
 					catch(org.json.JSONException e){
-//						e.printStackTrace();
+						//						e.printStackTrace();
 					}
 				}				
 			}
 		}
 		return user;
 	}
-	
+
 	public void GETstatusesmentions_timeline()
 	{
 
@@ -178,7 +178,7 @@ public class Api {
 	public Tweets getStatusesShowId(long id) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
 		String result =  statusesRequests.GETstatusesshowid(id);		
-//		System.out.println(new JSONHandler().printJSON(result).toString());
+		//		System.out.println(new JSONHandler().printJSON(result).toString());
 		return tweetsObjectCreator(result);
 	}
 	public void POSTstatusesdestroyid()
@@ -509,27 +509,30 @@ public class Api {
 	{
 		//todo
 	}
-	public void GETapplicationrate_limit_status(String types[])
+	public Rates GETapplicationrate_limit_status(String types[])
 	{
 		String result =  rateRequests.getRateLimitStatus(types);		
-//		System.out.println(new JSONHandler().printJSON(result).toString());
-		System.out.println(result);
+		try {
+			return new Rates(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
-	public void GETapplicationrate_limit_status()
+	public Rates GETapplicationrate_limit_status()
 	{
 		try
 		{
-		String result =  rateRequests.getRateLimitStatus();		
-//		System.out.println(new JSONHandler().printJSON(result).toString());
-		Rates c = new Rates(result);
-//		System.out.println(result);
+			String result =  rateRequests.getRateLimitStatus();		
+			return new Rates(result);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
+		return null;
 	}
-	
+
 	public void GEThelpconfiguration()
 	{
 

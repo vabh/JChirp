@@ -17,9 +17,11 @@ public class RateRequests extends HttpRequestHandler{
 	{
 		if(types == null || types.length == 0)
 			return getRateLimitStatus();
+		
 		StringBuilder url = new StringBuilder("https://api.twitter.com/1.1/application/rate_limit_status.json?resources=");
 		for(String type : types)
 			url.append(type + ",");
+		
 		url.replace(url.length()-1, url.length(), "");
 		String result = get(url.toString());
 		return result;
