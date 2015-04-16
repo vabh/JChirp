@@ -17,10 +17,10 @@ public class Test {
 					credentialsFile.readLine(),
 					credentialsFile.readLine());			
 			
-			long id = 576895494066065408l;
+			long id = 586581749817184256l;
 			try {
 				Tweets t = api.getStatusesShowId(id);
-				System.out.println(t.coordinates[1]);															
+				System.out.println(t.user.screen_name);															
 			}catch (Exception e){
 				e.printStackTrace();
 			}							
