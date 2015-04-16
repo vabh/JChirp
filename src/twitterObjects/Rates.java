@@ -6,12 +6,12 @@ import java.util.regex.Pattern;
 import org.json.JSONObject;
 
 public class Rates {
-
+	static Pattern fieldNameSplitter = Pattern.compile("[/_]");
 	public Rates (String jsonString) throws InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException
 	{
 		JSONObject outerJSON = new JSONObject(jsonString).getJSONObject("resources");
 		Iterator<?> outerKeysIterator = outerJSON.keys();
-		Pattern fieldNameSplitter = Pattern.compile("[/_]");
+		
 		while(outerKeysIterator.hasNext())
 		{
 			String level1String = (String)outerKeysIterator.next();
