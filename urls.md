@@ -1,99 +1,95 @@
-https://api.twitter.com/1.1/statuses/mentions_timeline.json?count=2&amp;since_id=14927799
-https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=twitterapi&amp;count=2
-https://api.twitter.com/1.1/statuses/home_timeline.json
-https://api.twitter.com/1.1/statuses/retweets_of_me.json?count=50&amp;since_id=259320959964680190&amp;max_id=259320959964680500
-https://api.twitter.com/1.1/statuses/retweets/509457288717819904.json
-https://api.twitter.com/1.1/statuses/show.json?id=210462857140252672
-https://api.twitter.com/1.1/statuses/destroy/240854986559455234.json
-https://api.twitter.com/1.1/statuses/update.json?status=Maybe%20he%27ll%20finally%20find%20his%20keys.%20%23peterfalk
-https://api.twitter.com/1.1/statuses/retweet/241259202004267009.json
-https://api.twitter.com/1.1/statuses/oembed.json?id=507185938620219395
-https://api.twitter.com/1.1/statuses/retweeters/ids.json?id=327473909412814850&amp;count=100&amp;stringify_ids=true
-https://api.twitter.com/1.1/statuses/lookup.json?id=20,432656548536401920
-https://upload.twitter.com/1.1/media/upload.json
-https://api.twitter.com/1.1/direct_messages/sent.json?count=2&amp;since_id=240247560269340670
-https://api.twitter.com/1.1/direct_messages/show.json?id=240136858829479936
-https://api.twitter.com/1.1/search/tweets.json?q=%23freebandnames&amp;since_id=24012619984051000&amp;max_id=250126199840518145&amp;result_type=mixed&amp;count=4
-https://api.twitter.com/1.1/direct_messages.json?since_id=240136858829479935&amp;count=1
-https://api.twitter.com/1.1/direct_messages/destroy.json?id=240251665733795841
-https://api.twitter.com/1.1/direct_messages/new.json?text=hello%2C%20tworld.%20welcome%20to%201.1.&amp;screen_name=theseancook
-https://api.twitter.com/1.1/friendships/no_retweets/ids.json?stringify_ids=true
-https://api.twitter.com/1.1/friends/ids.json?cursor=-1&amp;screen_name=twitterapi&amp;count=5000
-https://api.twitter.com/1.1/followers/ids.json?cursor=-1&amp;screen_name=sitestreams&amp;count=5000
-https://api.twitter.com/1.1/friendships/incoming.json
-https://api.twitter.com/1.1/friendships/outgoing.json
-https://api.twitter.com/1.1/friendships/create.json?user_id=1401881&amp;follow=true
-https://api.twitter.com/1.1/friendships/destroy.json?user_id=1401881
-https://api.twitter.com/1.1/friendships/update.json?user_id=1401881&amp;device=true
-https://api.twitter.com/1.1/friendships/show.json?source_screen_name=bert&amp;target_screen_name=ernie
-https://api.twitter.com/1.1/friends/list.json?cursor=-1&amp;screen_name=twitterapi&amp;skip_status=true&amp;include_user_entities=false
-https://api.twitter.com/1.1/followers/list.json?cursor=-1&amp;screen_name=twitterdev&amp;skip_status=true&amp;include_user_entities=false
-https://api.twitter.com/1.1/friendships/lookup.json?screen_name=episod,twitterapi,whiteleaf,andypiper
-https://api.twitter.com/1.1/account/settings.json
-https://api.twitter.com/1.1/account/verify_credentials.json
-https://api.twitter.com/1.1/account/settings.json?lang=en
-https://api.twitter.com/1.1/account/update_profile.json?name=Sean%20Cook&amp;description=Keep%20calm%20and%20rock%20on.
-https://api.twitter.com/1.1/account/update_profile_background_image.json?use=1&amp;skip_status=1&amp;tile=1
-https://api.twitter.com/1.1/account/update_profile_image.json?image=ABCDEFGH&#8230;
-https://api.twitter.com/1.1/blocks/list.json?skip_status=true&amp;cursor=-1
-https://api.twitter.com/1.1/blocks/ids.json?stringify_ids=true&amp;cursor=-1
-https://api.twitter.com/1.1/blocks/create.json?screen_name=theSeanCook&amp;skip_status=1
-https://api.twitter.com/1.1/blocks/destroy.json?screen_name=theSeanCook&amp;skip_status=1
-https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter
-https://api.twitter.com/1.1/users/show.json?screen_name=rsarver
-https://api.twitter.com/1.1/users/search.json?q=Twitter%20API&amp;page=1&amp;count=3
-https://api.twitter.com/1.1/account/remove_profile_banner.json
-https://api.twitter.com/1.1/account/update_profile_banner.json?width=1500&amp;height=500&amp;offset_top=0&amp;offset_left=0&amp;banner=FILE_DATA
-https://api.twitter.com/1.1/users/profile_banner.json?screen_name=twitterapi
-https://api.twitter.com/1.1/mutes/users/create.json?screen_name=evilpiper
-https://api.twitter.com/1.1/mutes/users/destroy.json?screen_name=evilpiper
-https://api.twitter.com/1.1/mutes/users/ids.json?cursor=-1
-https://api.twitter.com/1.1/mutes/users/list.json?include_entities=false&amp;skip_status=true
-https://api.twitter.com/1.1/users/suggestions/twitter.json
-https://api.twitter.com/1.1/users/suggestions.json
-https://api.twitter.com/1.1/users/suggestions/funny/members.json
-https://api.twitter.com/1.1/favorites/list.json?count=2&amp;screen_name=episod
-https://api.twitter.com/1.1/favorites/destroy.json?id=243138128959913986
-https://api.twitter.com/1.1/favorites/create.json?id=243138128959913986
-https://api.twitter.com/1.1/lists/list.json?screen_name=twitterapi
-https://api.twitter.com/1.1/lists/statuses.json?slug=teams&amp;owner_screen_name=MLS&amp;count=1
-https://api.twitter.com/1.1/lists/members/destroy?screen_name=episod&amp;slug=cool_people&amp;owner_screen_name=twitter
-https://api.twitter.com/1.1/lists/memberships.json?screen_name=twitter&amp;cursor=-1
-https://api.twitter.com/1.1/lists/subscribers.json?include_entities=true&amp;cursor=-1&amp;skip_status=true&amp;slug=team&amp;owner_screen_name=twitter
-https://api.twitter.com/1.1/lists/subscribers/create.json?slug=team&amp;owner_screen_name=twitter
-https://api.twitter.com/1.1/lists/subscribers/show.json?slug=team&amp;owner_screen_name=twitter&amp;screen_name=episod
-https://api.twitter.com/1.1/lists/subscribers/destroy.json?slug=team&amp;owner_screen_name=twitterapi
-https://api.twitter.com/1.1/lists/members/create_all.json?screen_name=rsarver,episod,jasoncosta,theseancook,kurrik,froginthevalley&amp;list_id=23
-https://api.twitter.com/1.1/lists/members/show.json?slug=team&amp;owner_screen_name=twitter&amp;screen_name=froginthevalley
-https://api.twitter.com/1.1/lists/members.json?slug=team&amp;owner_screen_name=twitterapi&amp;cursor=-1
-https://api.twitter.com/1.1/lists/members/create.json?slug=team&amp;owner_screen_name=twitter&amp;screen_name=kurrik
-https://api.twitter.com/1.1/lists/destroy.json?owner_screen_name=kurrik&amp;slug=goonies
-https://api.twitter.com/1.1/lists/update.json?list_id=1234&amp;mode=public&amp;name=Party%20Time
-https://api.twitter.com/1.1/lists/create.json?name=Goonies&amp;mode=public&amp;description=For%20life
-https://api.twitter.com/1.1/lists/show.json?slug=team&amp;owner_screen_name=twitter
-https://api.twitter.com/1.1/lists/subscriptions.json?cursor=-1&amp;screen_name=episod&amp;count=5
-https://api.twitter.com/1.1/lists/members/destroy_all.json?screen_name=rsarver,episod,jasoncosta,theseancook,kurrik,froginthevalley&amp;list_id=23
-https://api.twitter.com/1.1/lists/ownerships.json?screen_name=twitter&amp;count=2
-https://api.twitter.com/1.1/saved_searches/list.json
-https://api.twitter.com/1.1/saved_searches/show/9569704.json
-https://api.twitter.com/1.1/saved_searches/create.json?query=sandwiches
-https://api.twitter.com/1.1/saved_searches/destroy/62353170.json
-https://api.twitter.com/1.1/geo/id/df51dec6f4ee2b2c.json
-https://api.twitter.com/1.1/geo/reverse_geocode.json?lat=37.76893497&amp;long=-122.42284884
-https://api.twitter.com/1.1/geo/search.json?query=Toronto
-https://api.twitter.com/1.1/geo/create.json
-https://api.twitter.com/1.1/trends/place.json?id=1
-https://api.twitter.com/1.1/trends/available.json
-https://api.twitter.com/1.1/application/rate_limit_status.json?resources=help,users,search,statuses
-https://api.twitter.com/1.1/help/configuration.json
-https://api.twitter.com/1.1/help/languages.json
-https://api.twitter.com/1.1/help/privacy.json
-https://api.twitter.com/1.1/help/tos.json
-https://api.twitter.com/1.1/trends/closest.json?lat=37.781157&amp;long=-122.400612831116
-https://api.twitter.com/1.1/users/report_spam.json?screen_name=themattharris
-
-
-
-exceptions:
-https://dev.twitter.com/rest/reference/post/account/update_delivery_device
-https://dev.twitter.com/rest/reference/post/statuses/update_with_media
+get https://api.twitter.com/1.1/statuses/mentions_timeline.json?count=2&since_id=14927799
+get https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=twitterapi&count=2
+get https://api.twitter.com/1.1/statuses/home_timeline.json
+get https://api.twitter.com/1.1/statuses/retweets_of_me.json?count=50&since_id=259320959964680190&max_id=259320959964680500
+get https://api.twitter.com/1.1/statuses/retweets/509457288717819904.json
+get https://api.twitter.com/1.1/statuses/show.json?id=210462857140252672
+post https://api.twitter.com/1.1/statuses/destroy/240854986559455234.json
+post https://api.twitter.com/1.1/statuses/update.json?status=Maybe%20he%27ll%20finally%20find%20his%20keys.%20%23peterfalk
+post https://api.twitter.com/1.1/statuses/retweet/241259202004267009.json
+Error: https://dev.twitter.com/rest/reference/post/statuses/update_with_media
+get https://api.twitter.com/1.1/statuses/oembed.json?id=507185938620219395
+get https://api.twitter.com/1.1/statuses/retweeters/ids.json?id=327473909412814850&count=100&stringify_ids=true
+get https://api.twitter.com/1.1/statuses/lookup.json?id=20,432656548536401920
+Error: https://dev.twitter.com/rest/reference/post/media/upload
+get https://api.twitter.com/1.1/direct_messages/sent.json?count=2&since_id=240247560269340670
+get https://api.twitter.com/1.1/direct_messages/show.json?id=240136858829479936
+get https://api.twitter.com/1.1/search/tweets.json?q=%23freebandnames&since_id=24012619984051000&max_id=250126199840518145&result_type=mixed&count=4
+get https://api.twitter.com/1.1/direct_messages.json?since_id=240136858829479935&count=1
+post https://api.twitter.com/1.1/direct_messages/destroy.json?id=240251665733795841
+post https://api.twitter.com/1.1/direct_messages/new.json?text=hello%2C%20tworld.%20welcome%20to%201.1.&screen_name=theseancook
+get https://api.twitter.com/1.1/friendships/no_retweets/ids.json?stringify_ids=true
+get https://api.twitter.com/1.1/friends/ids.json?cursor=-1&screen_name=twitterapi&count=5000
+get https://api.twitter.com/1.1/followers/ids.json?cursor=-1&screen_name=sitestreams&count=5000
+get https://api.twitter.com/1.1/friendships/incoming.json
+get https://api.twitter.com/1.1/friendships/outgoing.json
+post https://api.twitter.com/1.1/friendships/create.json?user_id=1401881&follow=true
+post https://api.twitter.com/1.1/friendships/destroy.json?user_id=1401881
+post https://api.twitter.com/1.1/friendships/update.json?user_id=1401881&device=true
+get https://api.twitter.com/1.1/friendships/show.json?source_screen_name=bert&target_screen_name=ernie
+get https://api.twitter.com/1.1/friends/list.json?cursor=-1&screen_name=twitterapi&skip_status=true&include_user_entities=false
+get https://api.twitter.com/1.1/followers/list.json?cursor=-1&screen_name=twitterdev&skip_status=true&include_user_entities=false
+get https://api.twitter.com/1.1/friendships/lookup.json?screen_name=episod,twitterapi,whiteleaf,andypiper
+get https://api.twitter.com/1.1/account/settings.json
+get https://api.twitter.com/1.1/account/verify_credentials.json
+post https://api.twitter.com/1.1/account/settings.json?lang=en
+Error: https://dev.twitter.com/rest/reference/post/account/update_delivery_device
+post https://api.twitter.com/1.1/account/update_profile.json?name=Sean%20Cook&description=Keep%20calm%20and%20rock%20on.
+post https://api.twitter.com/1.1/account/update_profile_background_image.json?use=1&skip_status=1&tile=1
+post https://api.twitter.com/1.1/account/update_profile_image.json?image=ABCDEFGH&#8230;
+get https://api.twitter.com/1.1/blocks/list.json?skip_status=true&cursor=-1
+get https://api.twitter.com/1.1/blocks/ids.json?stringify_ids=true&cursor=-1
+post https://api.twitter.com/1.1/blocks/create.json?screen_name=theSeanCook&skip_status=1
+post https://api.twitter.com/1.1/blocks/destroy.json?screen_name=theSeanCook&skip_status=1
+get https://api.twitter.com/1.1/users/lookup.json?screen_name=twitterapi,twitter
+get https://api.twitter.com/1.1/users/show.json?screen_name=rsarver
+get https://api.twitter.com/1.1/users/search.json?q=Twitter%20API&page=1&count=3
+post https://api.twitter.com/1.1/account/remove_profile_banner.json
+post https://api.twitter.com/1.1/account/update_profile_banner.json?width=1500&height=500&offset_top=0&offset_left=0&banner=FILE_DATA
+get https://api.twitter.com/1.1/users/profile_banner.json?screen_name=twitterapi
+post https://api.twitter.com/1.1/mutes/users/create.json?screen_name=evilpiper
+post https://api.twitter.com/1.1/mutes/users/destroy.json?screen_name=evilpiper
+get https://api.twitter.com/1.1/mutes/users/ids.json?cursor=-1
+get https://api.twitter.com/1.1/mutes/users/list.json?include_entities=false&skip_status=true
+get https://api.twitter.com/1.1/users/suggestions/twitter.json
+get https://api.twitter.com/1.1/users/suggestions.json
+get https://api.twitter.com/1.1/users/suggestions/funny/members.json
+get https://api.twitter.com/1.1/favorites/list.json?count=2&screen_name=episod
+post https://api.twitter.com/1.1/favorites/destroy.json?id=243138128959913986
+post https://api.twitter.com/1.1/favorites/create.json?id=243138128959913986
+get https://api.twitter.com/1.1/lists/list.json?screen_name=twitterapi
+get https://api.twitter.com/1.1/lists/statuses.json?slug=teams&owner_screen_name=MLS&count=1
+post https://api.twitter.com/1.1/lists/members/destroy?screen_name=episod&slug=cool_people&owner_screen_name=twitter
+get https://api.twitter.com/1.1/lists/memberships.json?screen_name=twitter&cursor=-1
+get https://api.twitter.com/1.1/lists/subscribers.json?include_entities=true&cursor=-1&skip_status=true&slug=team&owner_screen_name=twitter
+post https://api.twitter.com/1.1/lists/subscribers/create.json?slug=team&owner_screen_name=twitter
+get https://api.twitter.com/1.1/lists/subscribers/show.json?slug=team&owner_screen_name=twitter&screen_name=episod
+post https://api.twitter.com/1.1/lists/subscribers/destroy.json?slug=team&owner_screen_name=twitterapi
+post https://api.twitter.com/1.1/lists/members/create_all.json?screen_name=rsarver,episod,jasoncosta,theseancook,kurrik,froginthevalley&list_id=23
+get https://api.twitter.com/1.1/lists/members/show.json?slug=team&owner_screen_name=twitter&screen_name=froginthevalley
+get https://api.twitter.com/1.1/lists/members.json?slug=team&owner_screen_name=twitterapi&cursor=-1
+post https://api.twitter.com/1.1/lists/members/create.json?slug=team&owner_screen_name=twitter&screen_name=kurrik
+post https://api.twitter.com/1.1/lists/destroy.json?owner_screen_name=kurrik&slug=goonies
+post https://api.twitter.com/1.1/lists/update.json?list_id=1234&mode=public&name=Party%20Time
+post https://api.twitter.com/1.1/lists/create.json?name=Goonies&mode=public&description=For%20life
+get https://api.twitter.com/1.1/lists/show.json?slug=team&owner_screen_name=twitter
+get https://api.twitter.com/1.1/lists/subscriptions.json?cursor=-1&screen_name=episod&count=5
+post https://api.twitter.com/1.1/lists/members/destroy_all.json?screen_name=rsarver,episod,jasoncosta,theseancook,kurrik,froginthevalley&list_id=23
+get https://api.twitter.com/1.1/lists/ownerships.json?screen_name=twitter&count=2
+get https://api.twitter.com/1.1/saved_searches/list.json
+get https://api.twitter.com/1.1/saved_searches/show/9569704.json
+post https://api.twitter.com/1.1/saved_searches/create.json?query=sandwiches
+post https://api.twitter.com/1.1/saved_searches/destroy/62353170.json
+get https://api.twitter.com/1.1/geo/id/df51dec6f4ee2b2c.json
+get https://api.twitter.com/1.1/geo/reverse_geocode.json?lat=37.76893497&long=-122.42284884
+get https://api.twitter.com/1.1/geo/search.json?query=Toronto
+post https://api.twitter.com/1.1/geo/create.json
+get https://api.twitter.com/1.1/trends/place.json?id=1
+get https://api.twitter.com/1.1/trends/available.json
+get https://api.twitter.com/1.1/application/rate_limit_status.json?resources=help,users,search,statuses
+get https://api.twitter.com/1.1/help/configuration.json
+get https://api.twitter.com/1.1/help/languages.json
+get https://api.twitter.com/1.1/help/privacy.json
+get https://api.twitter.com/1.1/help/tos.json
+get https://api.twitter.com/1.1/trends/closest.json?lat=37.781157&long=-122.400612831116
+post https://api.twitter.com/1.1/users/report_spam.json?screen_name=themattharris

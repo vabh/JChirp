@@ -70,9 +70,11 @@ public class Trial {
 				{
 					response.close();
 				}
+//				System.out.println(url.split("/")[5]);
+				String s1 = p.split(responseData)[1].split("</div>")[0];
+				String s2 = "https://api.twitter.com/1.1/" + s1.split("https://api.twitter.com/1.1/")[1];
 				
-				
-				System.out.println(p.split(responseData)[1].split("</div>")[0]);
+				System.out.println(url.split("/")[5] + " " +s2);
 			}
 			catch(Exception e)
 			{
