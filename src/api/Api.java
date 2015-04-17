@@ -1,6 +1,7 @@
 package api;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -110,7 +111,7 @@ public class Api {
 		}
 		return tweet;
 	}
-
+	
 	private Users usersObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
 
 		JSONObject json = new JSONObject(jsonString);
@@ -157,21 +158,36 @@ public class Api {
 		return user;
 	}
 	
-	private Tweets[] userObjectArrayCreator(String str)
+	private Tweets[] tweetObjectArrayCreator(String str)
 	{
-		JSONArray tweets = new JSONArray(str);
-		Tweets tw[] = new Tweets[tweets.length()];
-		for(int i = 0; i < tweets.length(); i++)
+		JSONArray tweetsJson = new JSONArray(str);
+		Tweets tweets[] = new Tweets[tweetsJson.length()];
+		for(int i = 0; i < tweetsJson.length(); i++)
 		{
 			try {
-				tw[i] = tweetsObjectCreator(tweets.getJSONObject(i).toString());
+				tweets[i] = tweetsObjectCreator(tweetsJson.getJSONObject(i).toString());
 			} catch (ClassNotFoundException | InstantiationException
 					| IllegalAccessException | JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		return tw;
+		return tweets;
+	}
+	
+	private Users[] userObjectArrayCreator(String str)
+	{
+		JSONArray usersJson = new JSONArray(str);
+		Users users[] = new Users[usersJson.length()];
+		for(int i = 0; i < usersJson.length(); i++)
+		{
+			try {
+				users[i] = usersObjectCreator(usersJson.getJSONObject(i).toString());
+			} catch (ClassNotFoundException | InstantiationException
+					| IllegalAccessException | JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return users;
 	}
 
 	public void GETstatusesmentions_timeline()
@@ -232,22 +248,25 @@ public class Api {
 		boolean includeEntities = true;
 		boolean trimUser = false;
 		boolean map = false;
-		return userObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
+		return tweetObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
 	}
+	
 	public Tweets[] GETstatuseslookup(List<String> ids, boolean includeEntities)
 	{
 		boolean trimUser = false;
 		boolean map = false;
-		return userObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
+		return tweetObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
 	}
+	
 	public Tweets[] GETstatuseslookup(List<String> ids, boolean includeEntities, boolean trimUser)
 	{
 		boolean map = false;
-		return userObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
+		return tweetObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
 	}
-	public Tweets[] GETstatuseslookup(List<String> ids, boolean includeEntities, boolean trimUser, boolean map)
+	
+	public Tweets[] GETstatuseslookup(Collection<String> ids, boolean includeEntities, boolean trimUser, boolean map)
 	{
-		return userObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
+		return tweetObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
 	}
 	
 	
@@ -371,10 +390,33 @@ public class Api {
 	{
 
 	}
-	public void GETuserslookup()
+	
+	public Users[] GETuserslookupByUserID(Collection<String> userIDs)
 	{
-		//todo
+		boolean includeEntities = true;
+		String res = usersRequests.GETuserslookupByUserID(userIDs, includeEntities);
+		return userObjectArrayCreator(res);
 	}
+	
+	public Users[] GETuserslookupByUserID(Collection<String> userIDs, boolean includeEntities)
+	{
+		String res = usersRequests.GETuserslookupByUserID(userIDs, includeEntities);
+		return userObjectArrayCreator(res);
+	}
+	
+	public Users[] GETuserslookupByScreenName(Collection<String> screenNames)
+	{
+		boolean includeEntities = true;
+		String res = usersRequests.GETuserslookupByScreenName(screenNames, includeEntities);
+		return userObjectArrayCreator(res);
+	}
+	
+	public Users[] GETuserslookupByScreenName(Collection<String> screenNames, boolean includeEntities)
+	{
+		String res = usersRequests.GETuserslookupByScreenName(screenNames, includeEntities);
+		return userObjectArrayCreator(res);
+	}
+	
 	public void GETusersshow()
 	{
 		//todo
