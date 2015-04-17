@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import twitterObjects.Rates;
-import twitterObjects.Tweets;
 import api.Api;
 
 public class Test {
@@ -22,7 +21,11 @@ public class Test {
 			try {
 //				Tweets t = api.getStatusesShowId(id);
 //				System.out.println(api.GETapplicationrate_limit_status());
-				Rates r1 = api.GETapplicationrate_limit_status(new String[]{"statuses"}); //selected few
+				
+				
+				
+				
+				Rates r1 = api.GETapplicationrate_limit_status(new String[]{"users", "help"}); //selected few
 				System.out.println(r1);
 				System.out.println("----");
 				Rates r2 = api.GETapplicationrate_limit_status(); //all
@@ -30,6 +33,9 @@ public class Test {
 				System.out.println("----");
 				System.out.println(r2.statusesLookup.limit);
 				System.out.println(r2.statusesLookup.remaining);
+				
+				
+				
 //				System.out.println(t.coordinates[1]);															
 			}catch (Exception e){
 				e.printStackTrace();
