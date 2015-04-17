@@ -1,7 +1,10 @@
 package api;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import requests.rest.RateRequests;
@@ -25,7 +28,7 @@ public class Api {
 		rateRequests = new RateRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 	}
 
-	public Tweets tweetsObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+	private Tweets tweetsObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
 
 		JSONObject json = new JSONObject(jsonString);
 		//fully qualified name required!
@@ -108,7 +111,7 @@ public class Api {
 		return tweet;
 	}
 
-	public Users usersObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+	private Users usersObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
 
 		JSONObject json = new JSONObject(jsonString);
 		//fully qualified name required!
@@ -152,6 +155,23 @@ public class Api {
 			}
 		}
 		return user;
+	}
+	
+	private Tweets[] userObjectArrayCreator(String str)
+	{
+		JSONArray tweets = new JSONArray(str);
+		Tweets tw[] = new Tweets[tweets.length()];
+		for(int i = 0; i < tweets.length(); i++)
+		{
+			try {
+				tw[i] = tweetsObjectCreator(tweets.getJSONObject(i).toString());
+			} catch (ClassNotFoundException | InstantiationException
+					| IllegalAccessException | JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return tw;
 	}
 
 	public void GETstatusesmentions_timeline()
@@ -205,10 +225,32 @@ public class Api {
 	{
 
 	}
-	public void GETstatuseslookup()
+	
+	
+	public Tweets[] GETstatuseslookup(List<String> ids)
 	{
-		//todo
+		boolean includeEntities = true;
+		boolean trimUser = false;
+		boolean map = false;
+		return userObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
 	}
+	public Tweets[] GETstatuseslookup(List<String> ids, boolean includeEntities)
+	{
+		boolean trimUser = false;
+		boolean map = false;
+		return userObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
+	}
+	public Tweets[] GETstatuseslookup(List<String> ids, boolean includeEntities, boolean trimUser)
+	{
+		boolean map = false;
+		return userObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
+	}
+	public Tweets[] GETstatuseslookup(List<String> ids, boolean includeEntities, boolean trimUser, boolean map)
+	{
+		return userObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
+	}
+	
+	
 	public void POSTmediaupload()
 	{
 

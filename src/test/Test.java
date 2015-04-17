@@ -3,8 +3,11 @@ package test;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 
 import twitterObjects.Rates;
+import twitterObjects.Tweets;
 import api.Api;
 
 public class Test {
@@ -25,14 +28,17 @@ public class Test {
 				
 				
 				
-				Rates r1 = api.GETapplicationrate_limit_status(new String[]{"users", "help"}); //selected few
-				System.out.println(r1);
-				System.out.println("----");
-				Rates r2 = api.GETapplicationrate_limit_status(); //all
-				System.out.println(r2);
-				System.out.println("----");
-				System.out.println(r2.statusesLookup.limit);
-				System.out.println(r2.statusesLookup.remaining);
+//				Rates r1 = api.GETapplicationrate_limit_status(new String[]{"users", "help"}); //selected few
+//				System.out.println(r1);
+//				System.out.println("----");
+//				Rates r2 = api.GETapplicationrate_limit_status(); //all
+//				System.out.println(r2);
+//				System.out.println("----");
+//				System.out.println(r2.statusesLookup.limit);
+//				System.out.println(r2.statusesLookup.remaining);
+				
+				for(Tweets t : api.GETstatuseslookup(Arrays.asList(new String[]{"20", "432656548536401920"}), true, true, false))
+				System.out.println(t);
 				
 				
 				
