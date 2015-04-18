@@ -8,6 +8,7 @@ import java.util.Collections;
 
 import twitterObjects.Rates;
 import twitterObjects.Tweets;
+import twitterObjects.Users;
 import api.Api;
 
 public class Test {
@@ -36,8 +37,8 @@ public class Test {
 //				System.out.println(r2.statusesLookup.limit);
 //				System.out.println(r2.statusesLookup.remaining);
 				
-				for(Tweets t : api.GETstatuseslookup(Arrays.asList(new String[]{"20", "432656548536401920"}), true, true, false))
-				System.out.println(t);
+				for(Users t : api.GETuserslookupByScreenName(Arrays.asList(new String[]{"mourjo_sen", "anuvabh18"})))
+					System.out.println(t.followers_count);
 				
 				
 				

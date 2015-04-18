@@ -1,5 +1,6 @@
 package requests.rest;
 
+import java.util.Collection;
 import java.util.List;
 
 import requests.HttpRequestHandler;
@@ -24,7 +25,7 @@ public class StatusesRequests extends HttpRequestHandler{
 		return result;
 	}
 	
-	public String GETstatuseslookup(List<String> ids, boolean includeEntities, boolean trimUser, boolean map)
+	public String GETstatuseslookup(Collection<String> ids, boolean includeEntities, boolean trimUser, boolean map)
 	{
 		String csvIDs = "";
 		for(String id : ids)
