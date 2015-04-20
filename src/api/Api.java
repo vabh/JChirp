@@ -206,17 +206,37 @@ public class Api {
 	{
 
 	}
-	public void GETstatusesretweetsid()
+	public Tweets[] GETstatusesretweetsid(String id)
 	{
-		//todo
+		int count = 100;
+		boolean trimUser = false;
+		return tweetObjectArrayCreator(statusesRequests.GETstatusesretweetsid(id, count, trimUser));
+		
 	}
-	//need to return Statuses object
+	public Tweets[] GETstatusesretweetsid(String id, int count)
+	{
+		boolean trimUser = false;
+		return tweetObjectArrayCreator(statusesRequests.GETstatusesretweetsid(id, count, trimUser));
+		
+	}
+	public Tweets[] GETstatusesretweetsid(String id, boolean trimUser)
+	{
+		int count = 100;
+		return tweetObjectArrayCreator(statusesRequests.GETstatusesretweetsid(id, count, trimUser));
+	}
+	
+	public Tweets[] GETstatusesretweetsid(String id, int count, boolean trimUser)
+	{
+		return tweetObjectArrayCreator(statusesRequests.GETstatusesretweetsid(id, count, trimUser));
+	}
+
 	public Tweets getStatusesShowId(long id) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
 		String result =  statusesRequests.GETstatusesshowid(id);		
 		//		System.out.println(new JSONHandler().printJSON(result).toString());
 		return tweetsObjectCreator(result);
 	}
+	
 	public void POSTstatusesdestroyid()
 	{
 
