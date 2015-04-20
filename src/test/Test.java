@@ -38,8 +38,8 @@ public class Test {
 //				System.out.println(r2.statusesLookup.limit);
 //				System.out.println(r2.statusesLookup.remaining);
 				
-				for(Users t : api.GETuserslookupByScreenName(Arrays.asList(new String[]{"mourjo_sen", "anuvabh18"})))
-					System.out.println(t.followers_count);
+				for(Tweets t : api.GETstatusesretweetsid("509457288717819904"))
+					System.out.println(t.text);
 				
 				
 				

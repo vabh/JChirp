@@ -35,5 +35,10 @@ public class StatusesRequests extends HttpRequestHandler{
 		
 	}
 	
+	public String GETstatusesretweetsid(String id, int count, boolean trimUser)
+	{
+		return get("https://api.twitter.com/1.1/statuses/retweets/"+id+".json?count="+count+"&trim_user="+trimUser);
+	}
+	
 	
 }
