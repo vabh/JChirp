@@ -1,6 +1,7 @@
 package api;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -111,7 +112,7 @@ public class Api {
 		}
 		return tweet;
 	}
-	
+
 	private Users usersObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
 
 		JSONObject json = new JSONObject(jsonString);
@@ -157,7 +158,7 @@ public class Api {
 		}
 		return user;
 	}
-	
+
 	private Tweets[] tweetObjectArrayCreator(String str)
 	{
 		JSONArray tweetsJson = new JSONArray(str);
@@ -173,7 +174,7 @@ public class Api {
 		}
 		return tweets;
 	}
-	
+
 	private Users[] userObjectArrayCreator(String str)
 	{
 		JSONArray usersJson = new JSONArray(str);
@@ -206,44 +207,25 @@ public class Api {
 	{
 
 	}
-	public Tweets[] GETstatusesretweetsid(String id)
+
+	public Tweets[] GETstatusesretweetsid(String id, Object... optionalParams)
 	{
-		int count = 100;
-		boolean trimUser = false;
-		return tweetObjectArrayCreator(statusesRequests.GETstatusesretweetsid(id, count, trimUser));
-		
-	}
-	public Tweets[] GETstatusesretweetsid(String id, int count)
-	{
-		boolean trimUser = false;
-		return tweetObjectArrayCreator(statusesRequests.GETstatusesretweetsid(id, count, trimUser));
-		
-	}
-	public Tweets[] GETstatusesretweetsid(String id, boolean trimUser)
-	{
-		int count = 100;
-		return tweetObjectArrayCreator(statusesRequests.GETstatusesretweetsid(id, count, trimUser));
-	}
-	
-	public Tweets[] GETstatusesretweetsid(String id, int count, boolean trimUser)
-	{
-		return tweetObjectArrayCreator(statusesRequests.GETstatusesretweetsid(id, count, trimUser));
+		return tweetObjectArrayCreator(statusesRequests.GETstatusesretweetsid(id, objectArrayToStringArray(optionalParams)));
 	}
 
-	public Tweets getStatusesShowId(long id) throws ClassNotFoundException, InstantiationException, IllegalAccessException
+	public Tweets getStatusesShowId(String id, Object... optionalParams) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
-		String result =  statusesRequests.GETstatusesshowid(id);		
-		//		System.out.println(new JSONHandler().printJSON(result).toString());
+		String result =  statusesRequests.GETstatusesshowid(id, objectArrayToStringArray(optionalParams));		
 		return tweetsObjectCreator(result);
 	}
-	
+
 	public void POSTstatusesdestroyid()
 	{
 
 	}
-	public void POSTstatusesupdate()
+	public Tweets POSTstatusesupdate(String status, Object... optionalParams) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
-		//todo
+		return tweetsObjectCreator(statusesRequests.POSTstatusesretweetid(status, objectArrayToStringArray(optionalParams)));
 	}
 	public void POSTstatusesretweetid()
 	{
@@ -261,35 +243,17 @@ public class Api {
 	{
 
 	}
-	
-	
-	public Tweets[] GETstatuseslookup(List<String> ids)
+
+	public Tweets[] GETstatuseslookup(String[] ids, Object... optionalParams)
 	{
-		boolean includeEntities = true;
-		boolean trimUser = false;
-		boolean map = false;
-		return tweetObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
+		return tweetObjectArrayCreator(statusesRequests.POSTstatuseslookup(Arrays.asList(ids), objectArrayToStringArray(optionalParams)));
 	}
-	
-	public Tweets[] GETstatuseslookup(List<String> ids, boolean includeEntities)
+
+	public Tweets[] POSTstatuseslookup(Collection<String> ids, Object... optionalParams)
 	{
-		boolean trimUser = false;
-		boolean map = false;
-		return tweetObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
+		return tweetObjectArrayCreator(statusesRequests.POSTstatuseslookup(ids, objectArrayToStringArray(optionalParams)));
 	}
-	
-	public Tweets[] GETstatuseslookup(List<String> ids, boolean includeEntities, boolean trimUser)
-	{
-		boolean map = false;
-		return tweetObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
-	}
-	
-	public Tweets[] GETstatuseslookup(Collection<String> ids, boolean includeEntities, boolean trimUser, boolean map)
-	{
-		return tweetObjectArrayCreator(statusesRequests.GETstatuseslookup(ids, includeEntities, trimUser, map));
-	}
-	
-	
+
 	public void POSTmediaupload()
 	{
 
@@ -411,32 +375,28 @@ public class Api {
 
 	}
 	
-	public Users[] GETuserslookupByUserID(Collection<String> userIDs)
+	public Users[] POSTuserslookupByUserID(String[] userIDs, Object... optionalParams)
 	{
-		boolean includeEntities = true;
-		String res = usersRequests.GETuserslookupByUserID(userIDs, includeEntities);
-		return userObjectArrayCreator(res);
+		return userObjectArrayCreator(usersRequests.POSTuserslookupByUserID(Arrays.asList(userIDs), objectArrayToStringArray(optionalParams)));
+	}
+
+	public Users[] POSTuserslookupByUserID(Collection<String> userIDs, Object... optionalParams)
+	{
+		return userObjectArrayCreator(usersRequests.POSTuserslookupByUserID(userIDs, objectArrayToStringArray(optionalParams)));
 	}
 	
-	public Users[] GETuserslookupByUserID(Collection<String> userIDs, boolean includeEntities)
+	public Users[] POSTuserslookupByScreenName(String[] screenNames, Object... optionalParams)
 	{
-		String res = usersRequests.GETuserslookupByUserID(userIDs, includeEntities);
+		String res = usersRequests.POSTuserslookupByScreenName(Arrays.asList(screenNames), objectArrayToStringArray(optionalParams));
 		return userObjectArrayCreator(res);
 	}
-	
-	public Users[] GETuserslookupByScreenName(Collection<String> screenNames)
+
+	public Users[] POSTuserslookupByScreenName(Collection<String> screenNames, Object... optionalParams)
 	{
-		boolean includeEntities = true;
-		String res = usersRequests.GETuserslookupByScreenName(screenNames, includeEntities);
+		String res = usersRequests.POSTuserslookupByScreenName(screenNames, objectArrayToStringArray(optionalParams));
 		return userObjectArrayCreator(res);
 	}
-	
-	public Users[] GETuserslookupByScreenName(Collection<String> screenNames, boolean includeEntities)
-	{
-		String res = usersRequests.GETuserslookupByScreenName(screenNames, includeEntities);
-		return userObjectArrayCreator(res);
-	}
-	
+
 	public void GETusersshow()
 	{
 		//todo
@@ -616,6 +576,7 @@ public class Api {
 	public Rates GETapplicationrate_limit_status(String types[])
 	{
 		String result =  rateRequests.getRateLimitStatus(types);		
+
 		try {
 			return new Rates(result);
 		} catch (Exception e) {
@@ -660,6 +621,15 @@ public class Api {
 	public void POSTusersreport_spam()
 	{
 
+	}
+	
+	private String[] objectArrayToStringArray(Object... arr)
+	{
+		String[] stringParams = new String[arr.length];
+		for(int i = 0; i < arr.length; i++)
+			stringParams[i] = arr[i].toString();
+		
+		return stringParams;
 	}
 
 }
