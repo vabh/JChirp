@@ -1,6 +1,8 @@
 package requests.rest;
 
 import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
 
 import requests.HttpRequestHandler;
 
@@ -16,24 +18,34 @@ public class UsersRequests extends HttpRequestHandler{
 		super(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 	}
 	
-	
-	public String GETuserslookupByUserID(Collection<String> userIDs, boolean includeEntities)
+	public String POSTuserslookupByUserID(Collection<String> userIDs, String... optionalParams)
 	{
-		String uidsCsv = "";
+		String uidCSV = "";
 		for(String uid : userIDs)
-			uidsCsv += uid + ",";
-		uidsCsv.substring(0, uidsCsv.length() - 1);
+			uidCSV += uid + ",";
+		uidCSV = uidCSV.substring(0, uidCSV.length() - 1);
 		
-		return get("https://api.twitter.com/1.1/users/lookup.json?user_id=" + uidsCsv + "&include_entities=" + includeEntities);
+		String baseURL = "https://api.twitter.com/1.1/users/lookup.json";
+		Map<String, String> parameterMap = new TreeMap<String, String>();
+		parameterMap.put("user_id", uidCSV);
+		addOptionalParametersToParameterMap(parameterMap, optionalParams);
+
+		return post(baseURL, parameterMap);
 	}
 	
-	public String GETuserslookupByScreenName(Collection<String> screenNames, boolean includeEntities)
+	public String POSTuserslookupByScreenName(Collection<String> screenNames, String... optionalParams)
 	{
-		String uidsCsv = "";
-		for(String uid : screenNames)
-			uidsCsv += uid + ",";
-		uidsCsv.substring(0, uidsCsv.length() - 1);
+		String screenNamesCSV = "";
+		for(String screenName : screenNames)
+			screenNamesCSV += screenName + ",";
+		screenNamesCSV.substring(0, screenNamesCSV.length() - 1);
 		
-		return get("https://api.twitter.com/1.1/users/lookup.json?screen_name=" + uidsCsv + "&include_entities=" + includeEntities);
+		String baseURL = "https://api.twitter.com/1.1/users/lookup.json";
+		Map<String, String> parameterMap = new TreeMap<String, String>();
+		parameterMap.put("screen_name", screenNamesCSV);
+		addOptionalParametersToParameterMap(parameterMap, optionalParams);
+
+		return post(baseURL, parameterMap);
 	}
+	
 }
