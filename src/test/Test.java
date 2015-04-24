@@ -21,13 +21,12 @@ public class Test {
 					credentialsFile.readLine(),
 					credentialsFile.readLine());			
 			
-			long id = 576895494066065408l;
 			try {
 				
 				//tests for all implemented methods:
 				
 				//get statuses show id
-				Tweets t1 = api.getStatusesShowId(id+"");
+				Tweets t1 = api.getStatusesShowId(576895494066065408l+"");
 				System.out.println(t1);
 				
 				//rates
@@ -58,11 +57,12 @@ public class Test {
 					System.out.println(t);
 				
 				//retweets of tweets
+
 				for(Tweets t : api.GETstatusesretweetsid("509457288717819904","trim_user,count",false,10))
 					System.out.println(t);
 				for(Tweets t : api.GETstatusesretweetsid("509457288717819904"))
 					System.out.println(t);
-				
+
 				//users lookup by uid (post)
 				for(Users u : api.POSTuserslookupByUserID(new String[]{"783214","6253282"}))
 					System.out.println(u);
@@ -70,11 +70,20 @@ public class Test {
 					System.out.println(u);
 				
 				//users lookup by screen name (post)
-				
 				for(Users u : api.POSTuserslookupByScreenName(new String[]{"mourjo_sen","anuvabh18"}))
 					System.out.println(u);
 				for(Users u : api.POSTuserslookupByScreenName(new String[]{"mourjo_sen","anuvabh18"},"include_entities ",false))
 					System.out.println(u);
+				
+				
+				//search tweets
+				for(Tweets t : api.GETsearchtweets("net neutrality"))
+					System.out.println(t.text);
+				for(Tweets t : api.GETsearchtweets("net neutrality", "result_type,count,since_id,", "popular", 100, 12345))
+					System.out.println(t.text);
+					
+					
+				
 				
 				
 			}catch (Exception e){

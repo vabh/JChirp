@@ -216,9 +216,9 @@ public class HttpRequestHandler extends JSONHandler{
 			String url = baseURL + "?";
 			
 			for(String parameterName : parameterMap.keySet())
-				url += parameterName + "=" + parameterMap.get(parameterName) + "&";
+				url += authenticator.percentEncode(parameterName) + "=" + authenticator.percentEncode(parameterMap.get(parameterName)) + "&";
 			url = url.substring(0, url.length()-1);
-
+			
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			HttpGet httpGet = new HttpGet(url);
 

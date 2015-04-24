@@ -105,7 +105,7 @@ public class SingleUserOAuth extends Auth{
 		paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
 		
 		String encodedURL = encodedBaseURL + percentEncode(paramsURL);
-		
+
 		return "OAuth oauth_consumer_key=\""+ getConsumerKey() +"\", oauth_nonce=\""
 				+authParams.get("oauth_nonce")+"\", oauth_signature=\""+oAuthSign(encodedURL)
 				+"\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\""

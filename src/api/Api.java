@@ -1,10 +1,13 @@
 package api;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.codec.net.URLCodec;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,140 +27,10 @@ public class Api {
 
 	public Api(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret)
 	{
-		//because Statuses is now an HTTP Request object, I think this can be allowed
 		statusesRequests = new StatusesRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 		usersRequests = new UsersRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);	
 		rateRequests = new RateRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 	}
-/*
-	private Tweets tweetsObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
-
-		JSONObject json = new JSONObject(jsonString);
-		//fully qualified name required!
-		Class<?> c = Class.forName("twitterObjects.Tweets");
-
-		Tweets tweet = (Tweets) c.newInstance();
-
-		Field []fields = c.getFields();
-
-		for (Field field : fields) {
-			Class<?> type = field.getType();
-
-			String fieldType = type.getSimpleName();
-			String fieldName = field.getName();				
-
-			if(json.has(fieldName) && !json.isNull(fieldName)){
-
-				if (type.isPrimitive() || type == String.class){
-
-					try{
-
-						//					System.out.println(name + ": " + value);
-						if (fieldType.equals("int")) {							
-							field.set(tweet, json.getInt(fieldName));						
-						}
-						else if (fieldType.equals("long")) {								
-							field.set(tweet, json.getLong(fieldName));
-
-						}else if (fieldType.equals("boolean")) {					    	
-							field.set(tweet, json.getBoolean(fieldName));
-						}
-						else if (type == String.class) {				    	
-							field.set(tweet, json.getString(fieldName));
-						}
-					}
-					//exception is thrown when the field is "nullable"
-					catch(org.json.JSONException e){
-						//						e.printStackTrace();
-					}
-				}
-				else if(type == Users.class){
-					try{						
-						Users u = usersObjectCreator(json.get(fieldName).toString());						
-						field.set(tweet, u);
-					}
-					catch(Exception e){
-						//						e.printStackTrace();
-					}				
-				}
-				//for retweeted_status object
-				else if(type == Tweets.class){
-					try{						
-						Tweets t = tweetsObjectCreator(json.get(fieldName).toString());
-						field.set(tweet, t);
-					}
-					catch(Exception e){
-						//						e.printStackTrace();
-					}
-				}
-				//looks hacky, can be bettered but exams :/
-				else if(fieldName.equals("coordinates")){
-					try{
-						JSONObject tjson = json.getJSONObject(fieldName);
-						String coordsStr = tjson.get(fieldName).toString();
-						String typeCoords = tjson.getString("type");
-
-						String coords[] = (coordsStr + ", " + typeCoords).split(",");						
-						coords[0] = coords[0].substring(coords[0].indexOf('[') + 1).trim();
-						coords[1] = coords[1].substring(0, coords[1].indexOf(']')).trim();
-						coords[2] = coords[2].trim();
-
-						field.set(tweet, coords);
-					}
-					catch(Exception e){
-						e.printStackTrace();
-					}
-				}
-			}			
-		}
-		return tweet;
-	}
-
-	private Users usersObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
-
-		JSONObject json = new JSONObject(jsonString);
-		//fully qualified name required!
-		Class<?> c = Class.forName("twitterObjects.Users");
-
-		Users user = (Users) c.newInstance();
-
-		Field []fields = c.getFields();
-
-		for (Field field : fields) {
-			Class<?> type = field.getType();
-
-			String typeName = type.getSimpleName();
-			String fieldName = field.getName();	
-
-			if(json.has(fieldName)){
-
-				if (type.isPrimitive() || type == String.class){
-
-					try{
-
-						//					System.out.println(name + ": " + value);
-						if (typeName.equals("int")) {							
-							field.set(user, json.getInt(fieldName));						
-						}
-						else if (typeName.equals("long")) {								
-							field.set(user, json.getLong(fieldName));
-
-						}else if (typeName.equals("boolean")) {					    	
-							field.set(user, json.getBoolean(fieldName));
-						}
-						else if (type == String.class) {				    	
-							field.set(user, json.getString(fieldName));
-						}
-					}
-					//exception is thrown when the field is "nullable"
-					catch(org.json.JSONException e){
-						//						e.printStackTrace();
-					}
-				}				
-			}
-		}
-		return user;
-	}*/
 
 	private Tweets[] tweetObjectArrayCreator(String str)
 	{
@@ -264,9 +137,11 @@ public class Api {
 	{
 
 	}
-	public void GETsearchtweets()
+	public Tweets[] GETsearchtweets(String q, Object... optionalParams)
 	{
-		//todo
+		JSONObject response = new JSONObject(statusesRequests.GETsearchtweets(q, objectArrayToStringArray(optionalParams)));
+		return tweetObjectArrayCreator(response.get("statuses").toString());
+		//search_metadata is not returned right now, should it?
 	}
 	public void GETdirect_messages()
 	{
