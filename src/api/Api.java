@@ -29,7 +29,7 @@ public class Api {
 		usersRequests = new UsersRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);	
 		rateRequests = new RateRequests(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 	}
-
+/*
 	private Tweets tweetsObjectCreator(String jsonString) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
 
 		JSONObject json = new JSONObject(jsonString);
@@ -157,7 +157,7 @@ public class Api {
 			}
 		}
 		return user;
-	}
+	}*/
 
 	private Tweets[] tweetObjectArrayCreator(String str)
 	{
@@ -166,9 +166,8 @@ public class Api {
 		for(int i = 0; i < tweetsJson.length(); i++)
 		{
 			try {
-				tweets[i] = tweetsObjectCreator(tweetsJson.getJSONObject(i).toString());
-			} catch (ClassNotFoundException | InstantiationException
-					| IllegalAccessException | JSONException e) {
+				tweets[i] = new Tweets(tweetsJson.getJSONObject(i).toString());
+			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
@@ -182,9 +181,8 @@ public class Api {
 		for(int i = 0; i < usersJson.length(); i++)
 		{
 			try {
-				users[i] = usersObjectCreator(usersJson.getJSONObject(i).toString());
-			} catch (ClassNotFoundException | InstantiationException
-					| IllegalAccessException | JSONException e) {
+				users[i] = new Users(usersJson.getJSONObject(i).toString());
+			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
@@ -216,7 +214,7 @@ public class Api {
 	public Tweets getStatusesShowId(String id, Object... optionalParams) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
 		String result =  statusesRequests.GETstatusesshowid(id, objectArrayToStringArray(optionalParams));		
-		return tweetsObjectCreator(result);
+		return new Tweets(result);
 	}
 
 	public void POSTstatusesdestroyid()
@@ -225,7 +223,7 @@ public class Api {
 	}
 	public Tweets POSTstatusesupdate(String status, Object... optionalParams) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
-		return tweetsObjectCreator(statusesRequests.POSTstatusesretweetid(status, objectArrayToStringArray(optionalParams)));
+		return new Tweets(statusesRequests.POSTstatusesretweetid(status, objectArrayToStringArray(optionalParams)));
 	}
 	public void POSTstatusesretweetid()
 	{

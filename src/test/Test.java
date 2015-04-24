@@ -23,7 +23,7 @@ public class Test {
 			
 			long id = 576895494066065408l;
 			try {
-
+				
 				//tests for all implemented methods:
 				
 				//get statuses show id
@@ -70,6 +70,7 @@ public class Test {
 					System.out.println(u);
 				
 				//users lookup by screen name (post)
+				
 				for(Users u : api.POSTuserslookupByScreenName(new String[]{"mourjo_sen","anuvabh18"}))
 					System.out.println(u);
 				for(Users u : api.POSTuserslookupByScreenName(new String[]{"mourjo_sen","anuvabh18"},"include_entities ",false))
