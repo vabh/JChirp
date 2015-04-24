@@ -40,7 +40,7 @@ public class Test {
 				System.out.println(r2.statusesLookup.limit);
 				System.out.println(r2.statusesLookup.remaining);
 				
-				//get statuses retweets ids
+				//get statuses retweets ids.
 				for(Tweets t : api.GETstatusesretweetsid("509457288717819904"))
 					System.out.println(t.text);
 				
