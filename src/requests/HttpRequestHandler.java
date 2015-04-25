@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.naming.directory.InvalidAttributesException;
 
@@ -35,121 +34,7 @@ public class HttpRequestHandler extends JSONHandler{
 		this.authenticator = obj.authenticator;
 	}
 			
-	@Deprecated
-	public String postOldVersion(String url)
-	{
-		try
-		{
-			String encodedBaseURL = "POST&" + authenticator.percentEncode(authenticator.baseURL(url)) + "&";
-
-			Map<String, String> parameterMap = getURLParameters(url);
-
-			List<NameValuePair> postPrameters = new ArrayList<NameValuePair>();
-			for(String parameterName : parameterMap.keySet())
-				postPrameters.add(new BasicNameValuePair(parameterName, parameterMap.get(parameterName)));
-
-			CloseableHttpClient httpclient = HttpClients.createDefault();
-			HttpPost httpPost = new HttpPost(authenticator.baseURL(url));
-
-			if(url.indexOf('?') != -1)
-				httpPost.setEntity(new UrlEncodedFormEntity(postPrameters));
-
-			httpPost.setHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
-			httpPost.addHeader("Authorization", authenticator.generateAuthenticationHeader(encodedBaseURL, parameterMap));
-
-
-			CloseableHttpResponse response = httpclient.execute(httpPost);
-			String responseData = null;
-
-			try 
-			{
-				HttpEntity entity = response.getEntity();
-
-				InputStream instream = entity.getContent();
-				try 
-				{
-					responseData = EntityUtils.toString(entity);
-				} 
-				finally 
-				{
-					instream.close();
-					EntityUtils.consume(entity);
-				}
-
-			} 
-			finally 
-			{
-				response.close();
-			}
-
-			return responseData;
-		}
-		catch(InvalidAttributesException e)
-		{
-			e.printStackTrace();
-		}
-		catch(Exception e)
-		{
-			System.err.println("Please format your URL properly");
-			e.printStackTrace();
-		}
-		return "";
-	}
-
-	@Deprecated
-	public String getOldVersion(String url)
-	{
-		try
-		{
-			String encodedBaseURL = "GET&" + authenticator.percentEncode(authenticator.baseURL(url)) + "&";
-
-			Map<String, String> parameterMap = getURLParameters(url);
-
-			CloseableHttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpGet = new HttpGet(url);
-
-			httpGet.addHeader("Authorization", authenticator.generateAuthenticationHeader(encodedBaseURL, parameterMap));
-
-
-			CloseableHttpResponse response = httpclient.execute(httpGet);
-			String responseData = null;
-
-			try
-			{
-				HttpEntity entity = response.getEntity();
-				if (entity != null) 
-				{
-					InputStream instream = entity.getContent();
-					try 
-					{
-						responseData = EntityUtils.toString(entity);
-					} 
-					finally 
-					{
-						instream.close();
-						EntityUtils.consume(entity);
-					}
-				}
-			}
-			finally
-			{
-				response.close();
-			}
-			return responseData;
-		}
-		catch(InvalidAttributesException e)
-		{
-			e.printStackTrace();
-		}
-		catch(Exception e)
-		{
-			System.err.println("Please format your URL properly");
-			e.printStackTrace();
-		}
-		return "";
-	}
-	
-	public String post(String baseURL, Map<String, String> parameterMap)
+	protected String post(String baseURL, Map<String, String> parameterMap)
 	{
 		try
 		{
@@ -208,7 +93,7 @@ public class HttpRequestHandler extends JSONHandler{
 		return "";
 	}
 	
-	public String get(String baseURL, Map<String, String> parameterMap)
+	protected String get(String baseURL, Map<String, String> parameterMap)
 	{
 		try
 		{
@@ -262,21 +147,6 @@ public class HttpRequestHandler extends JSONHandler{
 		return "";
 	}
 
-	private Map<String,String> getURLParameters(String url)
-	{
-		Map<String, String> parameterMap = new TreeMap<String,String>();
-
-		if(url.indexOf('?') != -1)
-		{
-			for(String parameter : url.split("\\?")[1].split("&"))
-			{
-				String keyValue[] = parameter.split("=");
-				parameterMap.put(keyValue[0], keyValue[1]);
-			}
-		}
-		return parameterMap;
-	}
-	
 	protected void addOptionalParametersToParameterMap(Map<String, String> parameterMap, String... optionalParams)
 	{
 		if(optionalParams.length > 0)

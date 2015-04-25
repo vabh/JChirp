@@ -48,4 +48,78 @@ public class UsersRequests extends HttpRequestHandler{
 		return post(baseURL, parameterMap);
 	}
 	
+	public String GETfollowersidsByUserID(String userID, String... optionalParams)
+	{
+		String baseURL = "https://api.twitter.com/1.1/followers/ids.json";
+		
+		Map<String, String> parameterMap = new TreeMap<String, String>();
+		parameterMap.put("user_id", userID);
+		addOptionalParametersToParameterMap(parameterMap, optionalParams);
+
+		return get(baseURL, parameterMap);
+	}
+	
+	public String GETfollowersidsByScreenName(String screenName, String... optionalParams)
+	{
+		String baseURL = "https://api.twitter.com/1.1/followers/ids.json";
+		
+		Map<String, String> parameterMap = new TreeMap<String, String>();
+		parameterMap.put("screen_name", screenName);
+		addOptionalParametersToParameterMap(parameterMap, optionalParams);
+
+		return get(baseURL, parameterMap);
+	}
+	
+	public String GETfriendsidsByUserID(String userID, String... optionalParams)
+	{
+		String baseURL = "https://api.twitter.com/1.1/friends/ids.json";
+		
+		Map<String, String> parameterMap = new TreeMap<String, String>();
+		parameterMap.put("user_id", userID);
+		addOptionalParametersToParameterMap(parameterMap, optionalParams);
+
+		return get(baseURL, parameterMap);
+	}
+	
+	public String GETfriendsidsByScreenName(String screenName, String... optionalParams)
+	{
+		String baseURL = "https://api.twitter.com/1.1/friends/ids.json";
+		
+		Map<String, String> parameterMap = new TreeMap<String, String>();
+		parameterMap.put("screen_name", screenName);
+		addOptionalParametersToParameterMap(parameterMap, optionalParams);
+
+		return get(baseURL, parameterMap);
+	}
+	
+	public String GETusersshowByUserID(String userID, String... optionalParams)
+	{
+		String baseURL = "https://api.twitter.com/1.1/users/show.json";
+		
+		Map<String, String> parameterMap = new TreeMap<String, String>();
+		parameterMap.put("user_id", userID);
+		addOptionalParametersToParameterMap(parameterMap, optionalParams);
+
+		return get(baseURL, parameterMap);
+	}
+	
+	public String GETusersshowByScreenName(String screenName, String... optionalParams)
+	{
+		String baseURL = "https://api.twitter.com/1.1/users/show.json";
+		
+		Map<String, String> parameterMap = new TreeMap<String, String>();
+		parameterMap.put("screen_name", screenName);
+		addOptionalParametersToParameterMap(parameterMap, optionalParams);
+
+		return get(baseURL, parameterMap);
+	}
+	
+	public String GETuserssearch(String q, String... optionalParams)
+	{
+		String baseURL = "https://api.twitter.com/1.1/users/search.json";
+		Map<String, String> parameterMap = new TreeMap<String, String>();
+		parameterMap.put("q", q);
+		addOptionalParametersToParameterMap(parameterMap, optionalParams);
+		return get(baseURL, parameterMap);
+	}
 }

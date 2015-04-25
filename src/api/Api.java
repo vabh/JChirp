@@ -1,13 +1,8 @@
 package api;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
-import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
-import org.apache.commons.codec.net.URLCodec;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +10,7 @@ import org.json.JSONObject;
 import requests.rest.RateRequests;
 import requests.rest.StatusesRequests;
 import requests.rest.UsersRequests;
+import twitterObjects.IDCollection;
 import twitterObjects.Rates;
 import twitterObjects.Tweets;
 import twitterObjects.Users;
@@ -143,6 +139,14 @@ public class Api {
 		return tweetObjectArrayCreator(response.get("statuses").toString());
 		//search_metadata is not returned right now, should it?
 	}
+	
+	public Users[] GETuserssearch(String q, Object... optionalParams)
+	{
+		String response = usersRequests.GETuserssearch(q, objectArrayToStringArray(optionalParams));
+		return userObjectArrayCreator(response);
+	}
+	
+	
 	public void GETdirect_messages()
 	{
 
@@ -159,14 +163,30 @@ public class Api {
 	{
 
 	}
-	public void GETfriendsids()
+	public IDCollection GETfriendsidsByUserID(String userID, Object... optionalParams)
 	{
-		//todo
+		String r = usersRequests.GETfriendsidsByUserID(userID, objectArrayToStringArray(optionalParams));
+		return new IDCollection(r);
 	}
-	public void GETfollowersids()
+	
+	public IDCollection GETfriendsidsByScreenName(String screenName, Object... optionalParams)
 	{
-		//todo
+		String r = usersRequests.GETfriendsidsByScreenName(screenName, objectArrayToStringArray(optionalParams));
+		return new IDCollection(r);
 	}
+	
+	public IDCollection GETfollowersidsByUserID(String userID, Object... optionalParams)
+	{
+		String r = usersRequests.GETfollowersidsByUserID(userID, objectArrayToStringArray(optionalParams));
+		return new IDCollection(r);
+	}
+	
+	public IDCollection GETfollowersidsByScreenName(String screenName, Object... optionalParams)
+	{
+		String r = usersRequests.GETfollowersidsByScreenName(screenName, objectArrayToStringArray(optionalParams));
+		return new IDCollection(r);
+	}
+	
 	public void GETfriendshipsincoming()
 	{
 
@@ -270,14 +290,16 @@ public class Api {
 		return userObjectArrayCreator(res);
 	}
 
-	public void GETusersshow()
+	public Users GETusersshowByUserID(String userID, Object... optionalParams)
 	{
-		//todo
+		return new Users(usersRequests.GETusersshowByUserID(userID, objectArrayToStringArray(optionalParams)));
 	}
-	public void GETuserssearch()
+	
+	public Users GETusersshowByScreenName(String screenName, Object... optionalParams)
 	{
-		//todo
+		return new Users(usersRequests.GETusersshowByScreenName(screenName, objectArrayToStringArray(optionalParams)));
 	}
+	
 	public void POSTaccountremove_profile_banner()
 	{
 
@@ -448,27 +470,11 @@ public class Api {
 	}
 	public Rates GETapplicationrate_limit_status(String types[])
 	{
-		String result =  rateRequests.getRateLimitStatus(types);		
-
-		try {
-			return new Rates(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		return new Rates(rateRequests.getRateLimitStatus(types));
 	}
 	public Rates GETapplicationrate_limit_status()
 	{
-		try
-		{
-			String result =  rateRequests.getRateLimitStatus();		
-			return new Rates(result);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return null;
+		return new Rates(rateRequests.getRateLimitStatus());
 	}
 
 	public void GEThelpconfiguration()

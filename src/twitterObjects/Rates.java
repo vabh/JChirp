@@ -7,35 +7,43 @@ import org.json.JSONObject;
 
 public class Rates {
 	Pattern fieldNameSplitter = Pattern.compile("[/_]");
-	public Rates (String jsonString) throws InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException
+	public Rates (String jsonString)
 	{
-		JSONObject outerJSON = new JSONObject(jsonString).getJSONObject("resources");
-		Iterator<?> outerKeysIterator = outerJSON.keys();
-
-		while(outerKeysIterator.hasNext())
+		try
 		{
-			String level1String = (String)outerKeysIterator.next();
-			JSONObject level2JSON = outerJSON.getJSONObject(level1String);
-			Iterator<?> level2Iterator = level2JSON.keys();
-
-			while(level2Iterator.hasNext())
+			JSONObject outerJSON = new JSONObject(jsonString).getJSONObject("resources");
+			Iterator<?> outerKeysIterator = outerJSON.keys();
+	
+			while(outerKeysIterator.hasNext())
 			{
-				String level2String = (String)level2Iterator.next();
-
-				String fieldName = level2String;
-				level2String = level2String.replaceAll(":", "").substring(1);
-
-				StringBuilder fieldNameBuilder = new StringBuilder();
-				for(String w : fieldNameSplitter.split(level2String))
-					fieldNameBuilder.append(w.substring(0, 1).toUpperCase() + w.substring(1));
-
-				String formattedFieldName = fieldNameBuilder.substring(0, 1).toLowerCase() + fieldNameBuilder.substring(1);
-
-				JSONObject rateValues = level2JSON.getJSONObject(fieldName);
-				BasicRateObject rateItem = new BasicRateObject(rateValues.getInt("limit"),rateValues.getInt("remaining"),rateValues.getInt("reset"));
-				getClass().getField(formattedFieldName).set(this, rateItem);
+				String level1String = (String)outerKeysIterator.next();
+				JSONObject level2JSON = outerJSON.getJSONObject(level1String);
+				Iterator<?> level2Iterator = level2JSON.keys();
+	
+				while(level2Iterator.hasNext())
+				{
+					String level2String = (String)level2Iterator.next();
+	
+					String fieldName = level2String;
+					level2String = level2String.replaceAll(":", "").substring(1);
+	
+					StringBuilder fieldNameBuilder = new StringBuilder();
+					for(String w : fieldNameSplitter.split(level2String))
+						fieldNameBuilder.append(w.substring(0, 1).toUpperCase() + w.substring(1));
+	
+					String formattedFieldName = fieldNameBuilder.substring(0, 1).toLowerCase() + fieldNameBuilder.substring(1);
+	
+					JSONObject rateValues = level2JSON.getJSONObject(fieldName);
+					BasicRateObject rateItem = new BasicRateObject(rateValues.getInt("limit"),rateValues.getInt("remaining"),rateValues.getInt("reset"));
+					getClass().getField(formattedFieldName).set(this, rateItem);
+				}
 			}
 		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 	}
 
 

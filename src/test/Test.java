@@ -82,8 +82,30 @@ public class Test {
 				for(Tweets t : api.GETsearchtweets("net neutrality", "result_type,count,since_id,", "popular", 100, 12345))
 					System.out.println(t.text);
 					
-					
 				
+				
+				//follower ids by uid
+				System.out.println(api.GETfollowersidsByUserID("18839785"));
+				System.out.println(api.GETfollowersidsByUserID("18839785","cursor", 1499397628062133319L));
+				//follower ids by screenname
+				System.out.println(api.GETfollowersidsByScreenName("mourjo_sen"));
+				
+				//friends by id
+				System.out.println(api.GETfriendsidsByUserID("18839785").ids[0]);
+				System.out.println(api.GETfriendsidsByUserID("18839785"));
+				//friends by screenname
+				System.out.println(api.GETfriendsidsByScreenName("anuvabh18", "stringify_ids", true));
+				
+				
+				//users/show
+				System.out.println(api.GETusersshowByUserID("18839785","include_entities",false));
+				System.out.println(api.GETusersshowByScreenName("nytimes").description);
+				
+				
+				
+				//users/search
+				for(Users u : api.GETuserssearch("kolkata -atletico -kkr"))
+					System.out.println(u.screen_name);
 				
 				
 			}catch (Exception e){
