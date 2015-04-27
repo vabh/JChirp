@@ -1,8 +1,5 @@
 package twitterObjects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -37,8 +34,12 @@ public class IDCollection {
 		s.replace(s.length()-2, s.length(), "");
 		
 		s.append("\n");
-		s.append("next_cursor: " + nextCursor + "\n");
-		s.append("previous_cursor: " + previousCursor + "\n");
+		s.append("next_cursor: ");
+		s.append(nextCursor);
+		s.append("\n");
+		s.append("previous_cursor: ");
+		s.append(previousCursor);
+		s.append("\n");
 		
 		return s.toString();
 	}
