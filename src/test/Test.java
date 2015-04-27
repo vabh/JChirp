@@ -106,6 +106,10 @@ public class Test {
 				//users/search
 				for(Users u : api.GETuserssearch("kolkata -atletico -kkr"))
 					System.out.println(u.screen_name);
+					
+					
+				
+				
 				
 				
 			}catch (Exception e){

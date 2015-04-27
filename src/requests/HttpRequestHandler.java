@@ -1,6 +1,5 @@
 package requests;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +37,9 @@ public class HttpRequestHandler extends JSONHandler{
 	{
 		try
 		{
-			String encodedBaseURL = "POST&" + authenticator.percentEncode(baseURL) + "&";
+			StringBuilder encodedBaseURL = new StringBuilder("POST&");
+			encodedBaseURL.append(authenticator.percentEncode(baseURL));
+			encodedBaseURL.append("&");
 
 			List<NameValuePair> postPrameters = new ArrayList<NameValuePair>();
 			for(String parameterName : parameterMap.keySet())
@@ -52,33 +53,26 @@ public class HttpRequestHandler extends JSONHandler{
 				httpPost.setEntity(new UrlEncodedFormEntity(postPrameters));
 
 			httpPost.setHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
-			httpPost.addHeader("Authorization", authenticator.generateAuthenticationHeader(encodedBaseURL, parameterMap));
+			httpPost.addHeader("Authorization", authenticator.generateAuthenticationHeader(encodedBaseURL.toString(), parameterMap));
 
 
 			CloseableHttpResponse response = httpclient.execute(httpPost);
 			String responseData = null;
 
-			try 
+			HttpEntity entity = response.getEntity();
+			if (entity != null) 
 			{
-				HttpEntity entity = response.getEntity();
-
-				InputStream instream = entity.getContent();
 				try 
 				{
+					entity.getContent();
 					responseData = EntityUtils.toString(entity);
 				} 
 				finally 
 				{
-					instream.close();
 					EntityUtils.consume(entity);
+					response.close();
 				}
-
-			} 
-			finally 
-			{
-				response.close();
 			}
-
 			return responseData;
 		}
 		catch(InvalidAttributesException e)
@@ -97,41 +91,44 @@ public class HttpRequestHandler extends JSONHandler{
 	{
 		try
 		{
-			String encodedBaseURL = "GET&" + authenticator.percentEncode(baseURL) + "&";
-			String url = baseURL + "?";
+			StringBuilder encodedBaseURL = new StringBuilder("GET&");
+			encodedBaseURL.append(authenticator.percentEncode(baseURL));
+			encodedBaseURL.append("&");
+			
+			StringBuffer urlBuilder = new StringBuffer(baseURL);
+			urlBuilder.append("?");
 			
 			for(String parameterName : parameterMap.keySet())
-				url += authenticator.percentEncode(parameterName) + "=" + authenticator.percentEncode(parameterMap.get(parameterName)) + "&";
-			url = url.substring(0, url.length()-1);
+			{
+				urlBuilder.append(authenticator.percentEncode(parameterName));
+				urlBuilder.append("=");
+				urlBuilder.append(authenticator.percentEncode(parameterMap.get(parameterName)));
+				urlBuilder.append("&");
+			}
+			String url = urlBuilder.substring(0, urlBuilder.length()-1);
+			
 			
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			HttpGet httpGet = new HttpGet(url);
 
-			httpGet.addHeader("Authorization", authenticator.generateAuthenticationHeader(encodedBaseURL, parameterMap));
+			httpGet.addHeader("Authorization", authenticator.generateAuthenticationHeader(encodedBaseURL.toString(), parameterMap));
 
 			CloseableHttpResponse response = httpclient.execute(httpGet);
 			String responseData = null;
 
-			try
+			HttpEntity entity = response.getEntity();
+			if (entity != null) 
 			{
-				HttpEntity entity = response.getEntity();
-				if (entity != null) 
+				try 
 				{
-					InputStream instream = entity.getContent();
-					try 
-					{
-						responseData = EntityUtils.toString(entity);
-					} 
-					finally 
-					{
-						instream.close();
-						EntityUtils.consume(entity);
-					}
+					entity.getContent();
+					responseData = EntityUtils.toString(entity);
+				} 
+				finally 
+				{
+					EntityUtils.consume(entity);
+					response.close();
 				}
-			}
-			finally
-			{
-				response.close();
 			}
 			return responseData;
 		}
@@ -146,7 +143,7 @@ public class HttpRequestHandler extends JSONHandler{
 		}
 		return "";
 	}
-
+	
 	protected void addOptionalParametersToParameterMap(Map<String, String> parameterMap, String... optionalParams)
 	{
 		if(optionalParams.length > 0)

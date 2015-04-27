@@ -49,7 +49,7 @@ public class StatusesRequests extends HttpRequestHandler{
 		String baseURL = "https://api.twitter.com/1.1/statuses/retweets/" + id + ".json";
 		Map<String, String> parameterMap = new TreeMap<String, String>();
 		addOptionalParametersToParameterMap(parameterMap, optionalParams);
-
+		
 		return get(baseURL, parameterMap);
 	}
 
