@@ -69,6 +69,87 @@ public class Rates {
 	@Override
 	public String toString()
 	{
+		StringBuilder s = new StringBuilder();
+
+		s.append((accountLoginVerificationEnrollment == null ? "" : new StringBuilder("accountLoginVerificationEnrollment: " ).append( accountLoginVerificationEnrollment.toString())));
+		s.append((accountSettings == null ? "" : new StringBuilder("accountSettings: " ).append( accountSettings.toString())));
+		s.append((accountUpdateProfile == null ? "" : new StringBuilder("accountUpdateProfile: " ).append( accountUpdateProfile.toString())));
+		s.append((accountVerifyCredentials == null ? "" : new StringBuilder("accountVerifyCredentials: " ).append( accountVerifyCredentials.toString())));
+		s.append((applicationRateLimitStatus == null ? "" : new StringBuilder("applicationRateLimitStatus: " ).append( applicationRateLimitStatus.toString())));
+		s.append((blocksIds == null ? "" : new StringBuilder("blocksIds: " ).append( blocksIds.toString())));
+		s.append((blocksList == null ? "" : new StringBuilder("blocksList: " ).append( blocksList.toString())));
+		s.append((contactsAddressbook == null ? "" : new StringBuilder("contactsAddressbook: " ).append( contactsAddressbook.toString())));
+		s.append((contactsDeleteStatus == null ? "" : new StringBuilder("contactsDeleteStatus: " ).append( contactsDeleteStatus.toString())));
+		s.append((contactsUploadedBy == null ? "" : new StringBuilder("contactsUploadedBy: " ).append( contactsUploadedBy.toString())));
+		s.append((contactsUsers == null ? "" : new StringBuilder("contactsUsers: " ).append( contactsUsers.toString())));
+		s.append((contactsUsersAndUploadedBy == null ? "" : new StringBuilder("contactsUsersAndUploadedBy: " ).append( contactsUsersAndUploadedBy.toString())));
+		s.append((deviceToken == null ? "" : new StringBuilder("deviceToken: " ).append( deviceToken.toString())));
+		s.append((directMessages == null ? "" : new StringBuilder("directMessages: " ).append( directMessages.toString())));
+		s.append((directMessagesSent == null ? "" : new StringBuilder("directMessagesSent: " ).append( directMessagesSent.toString())));
+		s.append((directMessagesSentAndReceived == null ? "" : new StringBuilder("directMessagesSentAndReceived: " ).append( directMessagesSentAndReceived.toString())));
+		s.append((directMessagesShow == null ? "" : new StringBuilder("directMessagesShow: " ).append( directMessagesShow.toString())));
+		s.append((favoritesList == null ? "" : new StringBuilder("favoritesList: " ).append( favoritesList.toString())));
+		s.append((followersIds == null ? "" : new StringBuilder("followersIds: " ).append( followersIds.toString())));
+		s.append((followersList == null ? "" : new StringBuilder("followersList: " ).append( followersList.toString())));
+		s.append((friendsFollowingIds == null ? "" : new StringBuilder("friendsFollowingIds: " ).append( friendsFollowingIds.toString())));
+		s.append((friendsFollowingList == null ? "" : new StringBuilder("friendsFollowingList: " ).append( friendsFollowingList.toString())));
+		s.append((friendsIds == null ? "" : new StringBuilder("friendsIds: " ).append( friendsIds.toString())));
+		s.append((friendsList == null ? "" : new StringBuilder("friendsList: " ).append( friendsList.toString())));
+		s.append((friendshipsIncoming == null ? "" : new StringBuilder("friendshipsIncoming: " ).append( friendshipsIncoming.toString())));
+		s.append((friendshipsLookup == null ? "" : new StringBuilder("friendshipsLookup: " ).append( friendshipsLookup.toString())));
+		s.append((friendshipsNoRetweetsIds == null ? "" : new StringBuilder("friendshipsNoRetweetsIds: " ).append( friendshipsNoRetweetsIds.toString())));
+		s.append((friendshipsOutgoing == null ? "" : new StringBuilder("friendshipsOutgoing: " ).append( friendshipsOutgoing.toString())));
+		s.append((friendshipsShow == null ? "" : new StringBuilder("friendshipsShow: " ).append( friendshipsShow.toString())));
+		s.append((geoIdPlaceId == null ? "" : new StringBuilder("geoIdPlaceId: " ).append( geoIdPlaceId.toString())));
+		s.append((geoReverseGeocode == null ? "" : new StringBuilder("geoReverseGeocode: " ).append( geoReverseGeocode.toString())));
+		s.append((geoSearch == null ? "" : new StringBuilder("geoSearch: " ).append( geoSearch.toString())));
+		s.append((geoSimilarPlaces == null ? "" : new StringBuilder("geoSimilarPlaces: " ).append( geoSimilarPlaces.toString())));
+		s.append((helpConfiguration == null ? "" : new StringBuilder("helpConfiguration: " ).append( helpConfiguration.toString())));
+		s.append((helpLanguages == null ? "" : new StringBuilder("helpLanguages: " ).append( helpLanguages.toString())));
+		s.append((helpPrivacy == null ? "" : new StringBuilder("helpPrivacy: " ).append( helpPrivacy.toString())));
+		s.append((helpSettings == null ? "" : new StringBuilder("helpSettings: " ).append( helpSettings.toString())));
+		s.append((helpTos == null ? "" : new StringBuilder("helpTos: " ).append( helpTos.toString())));
+		s.append((listsList == null ? "" : new StringBuilder("listsList: " ).append( listsList.toString())));
+		s.append((listsMembers == null ? "" : new StringBuilder("listsMembers: " ).append( listsMembers.toString())));
+		s.append((listsMembersShow == null ? "" : new StringBuilder("listsMembersShow: " ).append( listsMembersShow.toString())));
+		s.append((listsMemberships == null ? "" : new StringBuilder("listsMemberships: " ).append( listsMemberships.toString())));
+		s.append((listsOwnerships == null ? "" : new StringBuilder("listsOwnerships: " ).append( listsOwnerships.toString())));
+		s.append((listsShow == null ? "" : new StringBuilder("listsShow: " ).append( listsShow.toString())));
+		s.append((listsStatuses == null ? "" : new StringBuilder("listsStatuses: " ).append( listsStatuses.toString())));
+		s.append((listsSubscribers == null ? "" : new StringBuilder("listsSubscribers: " ).append( listsSubscribers.toString())));
+		s.append((listsSubscribersShow == null ? "" : new StringBuilder("listsSubscribersShow: " ).append( listsSubscribersShow.toString())));
+		s.append((listsSubscriptions == null ? "" : new StringBuilder("listsSubscriptions: " ).append( listsSubscriptions.toString())));
+		s.append((mutesUsersIds == null ? "" : new StringBuilder("mutesUsersIds: " ).append( mutesUsersIds.toString())));
+		s.append((mutesUsersList == null ? "" : new StringBuilder("mutesUsersList: " ).append( mutesUsersList.toString())));
+		s.append((savedSearchesDestroyId == null ? "" : new StringBuilder("savedSearchesDestroyId: " ).append( savedSearchesDestroyId.toString())));
+		s.append((savedSearchesList == null ? "" : new StringBuilder("savedSearchesList: " ).append( savedSearchesList.toString())));
+		s.append((savedSearchesShowId == null ? "" : new StringBuilder("savedSearchesShowId: " ).append( savedSearchesShowId.toString())));
+		s.append((searchTweets == null ? "" : new StringBuilder("searchTweets: " ).append( searchTweets.toString())));
+		s.append((statusesFriends == null ? "" : new StringBuilder("statusesFriends: " ).append( statusesFriends.toString())));
+		s.append((statusesHomeTimeline == null ? "" : new StringBuilder("statusesHomeTimeline: " ).append( statusesHomeTimeline.toString())));
+		s.append((statusesLookup == null ? "" : new StringBuilder("statusesLookup: " ).append( statusesLookup.toString())));
+		s.append((statusesMentionsTimeline == null ? "" : new StringBuilder("statusesMentionsTimeline: " ).append( statusesMentionsTimeline.toString())));
+		s.append((statusesOembed == null ? "" : new StringBuilder("statusesOembed: " ).append( statusesOembed.toString())));
+		s.append((statusesRetweetersIds == null ? "" : new StringBuilder("statusesRetweetersIds: " ).append( statusesRetweetersIds.toString())));
+		s.append((statusesRetweetsId == null ? "" : new StringBuilder("statusesRetweetsId: " ).append( statusesRetweetsId.toString())));
+		s.append((statusesRetweetsOfMe == null ? "" : new StringBuilder("statusesRetweetsOfMe: " ).append( statusesRetweetsOfMe.toString())));
+		s.append((statusesShowId == null ? "" : new StringBuilder("statusesShowId: " ).append( statusesShowId.toString())));
+		s.append((statusesUserTimeline == null ? "" : new StringBuilder("statusesUserTimeline: " ).append( statusesUserTimeline.toString())));
+		s.append((trendsAvailable == null ? "" : new StringBuilder("trendsAvailable: " ).append( trendsAvailable.toString())));
+		s.append((trendsClosest == null ? "" : new StringBuilder("trendsClosest: " ).append( trendsClosest.toString())));
+		s.append((trendsPlace == null ? "" : new StringBuilder("trendsPlace: " ).append( trendsPlace.toString())));
+		s.append((usersDerivedInfo == null ? "" : new StringBuilder("usersDerivedInfo: " ).append( usersDerivedInfo.toString())));
+		s.append((usersLookup == null ? "" : new StringBuilder("usersLookup: " ).append( usersLookup.toString())));
+		s.append((usersProfileBanner == null ? "" : new StringBuilder("usersProfileBanner: " ).append( usersProfileBanner.toString())));
+		s.append((usersReportSpam == null ? "" : new StringBuilder("usersReportSpam: " ).append( usersReportSpam.toString())));
+		s.append((usersSearch == null ? "" : new StringBuilder("usersSearch: " ).append( usersSearch.toString())));
+		s.append((usersShowId == null ? "" : new StringBuilder("usersShowId: " ).append( usersShowId.toString())));
+		s.append((usersSuggestions == null ? "" : new StringBuilder("usersSuggestions: " ).append( usersSuggestions.toString())));
+		s.append((usersSuggestionsSlug == null ? "" : new StringBuilder("usersSuggestionsSlug: " ).append( usersSuggestionsSlug.toString())));
+		s.append((usersSuggestionsSlugMembers == null ? "" : new StringBuilder("usersSuggestionsSlugMembers: " ).append( usersSuggestionsSlugMembers.toString())));
+		
+		return s.toString();
+		/*
 		return (accountLoginVerificationEnrollment == null ? "" : "accountLoginVerificationEnrollment: " + accountLoginVerificationEnrollment.toString())+
 				(accountSettings == null ? "" : "accountSettings: " + accountSettings.toString())+
 				(accountUpdateProfile == null ? "" : "accountUpdateProfile: " + accountUpdateProfile.toString())+
@@ -145,6 +226,7 @@ public class Rates {
 				(usersSuggestions == null ? "" : "usersSuggestions: " + usersSuggestions.toString())+
 				(usersSuggestionsSlug == null ? "" : "usersSuggestionsSlug: " + usersSuggestionsSlug.toString())+
 				(usersSuggestionsSlugMembers == null ? "" : "usersSuggestionsSlugMembers: " + usersSuggestionsSlugMembers.toString());
+				*/
 
 	}
 
