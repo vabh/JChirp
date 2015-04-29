@@ -61,7 +61,26 @@ public class Rates {
 		@Override
 		public String toString()
 		{
-			return "Limit=" + limit + ", Remaining=" + remaining + ", Reset=" + reset + "\n";
+			StringBuilder s = new StringBuilder("Limit=");
+			s.append(limit);
+			s.append(", Remaining=");
+			s.append(", Reset=");
+			s.append(reset);
+			s.append("\n");
+			
+			return s.toString();
+		}
+		
+		public StringBuilder toStringBuilder()
+		{
+			StringBuilder s = new StringBuilder("Limit=");
+			s.append(limit);
+			s.append(", Remaining=");
+			s.append(", Reset=");
+			s.append(reset);
+			s.append("\n");
+			
+			return s;
 		}
 
 	}
@@ -70,164 +89,85 @@ public class Rates {
 	public String toString()
 	{
 		StringBuilder s = new StringBuilder();
-
-		s.append((accountLoginVerificationEnrollment == null ? "" : new StringBuilder("accountLoginVerificationEnrollment: " ).append( accountLoginVerificationEnrollment.toString())));
-		s.append((accountSettings == null ? "" : new StringBuilder("accountSettings: " ).append( accountSettings.toString())));
-		s.append((accountUpdateProfile == null ? "" : new StringBuilder("accountUpdateProfile: " ).append( accountUpdateProfile.toString())));
-		s.append((accountVerifyCredentials == null ? "" : new StringBuilder("accountVerifyCredentials: " ).append( accountVerifyCredentials.toString())));
-		s.append((applicationRateLimitStatus == null ? "" : new StringBuilder("applicationRateLimitStatus: " ).append( applicationRateLimitStatus.toString())));
-		s.append((blocksIds == null ? "" : new StringBuilder("blocksIds: " ).append( blocksIds.toString())));
-		s.append((blocksList == null ? "" : new StringBuilder("blocksList: " ).append( blocksList.toString())));
-		s.append((contactsAddressbook == null ? "" : new StringBuilder("contactsAddressbook: " ).append( contactsAddressbook.toString())));
-		s.append((contactsDeleteStatus == null ? "" : new StringBuilder("contactsDeleteStatus: " ).append( contactsDeleteStatus.toString())));
-		s.append((contactsUploadedBy == null ? "" : new StringBuilder("contactsUploadedBy: " ).append( contactsUploadedBy.toString())));
-		s.append((contactsUsers == null ? "" : new StringBuilder("contactsUsers: " ).append( contactsUsers.toString())));
-		s.append((contactsUsersAndUploadedBy == null ? "" : new StringBuilder("contactsUsersAndUploadedBy: " ).append( contactsUsersAndUploadedBy.toString())));
-		s.append((deviceToken == null ? "" : new StringBuilder("deviceToken: " ).append( deviceToken.toString())));
-		s.append((directMessages == null ? "" : new StringBuilder("directMessages: " ).append( directMessages.toString())));
-		s.append((directMessagesSent == null ? "" : new StringBuilder("directMessagesSent: " ).append( directMessagesSent.toString())));
-		s.append((directMessagesSentAndReceived == null ? "" : new StringBuilder("directMessagesSentAndReceived: " ).append( directMessagesSentAndReceived.toString())));
-		s.append((directMessagesShow == null ? "" : new StringBuilder("directMessagesShow: " ).append( directMessagesShow.toString())));
-		s.append((favoritesList == null ? "" : new StringBuilder("favoritesList: " ).append( favoritesList.toString())));
-		s.append((followersIds == null ? "" : new StringBuilder("followersIds: " ).append( followersIds.toString())));
-		s.append((followersList == null ? "" : new StringBuilder("followersList: " ).append( followersList.toString())));
-		s.append((friendsFollowingIds == null ? "" : new StringBuilder("friendsFollowingIds: " ).append( friendsFollowingIds.toString())));
-		s.append((friendsFollowingList == null ? "" : new StringBuilder("friendsFollowingList: " ).append( friendsFollowingList.toString())));
-		s.append((friendsIds == null ? "" : new StringBuilder("friendsIds: " ).append( friendsIds.toString())));
-		s.append((friendsList == null ? "" : new StringBuilder("friendsList: " ).append( friendsList.toString())));
-		s.append((friendshipsIncoming == null ? "" : new StringBuilder("friendshipsIncoming: " ).append( friendshipsIncoming.toString())));
-		s.append((friendshipsLookup == null ? "" : new StringBuilder("friendshipsLookup: " ).append( friendshipsLookup.toString())));
-		s.append((friendshipsNoRetweetsIds == null ? "" : new StringBuilder("friendshipsNoRetweetsIds: " ).append( friendshipsNoRetweetsIds.toString())));
-		s.append((friendshipsOutgoing == null ? "" : new StringBuilder("friendshipsOutgoing: " ).append( friendshipsOutgoing.toString())));
-		s.append((friendshipsShow == null ? "" : new StringBuilder("friendshipsShow: " ).append( friendshipsShow.toString())));
-		s.append((geoIdPlaceId == null ? "" : new StringBuilder("geoIdPlaceId: " ).append( geoIdPlaceId.toString())));
-		s.append((geoReverseGeocode == null ? "" : new StringBuilder("geoReverseGeocode: " ).append( geoReverseGeocode.toString())));
-		s.append((geoSearch == null ? "" : new StringBuilder("geoSearch: " ).append( geoSearch.toString())));
-		s.append((geoSimilarPlaces == null ? "" : new StringBuilder("geoSimilarPlaces: " ).append( geoSimilarPlaces.toString())));
-		s.append((helpConfiguration == null ? "" : new StringBuilder("helpConfiguration: " ).append( helpConfiguration.toString())));
-		s.append((helpLanguages == null ? "" : new StringBuilder("helpLanguages: " ).append( helpLanguages.toString())));
-		s.append((helpPrivacy == null ? "" : new StringBuilder("helpPrivacy: " ).append( helpPrivacy.toString())));
-		s.append((helpSettings == null ? "" : new StringBuilder("helpSettings: " ).append( helpSettings.toString())));
-		s.append((helpTos == null ? "" : new StringBuilder("helpTos: " ).append( helpTos.toString())));
-		s.append((listsList == null ? "" : new StringBuilder("listsList: " ).append( listsList.toString())));
-		s.append((listsMembers == null ? "" : new StringBuilder("listsMembers: " ).append( listsMembers.toString())));
-		s.append((listsMembersShow == null ? "" : new StringBuilder("listsMembersShow: " ).append( listsMembersShow.toString())));
-		s.append((listsMemberships == null ? "" : new StringBuilder("listsMemberships: " ).append( listsMemberships.toString())));
-		s.append((listsOwnerships == null ? "" : new StringBuilder("listsOwnerships: " ).append( listsOwnerships.toString())));
-		s.append((listsShow == null ? "" : new StringBuilder("listsShow: " ).append( listsShow.toString())));
-		s.append((listsStatuses == null ? "" : new StringBuilder("listsStatuses: " ).append( listsStatuses.toString())));
-		s.append((listsSubscribers == null ? "" : new StringBuilder("listsSubscribers: " ).append( listsSubscribers.toString())));
-		s.append((listsSubscribersShow == null ? "" : new StringBuilder("listsSubscribersShow: " ).append( listsSubscribersShow.toString())));
-		s.append((listsSubscriptions == null ? "" : new StringBuilder("listsSubscriptions: " ).append( listsSubscriptions.toString())));
-		s.append((mutesUsersIds == null ? "" : new StringBuilder("mutesUsersIds: " ).append( mutesUsersIds.toString())));
-		s.append((mutesUsersList == null ? "" : new StringBuilder("mutesUsersList: " ).append( mutesUsersList.toString())));
-		s.append((savedSearchesDestroyId == null ? "" : new StringBuilder("savedSearchesDestroyId: " ).append( savedSearchesDestroyId.toString())));
-		s.append((savedSearchesList == null ? "" : new StringBuilder("savedSearchesList: " ).append( savedSearchesList.toString())));
-		s.append((savedSearchesShowId == null ? "" : new StringBuilder("savedSearchesShowId: " ).append( savedSearchesShowId.toString())));
-		s.append((searchTweets == null ? "" : new StringBuilder("searchTweets: " ).append( searchTweets.toString())));
-		s.append((statusesFriends == null ? "" : new StringBuilder("statusesFriends: " ).append( statusesFriends.toString())));
-		s.append((statusesHomeTimeline == null ? "" : new StringBuilder("statusesHomeTimeline: " ).append( statusesHomeTimeline.toString())));
-		s.append((statusesLookup == null ? "" : new StringBuilder("statusesLookup: " ).append( statusesLookup.toString())));
-		s.append((statusesMentionsTimeline == null ? "" : new StringBuilder("statusesMentionsTimeline: " ).append( statusesMentionsTimeline.toString())));
-		s.append((statusesOembed == null ? "" : new StringBuilder("statusesOembed: " ).append( statusesOembed.toString())));
-		s.append((statusesRetweetersIds == null ? "" : new StringBuilder("statusesRetweetersIds: " ).append( statusesRetweetersIds.toString())));
-		s.append((statusesRetweetsId == null ? "" : new StringBuilder("statusesRetweetsId: " ).append( statusesRetweetsId.toString())));
-		s.append((statusesRetweetsOfMe == null ? "" : new StringBuilder("statusesRetweetsOfMe: " ).append( statusesRetweetsOfMe.toString())));
-		s.append((statusesShowId == null ? "" : new StringBuilder("statusesShowId: " ).append( statusesShowId.toString())));
-		s.append((statusesUserTimeline == null ? "" : new StringBuilder("statusesUserTimeline: " ).append( statusesUserTimeline.toString())));
-		s.append((trendsAvailable == null ? "" : new StringBuilder("trendsAvailable: " ).append( trendsAvailable.toString())));
-		s.append((trendsClosest == null ? "" : new StringBuilder("trendsClosest: " ).append( trendsClosest.toString())));
-		s.append((trendsPlace == null ? "" : new StringBuilder("trendsPlace: " ).append( trendsPlace.toString())));
-		s.append((usersDerivedInfo == null ? "" : new StringBuilder("usersDerivedInfo: " ).append( usersDerivedInfo.toString())));
-		s.append((usersLookup == null ? "" : new StringBuilder("usersLookup: " ).append( usersLookup.toString())));
-		s.append((usersProfileBanner == null ? "" : new StringBuilder("usersProfileBanner: " ).append( usersProfileBanner.toString())));
-		s.append((usersReportSpam == null ? "" : new StringBuilder("usersReportSpam: " ).append( usersReportSpam.toString())));
-		s.append((usersSearch == null ? "" : new StringBuilder("usersSearch: " ).append( usersSearch.toString())));
-		s.append((usersShowId == null ? "" : new StringBuilder("usersShowId: " ).append( usersShowId.toString())));
-		s.append((usersSuggestions == null ? "" : new StringBuilder("usersSuggestions: " ).append( usersSuggestions.toString())));
-		s.append((usersSuggestionsSlug == null ? "" : new StringBuilder("usersSuggestionsSlug: " ).append( usersSuggestionsSlug.toString())));
-		s.append((usersSuggestionsSlugMembers == null ? "" : new StringBuilder("usersSuggestionsSlugMembers: " ).append( usersSuggestionsSlugMembers.toString())));
+		
+		if(accountLoginVerificationEnrollment != null){s.append("accountLoginVerificationEnrollment: " ); s.append( accountLoginVerificationEnrollment.toStringBuilder());}
+		if(accountSettings != null){s.append("accountSettings: " ); s.append( accountSettings.toStringBuilder());}
+		if(accountUpdateProfile != null){s.append("accountUpdateProfile: " ); s.append( accountUpdateProfile.toStringBuilder());}
+		if(accountVerifyCredentials != null){s.append("accountVerifyCredentials: " ); s.append( accountVerifyCredentials.toStringBuilder());}
+		if(applicationRateLimitStatus != null){s.append("applicationRateLimitStatus: " ); s.append( applicationRateLimitStatus.toStringBuilder());}
+		if(blocksIds != null){s.append("blocksIds: " ); s.append( blocksIds.toStringBuilder());}
+		if(blocksList != null){s.append("blocksList: " ); s.append( blocksList.toStringBuilder());}
+		if(contactsAddressbook != null){s.append("contactsAddressbook: " ); s.append( contactsAddressbook.toStringBuilder());}
+		if(contactsDeleteStatus != null){s.append("contactsDeleteStatus: " ); s.append( contactsDeleteStatus.toStringBuilder());}
+		if(contactsUploadedBy != null){s.append("contactsUploadedBy: " ); s.append( contactsUploadedBy.toStringBuilder());}
+		if(contactsUsers != null){s.append("contactsUsers: " ); s.append( contactsUsers.toStringBuilder());}
+		if(contactsUsersAndUploadedBy != null){s.append("contactsUsersAndUploadedBy: " ); s.append( contactsUsersAndUploadedBy.toStringBuilder());}
+		if(deviceToken != null){s.append("deviceToken: " ); s.append( deviceToken.toStringBuilder());}
+		if(directMessages != null){s.append("directMessages: " ); s.append( directMessages.toStringBuilder());}
+		if(directMessagesSent != null){s.append("directMessagesSent: " ); s.append( directMessagesSent.toStringBuilder());}
+		if(directMessagesSentAndReceived != null){s.append("directMessagesSentAndReceived: " ); s.append( directMessagesSentAndReceived.toStringBuilder());}
+		if(directMessagesShow != null){s.append("directMessagesShow: " ); s.append( directMessagesShow.toStringBuilder());}
+		if(favoritesList != null){s.append("favoritesList: " ); s.append( favoritesList.toStringBuilder());}
+		if(followersIds != null){s.append("followersIds: " ); s.append( followersIds.toStringBuilder());}
+		if(followersList != null){s.append("followersList: " ); s.append( followersList.toStringBuilder());}
+		if(friendsFollowingIds != null){s.append("friendsFollowingIds: " ); s.append( friendsFollowingIds.toStringBuilder());}
+		if(friendsFollowingList != null){s.append("friendsFollowingList: " ); s.append( friendsFollowingList.toStringBuilder());}
+		if(friendsIds != null){s.append("friendsIds: " ); s.append( friendsIds.toStringBuilder());}
+		if(friendsList != null){s.append("friendsList: " ); s.append( friendsList.toStringBuilder());}
+		if(friendshipsIncoming != null){s.append("friendshipsIncoming: " ); s.append( friendshipsIncoming.toStringBuilder());}
+		if(friendshipsLookup != null){s.append("friendshipsLookup: " ); s.append( friendshipsLookup.toStringBuilder());}
+		if(friendshipsNoRetweetsIds != null){s.append("friendshipsNoRetweetsIds: " ); s.append( friendshipsNoRetweetsIds.toStringBuilder());}
+		if(friendshipsOutgoing != null){s.append("friendshipsOutgoing: " ); s.append( friendshipsOutgoing.toStringBuilder());}
+		if(friendshipsShow != null){s.append("friendshipsShow: " ); s.append( friendshipsShow.toStringBuilder());}
+		if(geoIdPlaceId != null){s.append("geoIdPlaceId: " ); s.append( geoIdPlaceId.toStringBuilder());}
+		if(geoReverseGeocode != null){s.append("geoReverseGeocode: " ); s.append( geoReverseGeocode.toStringBuilder());}
+		if(geoSearch != null){s.append("geoSearch: " ); s.append( geoSearch.toStringBuilder());}
+		if(geoSimilarPlaces != null){s.append("geoSimilarPlaces: " ); s.append( geoSimilarPlaces.toStringBuilder());}
+		if(helpConfiguration != null){s.append("helpConfiguration: " ); s.append( helpConfiguration.toStringBuilder());}
+		if(helpLanguages != null){s.append("helpLanguages: " ); s.append( helpLanguages.toStringBuilder());}
+		if(helpPrivacy != null){s.append("helpPrivacy: " ); s.append( helpPrivacy.toStringBuilder());}
+		if(helpSettings != null){s.append("helpSettings: " ); s.append( helpSettings.toStringBuilder());}
+		if(helpTos != null){s.append("helpTos: " ); s.append( helpTos.toStringBuilder());}
+		if(listsList != null){s.append("listsList: " ); s.append( listsList.toStringBuilder());}
+		if(listsMembers != null){s.append("listsMembers: " ); s.append( listsMembers.toStringBuilder());}
+		if(listsMembersShow != null){s.append("listsMembersShow: " ); s.append( listsMembersShow.toStringBuilder());}
+		if(listsMemberships != null){s.append("listsMemberships: " ); s.append( listsMemberships.toStringBuilder());}
+		if(listsOwnerships != null){s.append("listsOwnerships: " ); s.append( listsOwnerships.toStringBuilder());}
+		if(listsShow != null){s.append("listsShow: " ); s.append( listsShow.toStringBuilder());}
+		if(listsStatuses != null){s.append("listsStatuses: " ); s.append( listsStatuses.toStringBuilder());}
+		if(listsSubscribers != null){s.append("listsSubscribers: " ); s.append( listsSubscribers.toStringBuilder());}
+		if(listsSubscribersShow != null){s.append("listsSubscribersShow: " ); s.append( listsSubscribersShow.toStringBuilder());}
+		if(listsSubscriptions != null){s.append("listsSubscriptions: " ); s.append( listsSubscriptions.toStringBuilder());}
+		if(mutesUsersIds != null){s.append("mutesUsersIds: " ); s.append( mutesUsersIds.toStringBuilder());}
+		if(mutesUsersList != null){s.append("mutesUsersList: " ); s.append( mutesUsersList.toStringBuilder());}
+		if(savedSearchesDestroyId != null){s.append("savedSearchesDestroyId: " ); s.append( savedSearchesDestroyId.toStringBuilder());}
+		if(savedSearchesList != null){s.append("savedSearchesList: " ); s.append( savedSearchesList.toStringBuilder());}
+		if(savedSearchesShowId != null){s.append("savedSearchesShowId: " ); s.append( savedSearchesShowId.toStringBuilder());}
+		if(searchTweets != null){s.append("searchTweets: " ); s.append( searchTweets.toStringBuilder());}
+		if(statusesFriends != null){s.append("statusesFriends: " ); s.append( statusesFriends.toStringBuilder());}
+		if(statusesHomeTimeline != null){s.append("statusesHomeTimeline: " ); s.append( statusesHomeTimeline.toStringBuilder());}
+		if(statusesLookup != null){s.append("statusesLookup: " ); s.append( statusesLookup.toStringBuilder());}
+		if(statusesMentionsTimeline != null){s.append("statusesMentionsTimeline: " ); s.append( statusesMentionsTimeline.toStringBuilder());}
+		if(statusesOembed != null){s.append("statusesOembed: " ); s.append( statusesOembed.toStringBuilder());}
+		if(statusesRetweetersIds != null){s.append("statusesRetweetersIds: " ); s.append( statusesRetweetersIds.toStringBuilder());}
+		if(statusesRetweetsId != null){s.append("statusesRetweetsId: " ); s.append( statusesRetweetsId.toStringBuilder());}
+		if(statusesRetweetsOfMe != null){s.append("statusesRetweetsOfMe: " ); s.append( statusesRetweetsOfMe.toStringBuilder());}
+		if(statusesShowId != null){s.append("statusesShowId: " ); s.append( statusesShowId.toStringBuilder());}
+		if(statusesUserTimeline != null){s.append("statusesUserTimeline: " ); s.append( statusesUserTimeline.toStringBuilder());}
+		if(trendsAvailable != null){s.append("trendsAvailable: " ); s.append( trendsAvailable.toStringBuilder());}
+		if(trendsClosest != null){s.append("trendsClosest: " ); s.append( trendsClosest.toStringBuilder());}
+		if(trendsPlace != null){s.append("trendsPlace: " ); s.append( trendsPlace.toStringBuilder());}
+		if(usersDerivedInfo != null){s.append("usersDerivedInfo: " ); s.append( usersDerivedInfo.toStringBuilder());}
+		if(usersLookup != null){s.append("usersLookup: " ); s.append( usersLookup.toStringBuilder());}
+		if(usersProfileBanner != null){s.append("usersProfileBanner: " ); s.append( usersProfileBanner.toStringBuilder());}
+		if(usersReportSpam != null){s.append("usersReportSpam: " ); s.append( usersReportSpam.toStringBuilder());}
+		if(usersSearch != null){s.append("usersSearch: " ); s.append( usersSearch.toStringBuilder());}
+		if(usersShowId != null){s.append("usersShowId: " ); s.append( usersShowId.toStringBuilder());}
+		if(usersSuggestions != null){s.append("usersSuggestions: " ); s.append( usersSuggestions.toStringBuilder());}
+		if(usersSuggestionsSlug != null){s.append("usersSuggestionsSlug: " ); s.append( usersSuggestionsSlug.toStringBuilder());}
+		if(usersSuggestionsSlugMembers != null){s.append("usersSuggestionsSlugMembers: " ); s.append( usersSuggestionsSlugMembers.toStringBuilder());}
 		
 		return s.toString();
-		/*
-		return (accountLoginVerificationEnrollment == null ? "" : "accountLoginVerificationEnrollment: " + accountLoginVerificationEnrollment.toString())+
-				(accountSettings == null ? "" : "accountSettings: " + accountSettings.toString())+
-				(accountUpdateProfile == null ? "" : "accountUpdateProfile: " + accountUpdateProfile.toString())+
-				(accountVerifyCredentials == null ? "" : "accountVerifyCredentials: " + accountVerifyCredentials.toString())+
-				(applicationRateLimitStatus == null ? "" : "applicationRateLimitStatus: " + applicationRateLimitStatus.toString())+
-				(blocksIds == null ? "" : "blocksIds: " + blocksIds.toString())+
-				(blocksList == null ? "" : "blocksList: " + blocksList.toString())+
-				(contactsAddressbook == null ? "" : "contactsAddressbook: " + contactsAddressbook.toString())+
-				(contactsDeleteStatus == null ? "" : "contactsDeleteStatus: " + contactsDeleteStatus.toString())+
-				(contactsUploadedBy == null ? "" : "contactsUploadedBy: " + contactsUploadedBy.toString())+
-				(contactsUsers == null ? "" : "contactsUsers: " + contactsUsers.toString())+
-				(contactsUsersAndUploadedBy == null ? "" : "contactsUsersAndUploadedBy: " + contactsUsersAndUploadedBy.toString())+
-				(deviceToken == null ? "" : "deviceToken: " + deviceToken.toString())+
-				(directMessages == null ? "" : "directMessages: " + directMessages.toString())+
-				(directMessagesSent == null ? "" : "directMessagesSent: " + directMessagesSent.toString())+
-				(directMessagesSentAndReceived == null ? "" : "directMessagesSentAndReceived: " + directMessagesSentAndReceived.toString())+
-				(directMessagesShow == null ? "" : "directMessagesShow: " + directMessagesShow.toString())+
-				(favoritesList == null ? "" : "favoritesList: " + favoritesList.toString())+
-				(followersIds == null ? "" : "followersIds: " + followersIds.toString())+
-				(followersList == null ? "" : "followersList: " + followersList.toString())+
-				(friendsFollowingIds == null ? "" : "friendsFollowingIds: " + friendsFollowingIds.toString())+
-				(friendsFollowingList == null ? "" : "friendsFollowingList: " + friendsFollowingList.toString())+
-				(friendsIds == null ? "" : "friendsIds: " + friendsIds.toString())+
-				(friendsList == null ? "" : "friendsList: " + friendsList.toString())+
-				(friendshipsIncoming == null ? "" : "friendshipsIncoming: " + friendshipsIncoming.toString())+
-				(friendshipsLookup == null ? "" : "friendshipsLookup: " + friendshipsLookup.toString())+
-				(friendshipsNoRetweetsIds == null ? "" : "friendshipsNoRetweetsIds: " + friendshipsNoRetweetsIds.toString())+
-				(friendshipsOutgoing == null ? "" : "friendshipsOutgoing: " + friendshipsOutgoing.toString())+
-				(friendshipsShow == null ? "" : "friendshipsShow: " + friendshipsShow.toString())+
-				(geoIdPlaceId == null ? "" : "geoIdPlaceId: " + geoIdPlaceId.toString())+
-				(geoReverseGeocode == null ? "" : "geoReverseGeocode: " + geoReverseGeocode.toString())+
-				(geoSearch == null ? "" : "geoSearch: " + geoSearch.toString())+
-				(geoSimilarPlaces == null ? "" : "geoSimilarPlaces: " + geoSimilarPlaces.toString())+
-				(helpConfiguration == null ? "" : "helpConfiguration: " + helpConfiguration.toString())+
-				(helpLanguages == null ? "" : "helpLanguages: " + helpLanguages.toString())+
-				(helpPrivacy == null ? "" : "helpPrivacy: " + helpPrivacy.toString())+
-				(helpSettings == null ? "" : "helpSettings: " + helpSettings.toString())+
-				(helpTos == null ? "" : "helpTos: " + helpTos.toString())+
-				(listsList == null ? "" : "listsList: " + listsList.toString())+
-				(listsMembers == null ? "" : "listsMembers: " + listsMembers.toString())+
-				(listsMembersShow == null ? "" : "listsMembersShow: " + listsMembersShow.toString())+
-				(listsMemberships == null ? "" : "listsMemberships: " + listsMemberships.toString())+
-				(listsOwnerships == null ? "" : "listsOwnerships: " + listsOwnerships.toString())+
-				(listsShow == null ? "" : "listsShow: " + listsShow.toString())+
-				(listsStatuses == null ? "" : "listsStatuses: " + listsStatuses.toString())+
-				(listsSubscribers == null ? "" : "listsSubscribers: " + listsSubscribers.toString())+
-				(listsSubscribersShow == null ? "" : "listsSubscribersShow: " + listsSubscribersShow.toString())+
-				(listsSubscriptions == null ? "" : "listsSubscriptions: " + listsSubscriptions.toString())+
-				(mutesUsersIds == null ? "" : "mutesUsersIds: " + mutesUsersIds.toString())+
-				(mutesUsersList == null ? "" : "mutesUsersList: " + mutesUsersList.toString())+
-				(savedSearchesDestroyId == null ? "" : "savedSearchesDestroyId: " + savedSearchesDestroyId.toString())+
-				(savedSearchesList == null ? "" : "savedSearchesList: " + savedSearchesList.toString())+
-				(savedSearchesShowId == null ? "" : "savedSearchesShowId: " + savedSearchesShowId.toString())+
-				(searchTweets == null ? "" : "searchTweets: " + searchTweets.toString())+
-				(statusesFriends == null ? "" : "statusesFriends: " + statusesFriends.toString())+
-				(statusesHomeTimeline == null ? "" : "statusesHomeTimeline: " + statusesHomeTimeline.toString())+
-				(statusesLookup == null ? "" : "statusesLookup: " + statusesLookup.toString())+
-				(statusesMentionsTimeline == null ? "" : "statusesMentionsTimeline: " + statusesMentionsTimeline.toString())+
-				(statusesOembed == null ? "" : "statusesOembed: " + statusesOembed.toString())+
-				(statusesRetweetersIds == null ? "" : "statusesRetweetersIds: " + statusesRetweetersIds.toString())+
-				(statusesRetweetsId == null ? "" : "statusesRetweetsId: " + statusesRetweetsId.toString())+
-				(statusesRetweetsOfMe == null ? "" : "statusesRetweetsOfMe: " + statusesRetweetsOfMe.toString())+
-				(statusesShowId == null ? "" : "statusesShowId: " + statusesShowId.toString())+
-				(statusesUserTimeline == null ? "" : "statusesUserTimeline: " + statusesUserTimeline.toString())+
-				(trendsAvailable == null ? "" : "trendsAvailable: " + trendsAvailable.toString())+
-				(trendsClosest == null ? "" : "trendsClosest: " + trendsClosest.toString())+
-				(trendsPlace == null ? "" : "trendsPlace: " + trendsPlace.toString())+
-				(usersDerivedInfo == null ? "" : "usersDerivedInfo: " + usersDerivedInfo.toString())+
-				(usersLookup == null ? "" : "usersLookup: " + usersLookup.toString())+
-				(usersProfileBanner == null ? "" : "usersProfileBanner: " + usersProfileBanner.toString())+
-				(usersReportSpam == null ? "" : "usersReportSpam: " + usersReportSpam.toString())+
-				(usersSearch == null ? "" : "usersSearch: " + usersSearch.toString())+
-				(usersShowId == null ? "" : "usersShowId: " + usersShowId.toString())+
-				(usersSuggestions == null ? "" : "usersSuggestions: " + usersSuggestions.toString())+
-				(usersSuggestionsSlug == null ? "" : "usersSuggestionsSlug: " + usersSuggestionsSlug.toString())+
-				(usersSuggestionsSlugMembers == null ? "" : "usersSuggestionsSlugMembers: " + usersSuggestionsSlugMembers.toString());
-				*/
-
 	}
 
 	public BasicRateObject accountLoginVerificationEnrollment;

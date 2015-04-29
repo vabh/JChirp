@@ -92,7 +92,9 @@ public class Api {
 	}
 	public Tweets POSTstatusesupdate(String status, Object... optionalParams) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
-		return new Tweets(statusesRequests.POSTstatusesretweetid(status, objectArrayToStringArray(optionalParams)));
+		String s = statusesRequests.POSTstatusesretweetid(status, objectArrayToStringArray(optionalParams));
+//		System.out.println(s);
+		return new Tweets(s);
 	}
 	public void POSTstatusesretweetid()
 	{
@@ -468,7 +470,7 @@ public class Api {
 	{
 		//todo
 	}
-	public Rates GETapplicationrate_limit_status(String types[])
+	public Rates GETapplicationrate_limit_status(String... types)
 	{
 		return new Rates(rateRequests.getRateLimitStatus(types));
 	}

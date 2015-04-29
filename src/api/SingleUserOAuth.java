@@ -78,7 +78,13 @@ public class SingleUserOAuth extends Auth{
 	public String percentEncode(String text)
 	{
 		try {
-			return urlEncoder.encode(text, "UTF-8").replace("+", "%20").replace("*", "%2A").replace("%7E", "~");
+//			System.out.println("has *? "+text.contains("*"));
+			
+			String s = urlEncoder.encode(text, "UTF-8");
+			s = s.replace("+", "%20");
+			s = s.replace("*", "%2A");
+			s = s.replace("%7E", "~");//%2A
+			return s;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

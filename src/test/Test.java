@@ -5,11 +5,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.TreeMap;
 
 import twitterObjects.Rates;
 import twitterObjects.Tweets;
 import twitterObjects.Users;
 import api.Api;
+import api.SingleUserOAuth;
 
 public class Test {
 	public static void main(String[] args) throws IOException {
@@ -22,15 +24,18 @@ public class Test {
 					credentialsFile.readLine());			
 			
 			try {
+//				SingleUserOAuth suo = new SingleUserOAuth("igww5OmcxwF7rkFbURosDkzs3","hLfh1kx8DO0gfwt9MWu5RZIce5KwNvOtVVWjGUsnH0xNfFVBYJ",
+//						"451474915-u8IFqro8FygvTRK1Hlh85A9bLG2KXCVh1Igxjj8u", "ZYhROTQk4xW5SjWM7MX8ZfLii5KOjQlwxmz2z1szOSHeA");
+//				TreeMap<String, String> t = new TreeMap<String,String>();
+//				t.put("sdfsdf", "*");
+//				System.out.println(suo.generateAuthenticationHeader("https://api.twitter.com/1.1/statuses/retweet/id.json", t));
+//				System.out.println("awe****sd88 *sd8a**+++dsasd* sdasd".replace("*","%2A").replace("+",""));
 				
 				//tests for all implemented methods:
 				
-				//get statuses show id
-				Tweets t1 = api.getStatusesShowId(576895494066065408l+"");
-				System.out.println(t1);
 				
 				//rates
-				Rates r1 = api.GETapplicationrate_limit_status(new String[]{"users", "help"}); //selected few
+				Rates r1 = api.GETapplicationrate_limit_status("users,friends"); //selected few
 				System.out.println(r1);
 				System.out.println("----");
 				Rates r2 = api.GETapplicationrate_limit_status(); //all
@@ -44,7 +49,7 @@ public class Test {
 					System.out.println(t.text);
 				
 				//post status
-				System.out.println(api.POSTstatusesupdate("testing status via JChirp! ;-)",
+				System.out.println(api.POSTstatusesupdate("Hello Ladies + Gentlemen, a signed OAuth request!!",
 						"place_id,display_coordinates,trim_user",
 						"df51dec6f4ee2b2c",true,true));//all characters but * are working (wonder why * is not)  
 				
@@ -57,7 +62,6 @@ public class Test {
 					System.out.println(t);
 				
 				//retweets of tweets
-
 				for(Tweets t : api.GETstatusesretweetsid("509457288717819904","trim_user,count",false,10))
 					System.out.println(t);
 				for(Tweets t : api.GETstatusesretweetsid("509457288717819904"))
@@ -100,7 +104,6 @@ public class Test {
 				//users/show
 				System.out.println(api.GETusersshowByUserID("18839785","include_entities",false));
 				System.out.println(api.GETusersshowByScreenName("nytimes").description);
-				
 				
 				
 				//users/search
