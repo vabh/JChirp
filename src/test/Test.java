@@ -77,12 +77,10 @@ public class Test {
 				
 			}catch (Exception e){
 				e.printStackTrace();
-			}							
-		}
-		finally
-		{
-			credentialsFile.close();
-		}
-
+			}	
+			finally
+			{
+				//credentialsFile.close();
+			}		
 	}
 }
