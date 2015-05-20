@@ -1,3 +1,4 @@
 *.txt
 *.class
 *.DS_Store
+bin/.gitignore
