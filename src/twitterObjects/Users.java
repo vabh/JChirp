@@ -1,6 +1,9 @@
 package twitterObjects;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
+
+import org.json.JSONObject;
 
 public class Users {
 
@@ -60,6 +63,52 @@ public class Users {
 	
 	public String[] withheld_in_countries;
 	public String withheld_scope;
+	
+	
+	public Users(String jsonString)
+	{
+		JSONObject json = new JSONObject(jsonString);
+		//fully qualified name required!
+		Class<?> c = getClass();
+
+		Field []fields = c.getFields();
+
+		for (Field field : fields) {
+			Class<?> type = field.getType();
+
+			String typeName = type.getSimpleName();
+			String fieldName = field.getName();	
+
+			if(json.has(fieldName)){
+
+				if (type.isPrimitive() || type == String.class){
+
+					try{
+
+						//					System.out.println(name + ": " + value);
+						if (typeName.equals("int")) {							
+							field.set(this, json.getInt(fieldName));						
+						}
+						else if (typeName.equals("long")) {								
+							field.set(this, json.getLong(fieldName));
+
+						}else if (typeName.equals("boolean")) {					    	
+							field.set(this, json.getBoolean(fieldName));
+						}
+						else if (type == String.class) {				    	
+							field.set(this, json.getString(fieldName));
+						}
+					}
+					//exception is thrown when the field is "nullable"
+					catch(org.json.JSONException|IllegalAccessException e){
+						//						e.printStackTrace();
+					}
+				}				
+			}
+		}
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Users [contributors_enabled=" + contributors_enabled
@@ -101,4 +150,14 @@ public class Users {
 				+ ", hashCode()=" + hashCode() + ", toString()="
 				+ super.toString() + "]";
 	}	
+	
+	
+	/*
+	 * 
+	 * the following field:value pairs are not being stored in the Tweets object: (why?)
+	 * 		protected: false (renamed, but is it being stored)
+			is_translation_enabled: false
+			profile_location: null
+
+	 * */
 }

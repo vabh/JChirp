@@ -78,7 +78,13 @@ public class SingleUserOAuth extends Auth{
 	public String percentEncode(String text)
 	{
 		try {
-			return urlEncoder.encode(text, "UTF-8").replace("+", "%20").replace("*", "%2A").replace("%7E", "~");
+//			System.out.println("has *? "+text.contains("*"));
+			
+			String s = urlEncoder.encode(text, "UTF-8");
+			s = s.replace("+", "%20");
+			s = s.replace("*", "%2A");
+			s = s.replace("%7E", "~");//%2A
+			return s;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -98,19 +104,31 @@ public class SingleUserOAuth extends Auth{
 		authParams.put("oauth_version", "1.0");
 		authParams.put("oauth_signature_method", "HMAC-SHA1");
 		
-		String paramsURL = "";
+		StringBuilder paramsURL = new StringBuilder();
 		
 		for(String key : authParams.keySet())
-			paramsURL += percentEncode(key) + "=" + percentEncode(authParams.get(key))+"&";
-		paramsURL = paramsURL.substring(0, paramsURL.length() - 1);
+		{
+			paramsURL.append(percentEncode(key));
+			paramsURL.append("=");
+			paramsURL.append(percentEncode(authParams.get(key)));
+			paramsURL.append("&");
+		}
 		
-		String encodedURL = encodedBaseURL + percentEncode(paramsURL);
+		String encodedURL = encodedBaseURL + percentEncode(paramsURL.substring(0, paramsURL.length() - 1));
 		
-		return "OAuth oauth_consumer_key=\""+ getConsumerKey() +"\", oauth_nonce=\""
-				+authParams.get("oauth_nonce")+"\", oauth_signature=\""+oAuthSign(encodedURL)
-				+"\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\""
-				+authParams.get("oauth_timestamp")+"\", oauth_token=\""
-				+getAccessToken()+"\", oauth_version=\"1.0\"";
+		StringBuilder result = new StringBuilder();
+		result.append("OAuth oauth_consumer_key=\"");
+		result.append(getConsumerKey());
+		result.append("\", oauth_nonce=\"");
+		result.append(authParams.get("oauth_nonce"));
+		result.append("\", oauth_signature=\"");
+		result.append(oAuthSign(encodedURL));
+		result.append("\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"");
+		result.append(authParams.get("oauth_timestamp")+"\", oauth_token=\"");
+		result.append(getAccessToken());
+		result.append("\", oauth_version=\"1.0\"");
+
+		return result.toString();
 
 	}
 
