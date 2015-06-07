@@ -41,12 +41,12 @@ public class Test {
 				System.out.println("----");
 				System.out.println(r2.applicationRateLimitStatus.limit);
 				System.out.println(r2.applicationRateLimitStatus.remaining);
-					
-			
+									
 				int rem = r2.applicationRateLimitStatus.remaining;
 				if(rem == 164)
 					throw new RateLimitException();
 					
+				System.out.println(api.getStatusesShowId("210462857140252672"));
 				
 				//get statuses retweets ids
 //				for(Tweets t : api.GETstatusesretweetsid("509457288717819904"))
@@ -83,75 +83,70 @@ public class Test {
 //				for(Users u : api.POSTuserslookupByScreenName(new String[]{"mourjo_sen","anuvabh18"},"include_entities ",false))
 //					System.out.println(u);
 				//get statuses retweets ids.
-				for(Tweets t : api.GETstatusesretweetsid("509457288717819904"))
-					System.out.println(t.text);
-				
-				//post status
-				System.out.println(api.POSTstatusesupdate("Hello Ladies + Gentlemen, a signed OAuth request!!",
-						"place_id,display_coordinates,trim_user",
-						"df51dec6f4ee2b2c",true,true));//all characters but * are working (wonder why * is not)  
-				
-				//statuses show id
-				System.out.println(api.getStatusesShowId("210462857140252672"));
-				System.out.println(api.getStatusesShowId("210462857140252672", "trim_user,include_my_retweet,include_entities",true, true, false));
-				
-				//statuses lookup (post)
-				for(Tweets t : api.POSTstatuseslookup(Arrays.asList(new String[]{"20","432656548536401920"}), "trim_user, include_entities ", true, false))
-					System.out.println(t);
-				
-				//retweets of tweets
-				for(Tweets t : api.GETstatusesretweetsid("509457288717819904","trim_user,count",false,10))
-					System.out.println(t);
-				for(Tweets t : api.GETstatusesretweetsid("509457288717819904"))
-					System.out.println(t);
-
-				//users lookup by uid (post)
-				for(Users u : api.POSTuserslookupByUserID(new String[]{"783214","6253282"}))
-					System.out.println(u);
-				for(Users u : api.POSTuserslookupByUserID(new String[]{"783214","6253282"},"include_entities",false))
-					System.out.println(u);
-				
-				//users lookup by screen name (post)
-				for(Users u : api.POSTuserslookupByScreenName(new String[]{"mourjo_sen","anuvabh18"}))
-					System.out.println(u);
-				for(Users u : api.POSTuserslookupByScreenName(new String[]{"mourjo_sen","anuvabh18"},"include_entities ",false))
-					System.out.println(u);				
-				
-				//search tweets
-				for(Tweets t : api.GETsearchtweets("net neutrality"))
-					System.out.println(t.text);
-				for(Tweets t : api.GETsearchtweets("net neutrality", "result_type,count,since_id,", "popular", 100, 12345))
-					System.out.println(t.text);
-					
-				
-				
-				//follower ids by uid
-				System.out.println(api.GETfollowersidsByUserID("18839785"));
-				System.out.println(api.GETfollowersidsByUserID("18839785","cursor", 1499397628062133319L));
-				//follower ids by screenname
-				System.out.println(api.GETfollowersidsByScreenName("mourjo_sen"));
-				
-				//friends by id
-				System.out.println(api.GETfriendsidsByUserID("18839785").ids[0]);
-				System.out.println(api.GETfriendsidsByUserID("18839785"));
-				//friends by screenname
-				System.out.println(api.GETfriendsidsByScreenName("anuvabh18", "stringify_ids", true));
-				
-				
-				//users/show
-				System.out.println(api.GETusersshowByUserID("18839785","include_entities",false));
-				System.out.println(api.GETusersshowByScreenName("nytimes").description);
-				
-				
-				//users/search
-				for(Users u : api.GETuserssearch("kolkata -atletico -kkr"))
-					System.out.println(u.screen_name);
-					
-					
-				
-				
-				
-				
+//				for(Tweets t : api.GETstatusesretweetsid("509457288717819904"))
+//					System.out.println(t.text);
+//				
+//				//post status
+//				System.out.println(api.POSTstatusesupdate("Hello Ladies + Gentlemen, a signed OAuth request!!",
+//						"place_id,display_coordinates,trim_user",
+//						"df51dec6f4ee2b2c",true,true));//all characters but * are working (wonder why * is not)  
+//				
+//				//statuses show id
+//				System.out.println(api.getStatusesShowId("210462857140252672"));
+//				System.out.println(api.getStatusesShowId("210462857140252672", "trim_user,include_my_retweet,include_entities",true, true, false));
+//				
+//				//statuses lookup (post)
+//				for(Tweets t : api.POSTstatuseslookup(Arrays.asList(new String[]{"20","432656548536401920"}), "trim_user, include_entities ", true, false))
+//					System.out.println(t);
+//				
+//				//retweets of tweets
+//				for(Tweets t : api.GETstatusesretweetsid("509457288717819904","trim_user,count",false,10))
+//					System.out.println(t);
+//				for(Tweets t : api.GETstatusesretweetsid("509457288717819904"))
+//					System.out.println(t);
+//
+//				//users lookup by uid (post)
+//				for(Users u : api.POSTuserslookupByUserID(new String[]{"783214","6253282"}))
+//					System.out.println(u);
+//				for(Users u : api.POSTuserslookupByUserID(new String[]{"783214","6253282"},"include_entities",false))
+//					System.out.println(u);
+//				
+//				//users lookup by screen name (post)
+//				for(Users u : api.POSTuserslookupByScreenName(new String[]{"mourjo_sen","anuvabh18"}))
+//					System.out.println(u);
+//				for(Users u : api.POSTuserslookupByScreenName(new String[]{"mourjo_sen","anuvabh18"},"include_entities ",false))
+//					System.out.println(u);				
+//				
+//				//search tweets
+//				for(Tweets t : api.GETsearchtweets("net neutrality"))
+//					System.out.println(t.text);
+//				for(Tweets t : api.GETsearchtweets("net neutrality", "result_type,count,since_id,", "popular", 100, 12345))
+//					System.out.println(t.text);
+//					
+//				
+//				
+//				//follower ids by uid
+//				System.out.println(api.GETfollowersidsByUserID("18839785"));
+//				System.out.println(api.GETfollowersidsByUserID("18839785","cursor", 1499397628062133319L));
+//				//follower ids by screenname
+//				System.out.println(api.GETfollowersidsByScreenName("mourjo_sen"));
+//				
+//				//friends by id
+//				System.out.println(api.GETfriendsidsByUserID("18839785").ids[0]);
+//				System.out.println(api.GETfriendsidsByUserID("18839785"));
+//				//friends by screenname
+//				System.out.println(api.GETfriendsidsByScreenName("anuvabh18", "stringify_ids", true));
+//				
+//				
+//				//users/show
+//				System.out.println(api.GETusersshowByUserID("18839785","include_entities",false));
+//				System.out.println(api.GETusersshowByScreenName("nytimes").description);
+//				
+//				
+//				//users/search
+//				for(Users u : api.GETuserssearch("kolkata -atletico -kkr"))
+//					System.out.println(u.screen_name);
+									
 			}catch (Exception e){
 				e.printStackTrace();
 			}							

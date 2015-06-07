@@ -1,6 +1,6 @@
 package jchirpExceptions;
 
-public class RateLimitException extends Throwable{
+public class RateLimitException extends Exception{
 	
 	private static final long serialVersionUID = -7326694561535932381L;
 

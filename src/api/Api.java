@@ -3,6 +3,8 @@ package api;
 import java.util.Arrays;
 import java.util.Collection;
 
+import jchirpExceptions.RateLimitException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,9 +82,12 @@ public class Api {
 		return tweetObjectArrayCreator(statusesRequests.GETstatusesretweetsid(id, objectArrayToStringArray(optionalParams)));
 	}
 
-	public Tweets getStatusesShowId(String id, Object... optionalParams) throws ClassNotFoundException, InstantiationException, IllegalAccessException
-	{
-		String result =  statusesRequests.GETstatusesshowid(id, objectArrayToStringArray(optionalParams));		
+	public Tweets getStatusesShowId(String id, Object... optionalParams) throws ClassNotFoundException, InstantiationException, IllegalAccessException, RateLimitException
+	{		
+		if(this.GETapplicationrate_limit_status().statusesShowId.remaining == 0){
+			throw new RateLimitException("Rate limit exceeded");
+		}
+		String result =  statusesRequests.GETstatusesshowid(id, objectArrayToStringArray(optionalParams));
 		return new Tweets(result);
 	}
 
