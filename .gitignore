@@ -1,3 +1,4 @@
+bin/*
 *.txt
 *.class
 *.DS_Store
