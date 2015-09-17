@@ -38,15 +38,15 @@ public class Test {
 				Rates r1 = api.GETapplicationrate_limit_status("users,friends"); //selected few				
 				Rates r2 = api.GETapplicationrate_limit_status(); //all
 //				System.out.println(r2);
-				System.out.println("----");
-				System.out.println(r2.applicationRateLimitStatus.limit);
-				System.out.println(r2.applicationRateLimitStatus.remaining);
+//				System.out.println("----");
+//				System.out.println(r2.applicationRateLimitStatus.limit);
+//				System.out.println(r2.applicationRateLimitStatus.remaining);
 									
-				int rem = r2.applicationRateLimitStatus.remaining;
-				if(rem == 164)
-					throw new RateLimitException();
-					
-				System.out.println(api.getStatusesShowId("210462857140252672"));
+//				int rem = r2.applicationRateLimitStatus.remaining;
+//				if(rem == 164)
+//					throw new RateLimitException();
+//					
+//				System.out.println(api.getStatusesShowId("210462857140252672"));
 				
 				//get statuses retweets ids
 //				for(Tweets t : api.GETstatusesretweetsid("509457288717819904"))
